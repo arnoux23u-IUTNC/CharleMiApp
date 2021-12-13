@@ -1,5 +1,7 @@
 # S3A_S02_ARNOUX_BRASLEY_STEINER_VIGNERON
 
+Projet : CharleMi'App
+
 ## Membres :
 ___
 
@@ -14,3 +16,4 @@ ___
 - CLEMENT Bénédicte
 - LECHAUDEL Dominique
 - LONGHAIS Alain
+  
