@@ -1,8 +1,8 @@
 # S3A_S02_ARNOUX_BRASLEY_STEINER_VIGNERON
 
-Projet : CharleMi'App
+## Projet : CharleMi'App
 
-## Membres :
+### Membres :
 ___
 
 - ARNOUX Guillaume
@@ -10,7 +10,7 @@ ___
 - STEINER Noé
 - VIGNERON Steven
 
-## Tuteurs et référents :
+### Tuteurs et référents :
 ___
 
 - CLEMENT Bénédicte
