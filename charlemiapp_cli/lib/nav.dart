@@ -31,6 +31,12 @@ class _NavState extends State<Nav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
+      body: new Column(
+        children: [
+          new ElevatedButton(onPressed: () {}, child: new Text("Connexion")),
+          new ElevatedButton(onPressed: () {}, child: new Text("Inscription"))
+        ],
+      ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           highlightColor: Colors.transparent,
@@ -43,20 +49,13 @@ class _NavState extends State<Nav> {
           enableFeedback: true,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
-              label: '',
-              tooltip: 'Discover'
-            ),
+                icon: Icon(Icons.explore), label: '', tooltip: 'Discover'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket),
-              label: '',
-              tooltip: 'Order'
-            ),
+                icon: Icon(Icons.shopping_basket), label: '', tooltip: 'Order'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: '',
-              tooltip: 'Profile'
-            ),
+                icon: Icon(Icons.account_circle),
+                label: '',
+                tooltip: 'Profile'),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
