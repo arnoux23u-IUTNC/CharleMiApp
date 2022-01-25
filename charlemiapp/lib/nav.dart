@@ -46,7 +46,7 @@ class _NavState extends State<Nav> {
           enableFeedback: true,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.compass_calibration, color: buttonBlueColor),
+              icon: const Icon(Icons.explore, color: buttonBlueColor),
               label: '',
               tooltip: 'Discover',
               activeIcon: Container(
@@ -54,8 +54,8 @@ class _NavState extends State<Nav> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff4A80F0).withOpacity(0.3),
-                        offset: Offset(0, 4),
+                        color: const Color(0xff4A80F0).withOpacity(0.3),
+                        offset: const Offset(0, 4),
                         blurRadius: 20),
                   ],
                 ),
@@ -63,7 +63,7 @@ class _NavState extends State<Nav> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket, color: buttonBlueColor),
+              icon: const Icon(Icons.shopping_basket, color: buttonBlueColor),
               label: '',
               tooltip: 'Order',
               activeIcon: Container(
@@ -71,8 +71,8 @@ class _NavState extends State<Nav> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff4A80F0).withOpacity(0.3),
-                        offset: Offset(0, 4),
+                        color: const Color(0xff4A80F0).withOpacity(0.3),
+                        offset: const Offset(0, 4),
                         blurRadius: 20),
                   ],
                 ),
@@ -80,7 +80,7 @@ class _NavState extends State<Nav> {
               ),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.verified_user, color: buttonBlueColor),
+              icon: const Icon(Icons.account_circle, color: buttonBlueColor),
               label: '',
               tooltip: 'Profile',
               activeIcon: Container(
@@ -88,8 +88,8 @@ class _NavState extends State<Nav> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
-                        color: Color(0xff4A80F0).withOpacity(0.3),
-                        offset: Offset(0, 4),
+                        color: const Color(0xff4A80F0).withOpacity(0.3),
+                        offset: const Offset(0, 4),
                         blurRadius: 20),
                   ],
                 ),
@@ -100,7 +100,7 @@ class _NavState extends State<Nav> {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
-          backgroundColor: Color(0xff1C2031),
+          backgroundColor: const Color(0xff1C2031),
         ),
       ),
     );
