@@ -31,9 +31,6 @@ class _NavState extends State<Nav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
-      body: Center(
-          //child: _widgetOptions.elementAt(_selectedIndex),
-          ),
       bottomNavigationBar: Theme(
         data: ThemeData(
           highlightColor: Colors.transparent,
@@ -44,61 +41,26 @@ class _NavState extends State<Nav> {
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
           enableFeedback: true,
-          items: <BottomNavigationBarItem>[
+          items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: const Icon(Icons.explore, color: buttonBlueColor),
+              icon: Icon(Icons.explore),
               label: '',
-              tooltip: 'Discover',
-              activeIcon: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                        color: const Color(0xff4A80F0).withOpacity(0.3),
-                        offset: const Offset(0, 4),
-                        blurRadius: 20),
-                  ],
-                ),
-                child: null,
-              ),
+              tooltip: 'Discover'
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.shopping_basket, color: buttonBlueColor),
+              icon: Icon(Icons.shopping_basket),
               label: '',
-              tooltip: 'Order',
-              activeIcon: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                        color: const Color(0xff4A80F0).withOpacity(0.3),
-                        offset: const Offset(0, 4),
-                        blurRadius: 20),
-                  ],
-                ),
-                child: null,
-              ),
+              tooltip: 'Order'
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.account_circle, color: buttonBlueColor),
+              icon: Icon(Icons.account_circle),
               label: '',
-              tooltip: 'Profile',
-              activeIcon: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                        color: const Color(0xff4A80F0).withOpacity(0.3),
-                        offset: const Offset(0, 4),
-                        blurRadius: 20),
-                  ],
-                ),
-                child: null,
-              ),
+              tooltip: 'Profile'
             ),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
+          unselectedItemColor: buttonBlueColor,
           onTap: _onItemTapped,
           backgroundColor: const Color(0xff1C2031),
         ),
