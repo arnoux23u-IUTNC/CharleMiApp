@@ -1,4 +1,4 @@
-package com.example.charlemiapp_cli
+package fr.charlemiapp.charlemiapp.charlemiapp_cli
 
 import io.flutter.embedding.android.FlutterActivity
 

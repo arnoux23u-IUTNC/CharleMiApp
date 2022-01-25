@@ -1,6 +1,6 @@
 # charlemiapp_cli
 
-A new Flutter project.
+CharleMi'App Client - IUTNC
 
 ## Getting Started
 
