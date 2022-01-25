@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 //google font import
 import 'package:google_fonts/google_fonts.dart';
+import 'package:charlemiapp/nav.dart';
 
 const midDarkColor = Color(0xFF1c2031);
 const darkColor = Color(0xFF121421);
@@ -17,10 +19,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Charlemiapp',
-      home: Scaffold(appBar: AppBar(title: Text('Charlemiapp'),),)
+      title: '',
+      home: Nav(),
     );
   }
 }
