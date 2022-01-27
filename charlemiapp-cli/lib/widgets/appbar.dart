@@ -20,7 +20,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         iconSize: 20,
       ),
       title: Text(
-        'Charlemiapp',
+        'CharleMi\'App',
         style: GoogleFonts.poppins(
           color: whiteColor,
           fontSize: 22,
