@@ -10,6 +10,7 @@ const buttonBlueColor = Color(0xFF4a80ef);
 const whiteColor = Color(0xFFFFFFFF);
 
 class Nav extends StatefulWidget {
+
   const Nav({Key? key}) : super(key: key);
   static bool loading = false;
   static AppUser? user;
@@ -33,7 +34,7 @@ class _NavState extends State<Nav> {
     var screens = [
       const HomeScreen(),
       const ExploreScreen(),
-      ((Nav.user != null) ? const ProfileScreen() : const LoginScreen()),
+      ((Nav.user != null) ? const ProfileScreen() :  const AuthScreen()),
     ];
     return Scaffold(
       appBar: MyAppBar(),

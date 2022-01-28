@@ -30,176 +30,227 @@ class ExploreScreen extends StatelessWidget {
       );
 }
 
-/*Login*/
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String error = "";
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) => Nav.loading
-      ? Loader()
-      : Scaffold(
-          body: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: usernameController,
-                  validator: AuthenticationService.validateEmail,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Email',
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) => value!.isEmpty ? "Enter a valid password" : null,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        Nav.loading = true;
-                      });
-                      final String username = usernameController.text;
-                      final String password = passwordController.text;
-                      Nav.user = await _auth.signInWithEmailAndPassword(username, password);
-                      Nav.loading = false;
-                      if (Nav.user == null) {
-                        setState(() {
-                          error = "Invalid username or password";
-                          passwordController.clear();
-                        });
-                      }
-                    }
-                  },
-                  child: const Text('Connexion'),
-                ),
-                ElevatedButton(
-                    child: const Text('Inscription'),
-                    onPressed: () => setState(() {
-                          authMode = 1;
-                        })),
-                Text(
-                  error,
-                  style: const TextStyle(color: Colors.red, fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-        );
-}
-
-/*Register*/
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
-
-  @override
-  _RegisterScreenState createState() => _RegisterScreenState();
-}
-
+/*AuthScreen*/
 class AuthScreen extends StatefulWidget {
+  const AuthScreen({Key? key}) : super(key: key);
+
   @override
-  _AuthScreenState createState() => _AuthScreenState();
+  _AuthScreen createState() => _AuthScreen();
 }
 
-class _AuthScreenState extends State<RegisterScreen> {
-  int authMode = 0;
+class _AuthScreen extends State<AuthScreen> {
+  int _authMode = 0;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordConfirmController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController numTelController = TextEditingController();
+  TextEditingController carteEtuController = TextEditingController();
+  String error = "";
+  String validate = "";
 
-  @override
-  void initState() {
-    authMode = 0;
-  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return authMode == 0 ? LoginScreen() : RegisterScreen();
+    return Nav.loading
+        ? Loader()
+        : _authMode == 0
+            ? Scaffold(
+                body: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      TextFormField(
+                        controller: emailController,
+                        validator: AuthenticationService.validateEmail,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Email',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Password',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) => value!.isEmpty ? "Enter a valid password" : null,
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              Nav.loading = true;
+                            });
+                            final String email = emailController.text;
+                            final String password = passwordController.text;
+                            var user = await _auth.signInWithEmailAndPassword(email, password);
+                            if (user == null) {
+                              if(!mounted) return;
+                              setState(() {
+                                Nav.loading = false;
+                                Nav.user = null;
+                                error = "Invalid username or password";
+                                passwordController.clear();
+                              });
+                            } else {
+                              if(!mounted) return;
+                              setState(() {
+                                Nav.loading = false;
+                                Nav.user = user;
+                                validate = "";
+                                error = "";
+                              });
+                            }
+                          }
+                        },
+                        child: const Text('Connexion'),
+                      ),
+                      ElevatedButton(
+                          child: const Text('Inscription'),
+                          onPressed: () => setState(() {
+                                _authMode = 1;
+                              })),
+                      Text(
+                        error,
+                        style: const TextStyle(color: Colors.red, fontSize: 15),
+                      ),
+                      Text(
+                        validate,
+                        style: const TextStyle(color: Colors.green, fontSize: 15),
+                      ),
+                    ],
+                  )),
+                ),
+              )
+            : Scaffold(
+                body: Form(
+                  key: _formKey,
+                  child: SingleChildScrollView(
+                      child: Column(
+                    children: [
+                      TextFormField(
+                        controller: emailController,
+                        validator: AuthenticationService.validateEmail,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Email',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Password',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) => AuthenticationService.validatePassword(value!, null),
+                      ),
+                      TextFormField(
+                          controller: passwordConfirmController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            labelText: 'Password Confirm',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) =>
+                              AuthenticationService.validatePassword(value!, passwordController.text)),
+                      TextFormField(
+                        controller: lastNameController,
+                        validator: (value) =>
+                            value!.isEmpty || value.length < 3 ? "Enter a valid last name" : null,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Nom',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: firstNameController,
+                        validator: (value) =>
+                            value!.isEmpty || value.length < 3 ? "Enter a valid last name" : null,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Prénom',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: numTelController,
+                        validator: AuthenticationService.validateNumTel,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Tel',
+                        ),
+                      ),
+                      TextFormField(
+                        controller: carteEtuController,
+                        validator: AuthenticationService.validateCarteEtu,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'CarteEtu',
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              Nav.loading = true;
+                            });
+                            final String email = emailController.text;
+                            final String password = passwordController.text;
+                            final String lastName = lastNameController.text;
+                            final String firstName = firstNameController.text;
+                            final String numTel = numTelController.text;
+                            final String carteEtu = carteEtuController.text;
+                            var user =
+                                await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
+                            setState(() {
+                              Nav.loading = false;
+                            });
+                            if (user == null) {
+                              setState(() {
+                                Nav.user = null;
+                                error = "Error while registering";
+                                passwordController.clear();
+                                passwordConfirmController.clear();
+                              });
+                            } else {
+                              setState(() {
+                                error = "";
+                                validate = "you are now registered, please login";
+                                _authMode = 0;
+                                Nav.user = user;
+                              });
+                            }
+                          }
+                        },
+                        child: const Text('Inscription'),
+                      ),
+                      ElevatedButton(
+                        child: const Text('Déjà inscrit ?'),
+                        onPressed: () => {
+                          setState(() {
+                            _authMode = 0;
+                          })
+                        },
+                      ),
+                      Text(
+                        error,
+                        style: const TextStyle(color: Colors.red, fontSize: 15),
+                      ),
+                      Text(
+                        validate,
+                        style: const TextStyle(color: Colors.green, fontSize: 15),
+                      ),
+                    ],
+                  )),
+                ),
+              );
   }
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  String error = "";
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) => Nav.loading
-      ? Loader()
-      : Scaffold(
-          body: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: usernameController,
-                  validator: AuthenticationService.validateEmail,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Email',
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                  validator: (value) => value!.isEmpty ? "Enter a valid password" : null,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        Nav.loading = true;
-                      });
-                      final String username = usernameController.text;
-                      final String password = passwordController.text;
-                      Nav.user = await _auth.signInWithEmailAndPassword(username, password);
-                      Nav.loading = false;
-                      if (Nav.user == null) {
-                        setState(() {
-                          error = "Invalid username or password";
-                          passwordController.clear();
-                        });
-                      }
-                    }
-                  },
-                  child: const Text('Inscription'),
-                ),
-                ElevatedButton(
-                  child: const Text('Déjà inscrit ?'),
-                  onPressed: () => {
-                    setState(() {
-                      authMode = 0;
-                    })
-                  },
-                ),
-                Text(
-                  error,
-                  style: const TextStyle(color: Colors.red, fontSize: 15),
-                ),
-              ],
-            ),
-          ),
-        );
 }
 
 /*Profile*/
@@ -225,6 +276,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       await _auth.signOut(),
                       setState(() {
                         Nav.loading = false;
+                        Nav.user = null;
                       }),
                     },
                 child: const Text('Log out'))

@@ -4,22 +4,38 @@ class AppUser {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final String uid;
   String? avatarId;
-  late String email, firstName, lastName, phone, username;
+  String firstName, lastName, phone, carteEtudiant;
   bool? isAdmin;
 
   AppUser({required this.uid});
 
-  init() async {
+  Future<bool> init() async {
     var snapshot = await firestore.collection('users').doc(uid).get();
-    print(snapshot.data());
     if (snapshot.exists) {
       avatarId = snapshot.data()!['avatar_id'];
-      email = snapshot.data()!['email'] ?? '';
       firstName = snapshot.data()!['firstname'] ?? '';
       lastName = snapshot.data()!['lastname'] ?? '';
       phone = snapshot.data()!['phone'] ?? '';
-      username = snapshot.data()!['username'] ?? '';
       isAdmin = snapshot.data()!['id_admin'] ?? false;
+      carteEtudiant = snapshot.data()!['carte_etudiant'] ?? '';
+      return true;
     }
+    return false;
+  }
+
+  Future<bool> store(String lastName, String firstName, String phone, String carteEtudiant, String? avatarId, bool? isAdmin) async {
+    var user = await firestore.collection('users').doc(uid).get();
+    if (!user.exists) {
+      await firestore.collection('users').doc(uid).set({
+        'avatar_id': avatarId,
+        'firstname': firstName,
+        'lastname': lastName,
+        'phone': phone,
+        'is_admin': isAdmin ?? false,
+        'carte_etudiant': carteEtudiant,
+      });
+      return true;
+    }
+    return false;
   }
 }
