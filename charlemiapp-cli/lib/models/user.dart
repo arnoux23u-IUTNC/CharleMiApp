@@ -4,10 +4,10 @@ class AppUser {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final String uid;
   String? avatarId;
-  String firstName, lastName, phone, carteEtudiant;
+  String? firstName, lastName, phone, carteEtudiant;
   bool? isAdmin;
 
-  AppUser({required this.uid});
+  AppUser({required this.uid, this.lastName, this.firstName, this.phone, this.carteEtudiant});
 
   Future<bool> init() async {
     var snapshot = await firestore.collection('users').doc(uid).get();

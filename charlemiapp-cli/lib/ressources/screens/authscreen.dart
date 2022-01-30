@@ -89,14 +89,17 @@ class _AuthScreen extends State<AuthScreen> {
                             });
                             final String email = emailController.text;
                             final String password = passwordController.text;
+                            print("$email $password");
                             var user = await _auth.signInWithEmailAndPassword(email, password);
+                            print("user is $user");
                             if (user == null) {
                               if(!mounted) return;
                               setState(() {
                                 Nav.loading = false;
                                 Nav.user = null;
+                                validate = "";
                                 error = "Invalid username or password";
-                                passwordController.clear();
+                                //TODO passwordController.clear();
                               });
                             } else {
                               if(!mounted) return;
@@ -206,11 +209,17 @@ class _AuthScreen extends State<AuthScreen> {
                             final String firstName = firstNameController.text;
                             final String numTel = numTelController.text;
                             final String carteEtu = carteEtuController.text;
-                            var user =
-                                await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
+                            var user = await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
                             setState(() {
                               Nav.loading = false;
                             });
+                            emailController.clear();
+                            passwordController.clear();
+                            passwordConfirmController.clear();
+                            lastNameController.clear();
+                            firstNameController.clear();
+                            numTelController.clear();
+                            carteEtuController.clear();
                             if (user == null) {
                               setState(() {
                                 Nav.user = null;
