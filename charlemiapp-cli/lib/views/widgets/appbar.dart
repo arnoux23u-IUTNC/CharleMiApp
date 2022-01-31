@@ -14,11 +14,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: midDarkColor,
-      leading: const IconButton(
-        icon: Icon(Icons.arrow_back_ios, color: whiteColor),
-        onPressed: null,
-        iconSize: 20,
-      ),
       title: Text(
         'CharleMi\'App',
         style: GoogleFonts.poppins(

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:charlemiapp_cli/widgets/appbar.dart';
+import 'package:charlemiapp_cli/views/widgets/appbar.dart';
+import 'package:charlemiapp_cli/views/discover_page.dart';
+import 'package:charlemiapp_cli/views/profile_page.dart';
+import 'package:charlemiapp_cli/views/checkout_page.dart';
+
+
 
 const midDarkColor = Color(0xFF1c2031);
 const darkColor = Color(0xFF121421);
@@ -16,9 +21,9 @@ class Nav extends StatefulWidget {
 class _NavState extends State<Nav> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    /* DiscoverPage(),
-    ChartsPage(),
-    ProfilePage() */
+    DiscoverPage(),
+    CheckOutPage(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
@@ -31,6 +36,7 @@ class _NavState extends State<Nav> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: Theme(
         data: ThemeData(
           highlightColor: Colors.transparent,
@@ -45,7 +51,7 @@ class _NavState extends State<Nav> {
             BottomNavigationBarItem(
               icon: Icon(Icons.explore),
               label: '',
-              tooltip: 'Discover'
+              tooltip: 'Discover',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.shopping_basket),
@@ -62,7 +68,7 @@ class _NavState extends State<Nav> {
           selectedItemColor: Colors.amber[800],
           unselectedItemColor: buttonBlueColor,
           onTap: _onItemTapped,
-          backgroundColor: const Color(0xff1C2031),
+          backgroundColor: midDarkColor,
         ),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //google font import
 import 'package:google_fonts/google_fonts.dart';
-import 'package:charlemiapp_cli/nav.dart';
+import 'package:charlemiapp_cli/views/home.dart';
 
 const midDarkColor = Color(0xFF1c2031);
 const darkColor = Color(0xFF121421);
