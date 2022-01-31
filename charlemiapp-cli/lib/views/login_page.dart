@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'login_page.dart';
-
 const midDarkColor = Color(0xFF1c2031);
 const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _LoginState createState() => _LoginState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +22,6 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Column(
             children: [
-              Image.asset("assets/logo_white.png"),
               Column(
                 children: [
                   Container(
@@ -33,26 +30,26 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()),);
+                        // TODO Sign In Guillaume
                       },
                       child: const Text(
                         'Sign In',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(buttonBlueColor),
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)
-                        ))
+                          backgroundColor:
+                          MaterialStateProperty.all(buttonBlueColor),
+                          padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)
+                          ))
                       ),
                     ),
                   ),
                   Container(
                     padding:
-                        const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                    const EdgeInsets.only(left: 55, right: 55, bottom: 35),
                     child: TextButton(
                       child: const Text(
                         "Sign Up",
@@ -72,3 +69,5 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
+
