@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:charlemiapp_cli/views/widgets/appbar.dart';
-import 'package:charlemiapp_cli/views/discover_page.dart';
-import 'package:charlemiapp_cli/views/profile_page.dart';
-import 'package:charlemiapp_cli/views/checkout_page.dart';
+import 'package:charlemiapp_cli/views/widgets/appbar_noback.dart';
+import 'package:charlemiapp_cli/views/browser/browser_page.dart';
+import 'package:charlemiapp_cli/views/user/SignInUp_page.dart';
+import 'package:charlemiapp_cli/views/shop/overview_page.dart';
 
 
 
@@ -11,19 +11,19 @@ const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
 const whiteColor = Color(0xFFFFFFFF);
 
-class Nav extends StatefulWidget {
-  const Nav({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  State<Nav> createState() => _NavState();
+  State<Home> createState() => _HomeState();
 }
 
-class _NavState extends State<Nav> {
+class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
-    DiscoverPage(),
-    CheckOutPage(),
-    ProfilePage()
+    BrowserPage(),
+    Overview(),
+    SignInUp()
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +35,7 @@ class _NavState extends State<Nav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBarNoBack(),
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: Theme(
         data: ThemeData(

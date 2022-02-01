@@ -6,14 +6,14 @@ const midDarkColor = Color(0xFF1c2031);
 const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+class SignInUp extends StatefulWidget {
+  const SignInUp({Key? key}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _SignInUpState createState() => _SignInUpState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _SignInUpState extends State<SignInUp> {
   @override
   Widget build(BuildContext context) {
     return Container(

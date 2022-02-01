@@ -6,7 +6,9 @@ const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
 const whiteColor = Color(0xFFFFFFFF);
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBarNoBack extends StatelessWidget implements PreferredSizeWidget {
+  const MyAppBarNoBack({Key? key}) : super(key: key);
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
