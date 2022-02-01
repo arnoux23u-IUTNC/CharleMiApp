@@ -1,3 +1,4 @@
+import 'package:charlemiapp_cli/views/user/register_page.dart';
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
@@ -33,21 +34,24 @@ class _SignInUpState extends State<SignInUp> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()),);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()),
+                        );
                       },
                       child: const Text(
                         'Sign In',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(buttonBlueColor),
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)
-                        ))
-                      ),
+                          backgroundColor:
+                              MaterialStateProperty.all(buttonBlueColor),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)))),
                     ),
                   ),
                   Container(
@@ -59,7 +63,11 @@ class _SignInUpState extends State<SignInUp> {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       onPressed: () {
-                        // TODO Guillaume Sign Up
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Register()),
+                        );
                       },
                     ),
                   )

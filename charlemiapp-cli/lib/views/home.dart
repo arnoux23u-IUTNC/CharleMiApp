@@ -4,8 +4,6 @@ import 'package:charlemiapp_cli/views/browser/browser_page.dart';
 import 'package:charlemiapp_cli/views/user/SignInUp_page.dart';
 import 'package:charlemiapp_cli/views/shop/overview_page.dart';
 
-
-
 const midDarkColor = Color(0xFF1c2031);
 const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
@@ -54,15 +52,11 @@ class _HomeState extends State<Home> {
               tooltip: 'Discover',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_basket),
-              label: '',
-              tooltip: 'Order'
-            ),
+                icon: Icon(Icons.shopping_basket), label: '', tooltip: 'Order'),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: '',
-              tooltip: 'Profile'
-            ),
+                icon: Icon(Icons.account_circle),
+                label: '',
+                tooltip: 'Profile'),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.amber[800],
