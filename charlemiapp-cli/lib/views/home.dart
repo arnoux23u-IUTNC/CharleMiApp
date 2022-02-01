@@ -1,3 +1,4 @@
+import 'package:charlemiapp_cli/app_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:charlemiapp_cli/views/widgets/appbar_noback.dart';
 import 'package:charlemiapp_cli/views/browser/browser_page.dart';
@@ -47,14 +48,14 @@ class _HomeState extends State<Home> {
           enableFeedback: true,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
+              icon: Icon(AppCustomIcons.compass, size: 30,),
               label: '',
               tooltip: 'Discover',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_basket), label: '', tooltip: 'Order'),
+                icon: Icon(AppCustomIcons.shopping_basket, size: 30,), label: '', tooltip: 'Order'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle),
+                icon: Icon(AppCustomIcons.user_circle, size: 30,),
                 label: '',
                 tooltip: 'Profile'),
           ],
