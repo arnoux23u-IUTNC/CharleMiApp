@@ -24,7 +24,11 @@ class _LoginState extends State<Login> {
     return Container(
       padding: const EdgeInsets.only(top: 29),
       child: TextFormField(
-
+        style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         onSaved: (value) {
@@ -53,6 +57,11 @@ class _LoginState extends State<Login> {
     return Container(
       padding: const EdgeInsets.only(top: 20),
       child: TextFormField(
+        style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
         autofocus: false,
         onSaved: (value) {
           // TODO Guillaume
