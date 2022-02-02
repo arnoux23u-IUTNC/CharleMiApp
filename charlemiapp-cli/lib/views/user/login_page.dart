@@ -13,49 +13,75 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  late String _email;
+  late String _password;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  Widget _buildEmailField() {
+    return TextFormField(
+
+    );
+  }
+
+  Widget _buildPasswordField() {
+    return TextFormField(
+
+    );
+  }
+
+  Widget _buildSubmit() {
+    return Column(
+      children: [
+        Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(
+                  left: 55, right: 55, top: 30, bottom: 15),
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  // TODO Sign In Guillaume
+                },
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all(buttonBlueColor),
+                    padding: MaterialStateProperty.all(
+                        const EdgeInsets.all(17)),
+                    shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.circular(12)))),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const MyAppBarBack(),
-        body: Container(
-          color: darkColor,
+      appBar: const MyAppBarBack(),
+      body: Container(
+        color: darkColor,
+        child: Form(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Column(
-                children: [
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 55, right: 55, top: 30, bottom: 15),
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // TODO Sign In Guillaume
-                          },
-                          child: const Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                          style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(buttonBlueColor),
-                              padding: MaterialStateProperty.all(
-                                  const EdgeInsets.all(17)),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(12)))),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              )
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _buildEmailField(),
+              _buildPasswordField(),
+              _buildSubmit()
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
