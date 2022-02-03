@@ -102,13 +102,18 @@ class _AuthScreen extends State<AuthScreen> {
                                 //TODO passwordController.clear();
                               });
                             } else {
-                              if(!mounted) return;
                               setState(() {
                                 Nav.loading = false;
                                 Nav.user = user;
                                 validate = "";
                                 error = "";
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Nav()), (Route<dynamic> route) => true);
                               });
+
+                              /*Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                              );*/
                             }
                           }
                         },
@@ -232,7 +237,6 @@ class _AuthScreen extends State<AuthScreen> {
                                 error = "";
                                 validate = "you are now registered, please login";
                                 _authMode = 0;
-                                Nav.user = user;
                               });
                             }
                           }
