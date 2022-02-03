@@ -54,7 +54,7 @@ class _AuthScreen extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Nav.loading
+    return Home.loading
         ? Loader()
         : _authMode == 0
             ? Scaffold(
@@ -85,7 +85,7 @@ class _AuthScreen extends State<AuthScreen> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
-                              Nav.loading = true;
+                              Home.loading = true;
                             });
                             final String email = emailController.text;
                             final String password = passwordController.text;
@@ -95,19 +95,19 @@ class _AuthScreen extends State<AuthScreen> {
                             if (user == null) {
                               if(!mounted) return;
                               setState(() {
-                                Nav.loading = false;
-                                Nav.user = null;
+                                Home.loading = false;
+                                Home.user = null;
                                 validate = "";
                                 error = "Invalid username or password";
                                 //TODO passwordController.clear();
                               });
                             } else {
                               setState(() {
-                                Nav.loading = false;
-                                Nav.user = user;
+                                Home.loading = false;
+                                Home.user = user;
                                 validate = "";
                                 error = "";
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Nav()), (Route<dynamic> route) => true);
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home()), (Route<dynamic> route) => true);
                               });
 
                               /*Navigator.push(
@@ -206,7 +206,7 @@ class _AuthScreen extends State<AuthScreen> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
-                              Nav.loading = true;
+                              Home.loading = true;
                             });
                             final String email = emailController.text;
                             final String password = passwordController.text;
@@ -216,7 +216,7 @@ class _AuthScreen extends State<AuthScreen> {
                             final String carteEtu = carteEtuController.text;
                             var user = await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
                             setState(() {
-                              Nav.loading = false;
+                              Home.loading = false;
                             });
                             emailController.clear();
                             passwordController.clear();
@@ -227,7 +227,7 @@ class _AuthScreen extends State<AuthScreen> {
                             carteEtuController.clear();
                             if (user == null) {
                               setState(() {
-                                Nav.user = null;
+                                Home.user = null;
                                 error = "Error while registering";
                                 passwordController.clear();
                                 passwordConfirmController.clear();
@@ -276,20 +276,20 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
-  Widget build(BuildContext context) => Nav.loading
+  Widget build(BuildContext context) => Home.loading
       ? Loader()
       : Center(
           child: Column(children: [
-            Text('Bonjour ${Nav.user!.lastName} ${Nav.user!.firstName}'),
+            Text('Bonjour ${Home.user!.lastName} ${Home.user!.firstName}'),
             ElevatedButton(
                 onPressed: () async => {
                       setState(() {
-                        Nav.loading = true;
+                        Home.loading = true;
                       }),
                       await _auth.signOut(),
                       setState(() {
-                        Nav.loading = false;
-                        Nav.user = null;
+                        Home.loading = false;
+                        Home.user = null;
                       }),
                     },
                 child: const Text('Log out'))

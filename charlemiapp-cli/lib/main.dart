@@ -2,7 +2,6 @@ import 'package:charlemiapp_cli/services/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'models/user.dart';
 import 'ressources/nav.dart';
 
@@ -26,6 +25,6 @@ class MyApp extends StatelessWidget {
         value: AuthenticationService().user,
         catchError: (_, __) => null,
         initialData: null,
-        child: const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Nav()));
+        child: const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Home()));
   }
 }

@@ -42,9 +42,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
 flutter:
-<<<<<<< HEAD
-  uses-material-design: true
-=======
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -72,4 +69,3 @@ flutter:
         - asset: assets/fonts/Icons.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
->>>>>>> charlemiapp-cli

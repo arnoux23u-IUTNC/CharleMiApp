@@ -6,13 +6,8 @@ const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
 const whiteColor = Color(0xFFFFFFFF);
 
-<<<<<<< HEAD:charlemiapp-cli/lib/widgets/appbar.dart
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key}) : super(key: key);
-=======
 class MyAppBarNoBack extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBarNoBack({Key? key}) : super(key: key);
->>>>>>> charlemiapp-cli:charlemiapp-cli/lib/views/widgets/appbar_noback.dart
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
