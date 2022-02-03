@@ -121,7 +121,7 @@ class _RegisterState extends State<Register> {
 
   Widget _buildName() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 51),
       child: TextFormField(
         style: GoogleFonts.poppins(
           color: Colors.white,
@@ -187,7 +187,7 @@ class _RegisterState extends State<Register> {
 
   Widget _buildPhone() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 51),
       child: TextFormField(
         style: GoogleFonts.poppins(
           color: Colors.white,
