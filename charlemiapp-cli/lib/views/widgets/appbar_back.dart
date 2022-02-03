@@ -6,8 +6,8 @@ const darkColor = Color(0xFF121421);
 const buttonBlueColor = Color(0xFF4a80ef);
 const whiteColor = Color(0xFFFFFFFF);
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({Key? key}) : super(key: key);
+class MyAppBarBack extends StatelessWidget implements PreferredSizeWidget {
+  const MyAppBarBack({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -16,10 +16,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: midDarkColor,
-      leading: const IconButton(
-        icon: Icon(Icons.arrow_back_ios, color: whiteColor),
-        onPressed: null,
-        iconSize: 20,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        onPressed: () => Navigator.of(context).pop(),
       ),
       title: Text(
         'CharleMi\'App',
