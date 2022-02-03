@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBarNoBack(),
+      appBar: const MyAppBarNoBack(),
       body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: Theme(
         data: ThemeData(
