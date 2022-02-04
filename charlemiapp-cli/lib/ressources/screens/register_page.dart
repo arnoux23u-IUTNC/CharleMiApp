@@ -36,23 +36,21 @@ class _RegisterState extends State<Register> {
         validator: AuthenticationService.validateEmail,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
-        onSaved: (value) {
-          print("saved");
-        },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Adresse email",
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -65,29 +63,28 @@ class _RegisterState extends State<Register> {
 
   Widget _passwordField() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: passwordController,
         validator: (value) => AuthenticationService.validatePassword(value!, null),
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
-        onSaved: (value) {
-          print("saved");
-        },
+        obscureText: true,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
           focusColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Mot de passe",
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -100,30 +97,28 @@ class _RegisterState extends State<Register> {
 
   Widget _confirmPasswordField() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: passwordConfirmController,
         obscureText: true,
         validator: (value) => AuthenticationService.validatePassword(value!, passwordController.text),
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
-        onSaved: (value) {
-          print("saved");
-        },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
           focusColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          hintText: "Confirm password",
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+          hintText: "Confirmation",
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -136,29 +131,27 @@ class _RegisterState extends State<Register> {
 
   Widget _lastnameField() {
     return Container(
-      padding: const EdgeInsets.only(top: 51),
+      padding: const EdgeInsets.only(top: 30),
       child: TextFormField(
         controller: lastNameController,
-        validator: (value) => value!.isEmpty || value.length < 3 ? "Enter a valid last name" : null,
+        validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.name,
-        onSaved: (value) {
-          print("saved");
-        },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Nom",
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -171,29 +164,27 @@ class _RegisterState extends State<Register> {
 
   Widget _firstnameField() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: firstNameController,
-        validator: (value) => value!.isEmpty || value.length < 3 ? "Enter a valid first name" : null,
+        validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.name,
-        onSaved: (value) {
-          print("saved");
-        },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Prénom",
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -206,29 +197,27 @@ class _RegisterState extends State<Register> {
 
   Widget _phoneField() {
     return Container(
-      padding: const EdgeInsets.only(top: 51),
+      padding: const EdgeInsets.only(top: 30),
       child: TextFormField(
         controller: numTelController,
         validator: AuthenticationService.validateNumTel,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.phone,
-        onSaved: (value) {
-          print("saved");
-        },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Téléphone",
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -239,31 +228,30 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Widget _studentCardField() {
+  /*Widget _studentCardField() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: carteEtuController,
         validator: AuthenticationService.validateCarteEtu,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
-        keyboardType: TextInputType.name,
-        onSaved: (value) {
-          print("saved");
-        },
+        keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-          hintText: "Numéro Etu",
+          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+          hintText: "Numéro Etudiant",
+          //TODO AFFICHER BULLE CARTE
           hintStyle: GoogleFonts.poppins(
             color: greyedFont,
-            fontSize: 18,
+            fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
           border: OutlineInputBorder(
@@ -272,12 +260,12 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
-  }
+  }*/
 
   Widget _submitBtn() {
     return Container(
-      padding: const EdgeInsets.only(top: 60, bottom: 15),
-      width: double.infinity,
+      padding: const EdgeInsets.only(top: 30, bottom: 15),
+      width: MediaQuery.of(context).size.width / 2,
       child: ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
@@ -289,39 +277,39 @@ class _RegisterState extends State<Register> {
             final String lastName = lastNameController.text;
             final String firstName = firstNameController.text;
             final String numTel = numTelController.text;
-            final String carteEtu = carteEtuController.text;
-            var user = await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
+            //if(_auth.userExists(phone) || )
+            //final String carteEtu = carteEtuController.text;
+            var user = await _auth.register(email, password, lastName, firstName, numTel);
             setState(() {
               Home.loading = false;
             });
-            emailController.clear();
+            //emailController.clear();
             passwordController.clear();
             passwordConfirmController.clear();
-            lastNameController.clear();
+            /*lastNameController.clear();
             firstNameController.clear();
-            numTelController.clear();
-            carteEtuController.clear();
+            numTelController.clear();*/
+            //carteEtuController.clear();
             if (user == null) {
               setState(() {
                 Home.user = null;
-                error = "Error while registering";
+                error = "Erreur lors de l'enregistrement";
                 passwordController.clear();
                 passwordConfirmController.clear();
               });
             } else {
               setState(() {
                 error = "";
-                validate = "you are now registered, please login";
-                MaterialPageRoute(builder: (context) => const Login());
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login(message: "Inscription effectuée, veuillez vous connecter")), (route) => false);
               });
             }
           }
         },
         child: const Text(
-          'Submit',
+          'Valider',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(20)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(15)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
       ),
     );
   }
@@ -329,21 +317,22 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Home.loading
-        ? Loader()
+        ? const Loader()
         : Scaffold(
             appBar: const MyAppBarBack(),
             body: Container(
                 color: darkColor,
-                child: SingleChildScrollView(
-                    child: Padding(
-                  padding: const EdgeInsets.all(55),
+                child: Scrollbar(
+                    child: SingleChildScrollView(
+                        child: Padding(
+                  padding: const EdgeInsets.all(30),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "Register",
+                          "Inscription",
                           style: GoogleFonts.poppins(
                             color: whiteColor,
                             fontSize: 29,
@@ -356,12 +345,24 @@ class _RegisterState extends State<Register> {
                         _lastnameField(),
                         _firstnameField(),
                         _phoneField(),
-                        _studentCardField(),
-                        _submitBtn()
+                        //TODO TEMPORARY REMOVED _studentCardField(),
+                        _submitBtn(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Text(
+                            error,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              color: Colors.red,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ))),
+                )))),
           );
   }
 }

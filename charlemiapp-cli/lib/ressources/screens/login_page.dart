@@ -9,7 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 final AuthenticationService _auth = AuthenticationService();
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, this.message}) : super(key: key);
+
+  final String? message;
 
   @override
   _LoginState createState() => _LoginState();
@@ -19,6 +21,7 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String error = "";
+  late String? message = widget.message;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -35,12 +38,10 @@ class _LoginState extends State<Login> {
         ),
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
-        onSaved: (value) {
-         print("saved");
-        },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
           contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           hintText: "Email",
@@ -59,23 +60,21 @@ class _LoginState extends State<Login> {
 
   Widget _passwordField() {
     return Container(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20, bottom: 20),
       child: TextFormField(
         controller: passwordController,
         obscureText: true,
-        validator: (value) => value!.isEmpty ? "Enter a valid password" : null,
+        validator: (value) => value!.isEmpty ? "Veuillez saisir un mot de passse" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
-        onSaved: (value) {
-         print("saved");
-        },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           filled: true,
+          errorMaxLines: 2,
           fillColor: midDarkColor,
           focusColor: midDarkColor,
           contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -95,7 +94,7 @@ class _LoginState extends State<Login> {
 
   Widget _submitBtn() {
     return Container(
-      padding: const EdgeInsets.only(top: 60, bottom: 15),
+      padding: const EdgeInsets.only(top: 40, bottom: 15),
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () async {
@@ -111,7 +110,7 @@ class _LoginState extends State<Login> {
               setState(() {
                 Home.loading = false;
                 Home.user = null;
-                error = "Invalid username or password";
+                error = "Email ou mot de passe incorrect";
                 passwordController.clear();
               });
             } else {
@@ -119,17 +118,13 @@ class _LoginState extends State<Login> {
                 Home.loading = false;
                 Home.user = user;
                 error = "";
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home()), (Route<dynamic> route) => true);
               });
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Home()),
-              );
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
             }
           }
         },
         child: const Text(
-          'Submit',
+          'Valider',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
         style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(20)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
@@ -137,40 +132,61 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Widget _displayMessages() {
+    return message != null ? Text(
+      message!,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.poppins(
+        color: Colors.green,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+    ) : Text(
+      error,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.poppins(
+        color: Colors.red,
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Home.loading
-        ? Loader()
+        ? const Loader()
         : Scaffold(
-            resizeToAvoidBottomInset: true,
-            appBar: const MyAppBarBack(),
-            body: Container(
-                constraints: const BoxConstraints.expand(),
-                color: darkColor,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(55),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Log In",
-                            style: GoogleFonts.poppins(
-                              color: whiteColor,
-                              fontSize: 29,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          _emailField(),
-                          _passwordField(),
-                          _submitBtn()
-                        ],
+      resizeToAvoidBottomInset: true,
+      appBar: const MyAppBarBack(),
+      body: Container(
+          constraints: const BoxConstraints.expand(),
+          color: darkColor,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(55),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Connexion",
+                      style: GoogleFonts.poppins(
+                        color: whiteColor,
+                        fontSize: 29,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
-                )),
-          );
+                    _emailField(),
+                    _passwordField(),
+                    _displayMessages(),
+                    _submitBtn()
+                  ],
+                ),
+              ),
+            ),
+          )),
+    );
   }
 }
