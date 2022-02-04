@@ -1,28 +1,23 @@
+import 'models/user.dart';
+import 'ressources/screens/home.dart';
+import 'services/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-//google font import
-import 'package:google_fonts/google_fonts.dart';
-import 'package:charlemiapp_cli/views/home.dart';
-
-const midDarkColor = Color(0xFF1c2031);
-const darkColor = Color(0xFF121421);
-const buttonBlueColor = Color(0xFF4a80ef);
-const whiteColor = Color(0xFFFFFFFF);
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: '',
-      home: Home(),
-    );
+    return /*StreamProvider<AppUser?>.value(value: AuthenticationService().user, catchError: (_, __) => null, initialData: null, child:*/ const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Home())/*)*/;
   }
 }

@@ -1,29 +1,27 @@
-import 'package:charlemiapp_cli/app_icons.dart';
+import '../assets/colors.dart';
+import '../assets/app_icons.dart';
+import '../screens/browser_page.dart';
+import '../screens/auth_page.dart';
+import '../screens/overview_page.dart';
+import '../navigation/appbar_noback.dart';
 import 'package:flutter/material.dart';
-import 'package:charlemiapp_cli/views/widgets/appbar_noback.dart';
-import 'package:charlemiapp_cli/views/browser/browser_page.dart';
-import 'package:charlemiapp_cli/views/user/SignInUp_page.dart';
-import 'package:charlemiapp_cli/views/shop/overview_page.dart';
-
-const midDarkColor = Color(0xFF1c2031);
-const darkColor = Color(0xFF121421);
-const buttonBlueColor = Color(0xFF4a80ef);
-const whiteColor = Color(0xFFFFFFFF);
+import 'package:provider/provider.dart';
+import 'package:charlemiapp_cli/models/user.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, this.selectedScreen = 0}) : super(key: key);
+  static bool loading = false;
+  static AppUser? user;
+  final int selectedScreen;
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    BrowserPage(),
-    Overview(),
-    SignInUp()
-  ];
+  late int _selectedIndex = widget.selectedScreen;
+
+  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), Overview(), AuthBuilder()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -33,6 +31,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    //Home.user = Provider.of<AppUser?>(context);
     return Scaffold(
       appBar: const MyAppBarNoBack(),
       body: _widgetOptions[_selectedIndex],
@@ -48,14 +47,25 @@ class _HomeState extends State<Home> {
           enableFeedback: true,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(AppCustomIcons.compass, size: 30,),
+              icon: Icon(
+                AppCustomIcons.compass,
+                size: 30,
+              ),
               label: '',
               tooltip: 'Discover',
             ),
             BottomNavigationBarItem(
-                icon: Icon(AppCustomIcons.shopping_basket, size: 30,), label: '', tooltip: 'Order'),
+                icon: Icon(
+                  AppCustomIcons.shoppingBasket,
+                  size: 30,
+                ),
+                label: '',
+                tooltip: 'Order'),
             BottomNavigationBarItem(
-                icon: Icon(AppCustomIcons.user_circle, size: 30,),
+                icon: Icon(
+                  AppCustomIcons.userCircle,
+                  size: 30,
+                ),
                 label: '',
                 tooltip: 'Profile'),
           ],
