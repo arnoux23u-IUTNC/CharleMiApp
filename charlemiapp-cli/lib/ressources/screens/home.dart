@@ -9,18 +9,19 @@ import 'package:provider/provider.dart';
 import 'package:charlemiapp_cli/models/user.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  const Home({Key? key, this.selectedScreen = 0}) : super(key: key);
   static bool loading = false;
   static AppUser? user;
+  final int selectedScreen;
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
+  late int _selectedIndex = widget.selectedScreen;
 
-  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), Overview(), SignInUp()];
+  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), Overview(), AuthBuilder()];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Home.user = Provider.of<AppUser?>(context);
+    //Home.user = Provider.of<AppUser?>(context);
     return Scaffold(
       appBar: const MyAppBarNoBack(),
       body: _widgetOptions[_selectedIndex],

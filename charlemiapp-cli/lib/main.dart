@@ -18,6 +18,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<AppUser?>.value(value: AuthenticationService().user, catchError: (_, __) => null, initialData: null, child: const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Home()));
+    return /*StreamProvider<AppUser?>.value(value: AuthenticationService().user, catchError: (_, __) => null, initialData: null, child:*/ const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Home())/*)*/;
   }
 }

@@ -1,18 +1,42 @@
+import 'home.dart';
 import 'login_page.dart';
+import 'profile_page.dart';
 import 'register_page.dart';
 import '../assets/colors.dart';
 import 'package:flutter/material.dart';
 
-class SignInUp extends StatefulWidget {
-  const SignInUp({Key? key}) : super(key: key);
+class AuthBuilder extends StatelessWidget {
+  const AuthBuilder({Key? key}) : super(key: key);
 
-  @override
-  _SignInUpState createState() => _SignInUpState();
-}
 
-class _SignInUpState extends State<SignInUp> {
   @override
   Widget build(BuildContext context) {
+
+
+    if (Home.user == null) {
+      print("user is null");
+      return const AuthPage();
+    } else {
+      print("user is not null");
+      return const ProfilePage();
+    }
+  }
+}
+
+class AuthPage extends StatefulWidget {
+  const AuthPage({Key? key}) : super(key: key);
+
+  @override
+  _AuthPageState createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  @override
+  Widget build(BuildContext context) {
+    setState(() {
+      Home.loading = false;
+      Home.user = null;
+    });
     return Container(
       color: darkColor,
       child: Column(
