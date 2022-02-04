@@ -1,14 +1,9 @@
-import 'package:charlemiapp_cli/services/authentication.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'models/user.dart';
+import 'ressources/screens/home.dart';
+import 'services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'models/user.dart';
-import 'ressources/nav.dart';
-
-const midDarkColor = Color(0xFF1c2031);
-const darkColor = Color(0xFF121421);
-const buttonBlueColor = Color(0xFF4a80ef);
-const whiteColor = Color(0xFFFFFFFF);
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,10 +16,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<AppUser?>.value(
-        value: AuthenticationService().user,
-        catchError: (_, __) => null,
-        initialData: null,
-        child: const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Home()));
+    return StreamProvider<AppUser?>.value(value: AuthenticationService().user, catchError: (_, __) => null, initialData: null, child: const MaterialApp(debugShowCheckedModeBanner: false, title: '', home: Home()));
   }
 }

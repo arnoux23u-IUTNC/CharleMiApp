@@ -1,6 +1,6 @@
+import 'assets/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'nav.dart';
 
 class Loader extends StatelessWidget {
   @override

@@ -1,11 +1,7 @@
-import 'package:charlemiapp_cli/views/user/register_page.dart';
-import 'package:flutter/material.dart';
-
 import 'login_page.dart';
-
-const midDarkColor = Color(0xFF1c2031);
-const darkColor = Color(0xFF121421);
-const buttonBlueColor = Color(0xFF4a80ef);
+import 'register_page.dart';
+import '../assets/colors.dart';
+import 'package:flutter/material.dart';
 
 class SignInUp extends StatefulWidget {
   const SignInUp({Key? key}) : super(key: key);
@@ -29,44 +25,33 @@ class _SignInUpState extends State<SignInUp> {
               Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(
-                        left: 55, right: 55, top: 30, bottom: 15),
+                    padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()),
+                          MaterialPageRoute(builder: (context) => const Login()),
                         );
                       },
                       child: const Text(
-                        'Sign In',
+                        'Connexion',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(buttonBlueColor),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.all(17)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)))),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
                     ),
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                    padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
                     child: TextButton(
                       child: const Text(
-                        "Sign Up",
+                        "Inscription",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Register()),
+                          MaterialPageRoute(builder: (context) => const Register()),
                         );
                       },
                     ),
