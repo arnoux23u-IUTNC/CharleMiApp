@@ -28,21 +28,21 @@
 .vscode/
 
 # Flutter repo-specific
-/bin/cache/
-/bin/internal/bootstrap.bat
-/bin/internal/bootstrap.sh
-/bin/mingit/
-/dev/benchmarks/mega_gallery/
-/dev/bots/.recipe_deps
-/dev/bots/android_tools/
-/dev/devicelab/ABresults*.json
-/dev/docs/doc/
-/dev/docs/flutter.docs.zip
-/dev/docs/lib/
-/dev/docs/pubspec.yaml
-/dev/integration_tests/**/xcuserdata
-/dev/integration_tests/**/Pods
-/packages/flutter/coverage/
+bin/cache/
+bin/internal/bootstrap.bat
+bin/internal/bootstrap.sh
+bin/mingit/
+dev/benchmarks/mega_gallery/
+dev/bots/.recipe_deps
+dev/bots/android_tools/
+dev/devicelab/ABresults*.json
+dev/docs/doc/
+dev/docs/flutter.docs.zip
+dev/docs/lib/
+dev/docs/pubspec.yaml
+dev/integration_tests/**/xcuserdata
+dev/integration_tests/**/Pods
+packages/flutter/coverage/
 version
 analysis_benchmark.json
 
@@ -121,3 +121,11 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+
+
+#PHP FILES
+vendor/
+!composer.lock
+
+#Google
+charlemi-app-451eaef7a3d2.json
