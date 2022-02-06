@@ -1,5 +1,5 @@
+import '../../models/cart.dart';
 import 'package:flutter/material.dart';
-import 'package:cart/cart/bloc/cart_items_bloc.dart';
 
 class Checkout extends StatelessWidget {
   Widget build(BuildContext context) {

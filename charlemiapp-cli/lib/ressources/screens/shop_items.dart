@@ -1,32 +1,36 @@
-import 'package:cart/cart/bloc/cart_items_bloc.dart';
+import '../../models/cart.dart';
 import 'package:flutter/material.dart';
 
 class ShopItems extends StatelessWidget {
+  const ShopItems({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Articles'),
+        title: const Text('Articles'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () => Navigator.pushNamed(context, '/checkout'),
           )
         ],
       ),
-      body: ShopItemsWidget(),
+      body: const ShopItemsWidget(),
     );
   }
 }
 
 class ShopItemsWidget extends StatelessWidget {
+  const ShopItemsWidget({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       initialData: bloc.allItems,
       stream: bloc.getStream,
       builder: (context, snapshot) {
-        return ["shop items"].length > 0
-            ? shopItemsListBuilder(snapshot)
-            : Center(child: Text("All items in shop have been taken"));
+        return ["shop_items"].isNotEmpty ? shopItemsListBuilder(snapshot) : const Center(child: Text("All items in shop have been taken"));
       },
     );
   }
@@ -41,7 +45,7 @@ Widget shopItemsListBuilder(snapshot) {
         title: Text(shopList[i].name),
         subtitle: Text("${shopList[i].price}\€"),
         trailing: IconButton(
-          icon: Icon(Icons.add_shopping_cart),
+          icon: const Icon(Icons.add_shopping_cart),
           onPressed: () {
             bloc.addToCart(shopList[i]);
           },
