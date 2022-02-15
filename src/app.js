@@ -1,16 +1,28 @@
+//Import des modules et des fichiers d'envirronement
 const express = require('express');
+const {initializeApp, cert} = require('firebase-admin/app');
+const credentials = require("../charlemi-app-b053ffa81bac.json");
+require('dotenv').config();
 
+//On definit un booleen, a vrai si nous sommes en production
+const RUNNING_PROD = process.env.RUNNING_SYSTEM === "PROD";
+
+//Initialisation de l'app
+initializeApp({credential: cert(credentials)});
 const app = express();
-const SERVED_PORT = 6851;
 
-//Use JSON parser
+//Utilisation de modules au sein de l'application
 app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({limit: '10mb', extended: true}));
 
-//Import routes
-const testRouter = require('./routes/test');
-app.use('/api/test', testRouter);
+//On stipule ici que tout le traffic arrivant sur l'url /api sera redirigé vers le fichier router.js
+app.use('/api', require('./router.js'));
 
-//Start server
-app.listen(SERVED_PORT, () => {
-    console.log(`Server is listening on port ${SERVED_PORT}`);
+//Démmarage de l'application sur le port désiré
+app.listen(RUNNING_PROD ? process.env.SERVED_PORT_PROD : process.env.SERVED_PORT_DEV, function () {
+    console.log(`Server is listening on port ${this.address().port}`);
 });
+
+module.exports = {
+    RUNNING_PROD
+}

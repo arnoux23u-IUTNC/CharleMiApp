@@ -1,7 +1,16 @@
 {
+  "name": "charlemiapp_api",
+  "version": "1.0.0",
+  "description": "API for CharleMi'App Client",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/app.js"
+  },
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
-    "jsonwebtoken": "^8.5.1"
+    "firebase-admin": "^10.0.2"
   }
 }
