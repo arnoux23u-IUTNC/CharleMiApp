@@ -8,11 +8,8 @@ import 'package:flutter/material.dart';
 class AuthBuilder extends StatelessWidget {
   const AuthBuilder({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-
-
     if (Home.user == null) {
       print("user is null");
       return const AuthPage();
@@ -49,24 +46,34 @@ class _AuthPageState extends State<AuthPage> {
               Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+                    padding: const EdgeInsets.only(
+                        left: 55, right: 55, top: 30, bottom: 15),
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Login()),
+                          MaterialPageRoute(
+                              builder: (context) => const Login()),
                         );
                       },
                       child: const Text(
                         'Connexion',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(buttonBlueColor),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)))),
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                    padding:
+                        const EdgeInsets.only(left: 55, right: 55, bottom: 35),
                     child: TextButton(
                       child: const Text(
                         "Inscription",
@@ -75,7 +82,8 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Register()),
+                          MaterialPageRoute(
+                              builder: (context) => const Register()),
                         );
                       },
                     ),

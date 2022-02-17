@@ -1,3 +1,5 @@
+import 'package:charlemiapp_cli/ressources/screens/profile_page.dart';
+
 import '../assets/colors.dart';
 import '../assets/app_icons.dart';
 import '../screens/browser_page.dart';
@@ -21,7 +23,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late int _selectedIndex = widget.selectedScreen;
 
-  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), Overview(), AuthBuilder()];
+  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), ProfilePage(), AuthBuilder()];
 
   void _onItemTapped(int index) {
     setState(() {

@@ -1,3 +1,6 @@
+import 'package:charlemiapp_cli/ressources/assets/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'home.dart';
 import '../loader.dart';
 import '../../services/authentication.dart';
@@ -16,22 +19,56 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) => Home.loading
       ? const Loader()
-      : Center(
-          child: Column(children: [
-            Text('Bonjour ${Home.user?.lastName} ${Home.user?.firstName}'),
-            ElevatedButton(
-                onPressed: () async => {
-                      setState(() {
-                        Home.loading = true;
-                      }),
-                      await _auth.signOut(),
-                      setState(() {
-                        Home.loading = false;
-                        Home.user = null;
-                      }),
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
-                    },
-                child: const Text('Log out'))
-          ]),
+      : Container(
+          color: darkColor,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                    child: Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Text(
+                      'Bonjour ${Home.user?.lastName} ${Home.user?.firstName}',
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600)),
+                )),
+                Container(
+                    padding: const EdgeInsets.only(
+                        left: 55, right: 55, top: 30, bottom: 15),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async => {
+                        setState(() {
+                          Home.loading = true;
+                        }),
+                        await _auth.signOut(),
+                        setState(() {
+                          Home.loading = false;
+                          Home.user = null;
+                        }),
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const Home(selectedScreen: 2)),
+                            (route) => false)
+                      },
+                      child: const Text(
+                        'Log Out',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(buttonBlueColor),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)))),
+                    )),
+              ]),
         );
 }
