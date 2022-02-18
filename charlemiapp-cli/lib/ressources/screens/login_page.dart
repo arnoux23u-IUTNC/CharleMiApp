@@ -64,7 +64,8 @@ class _LoginState extends State<Login> {
       child: TextFormField(
         controller: passwordController,
         obscureText: true,
-        validator: (value) => value!.isEmpty ? "Veuillez saisir un mot de passse" : null,
+        validator: (value) =>
+            value!.isEmpty ? "Veuillez saisir un mot de passse" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 18,
@@ -119,7 +120,11 @@ class _LoginState extends State<Login> {
                 Home.user = user;
                 error = "";
               });
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Home(selectedScreen: 2)),
+                  (route) => false);
             }
           }
         },
@@ -127,29 +132,35 @@ class _LoginState extends State<Login> {
           'Valider',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(20)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)))),
       ),
     );
   }
 
   Widget _displayMessages() {
-    return message != null ? Text(
-      message!,
-      textAlign: TextAlign.center,
-      style: GoogleFonts.poppins(
-        color: Colors.green,
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-      ),
-    ) : Text(
-      error,
-      textAlign: TextAlign.center,
-      style: GoogleFonts.poppins(
-        color: Colors.red,
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-      ),
-    );
+    return message != null
+        ? Text(
+            message!,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              color: Colors.green,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          )
+        : Text(
+            error,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              color: Colors.red,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          );
   }
 
   @override
@@ -157,36 +168,36 @@ class _LoginState extends State<Login> {
     return Home.loading
         ? const Loader()
         : Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: const MyAppBarBack(),
-      body: Container(
-          constraints: const BoxConstraints.expand(),
-          color: darkColor,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(55),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "Connexion",
-                      style: GoogleFonts.poppins(
-                        color: whiteColor,
-                        fontSize: 29,
-                        fontWeight: FontWeight.w600,
+            resizeToAvoidBottomInset: true,
+            appBar: const MyAppBarBack(),
+            body: Container(
+                constraints: const BoxConstraints.expand(),
+                color: darkColor,
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(55),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Connexion",
+                            style: GoogleFonts.poppins(
+                              color: whiteColor,
+                              fontSize: 29,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          _emailField(),
+                          _passwordField(),
+                          _displayMessages(),
+                          _submitBtn()
+                        ],
                       ),
                     ),
-                    _emailField(),
-                    _passwordField(),
-                    _displayMessages(),
-                    _submitBtn()
-                  ],
-                ),
-              ),
-            ),
-          )),
-    );
+                  ),
+                )),
+          );
   }
 }

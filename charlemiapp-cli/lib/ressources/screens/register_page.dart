@@ -66,7 +66,8 @@ class _RegisterState extends State<Register> {
       padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: passwordController,
-        validator: (value) => AuthenticationService.validatePassword(value!, null),
+        validator: (value) =>
+            AuthenticationService.validatePassword(value!, null),
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -101,7 +102,8 @@ class _RegisterState extends State<Register> {
       child: TextFormField(
         controller: passwordConfirmController,
         obscureText: true,
-        validator: (value) => AuthenticationService.validatePassword(value!, passwordController.text),
+        validator: (value) => AuthenticationService.validatePassword(
+            value!, passwordController.text),
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -134,7 +136,8 @@ class _RegisterState extends State<Register> {
       padding: const EdgeInsets.only(top: 30),
       child: TextFormField(
         controller: lastNameController,
-        validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
+        validator: (value) =>
+            value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -167,7 +170,8 @@ class _RegisterState extends State<Register> {
       padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: firstNameController,
-        validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
+        validator: (value) =>
+            value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -265,7 +269,7 @@ class _RegisterState extends State<Register> {
   Widget _submitBtn() {
     return Container(
       padding: const EdgeInsets.only(top: 30, bottom: 15),
-      width: MediaQuery.of(context).size.width / 2,
+      width: double.infinity,
       child: ElevatedButton(
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
@@ -279,7 +283,8 @@ class _RegisterState extends State<Register> {
             final String numTel = numTelController.text;
             //if(_auth.userExists(phone) || )
             //final String carteEtu = carteEtuController.text;
-            var user = await _auth.register(email, password, lastName, firstName, numTel);
+            var user = await _auth.register(
+                email, password, lastName, firstName, numTel);
             setState(() {
               Home.loading = false;
             });
@@ -300,7 +305,13 @@ class _RegisterState extends State<Register> {
             } else {
               setState(() {
                 error = "";
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Login(message: "Inscription effectuée, veuillez vous connecter")), (route) => false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Login(
+                            message:
+                                "Inscription effectuée, veuillez vous connecter")),
+                    (route) => false);
               });
             }
           }
@@ -309,7 +320,11 @@ class _RegisterState extends State<Register> {
           'Valider',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(buttonBlueColor), padding: MaterialStateProperty.all(const EdgeInsets.all(15)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+            padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12)))),
       ),
     );
   }

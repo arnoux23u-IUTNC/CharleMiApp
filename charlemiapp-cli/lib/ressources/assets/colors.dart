@@ -6,3 +6,4 @@ const buttonBlueColor = Color(0xFF4a80ef);
 const whiteColor = Color(0xFFFFFFFF);
 const greyedFont = Color(0xFF6F6F6F);
 const darkBlue = Color(0xff26407e);
+const colorAmbre = Color(0xFFFF8F00);
