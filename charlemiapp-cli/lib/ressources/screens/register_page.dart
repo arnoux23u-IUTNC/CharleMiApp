@@ -321,6 +321,7 @@ class _RegisterState extends State<Register> {
         : Scaffold(
             appBar: const MyAppBarBack(),
             body: Container(
+                height: MediaQuery.of(context).size.height,
                 color: darkColor,
                 child: Scrollbar(
                     child: SingleChildScrollView(
