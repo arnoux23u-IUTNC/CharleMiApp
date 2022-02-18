@@ -60,6 +60,40 @@ class _ProfilePageState extends State<ProfilePage> {
                               (route) => false)
                         },
                         child: const Text(
+                          'Modifier Solde',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(buttonBlueColor),
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(17)),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)))),
+                      )),
+                  Container(
+                      padding: const EdgeInsets.only(
+                          left: 55, right: 55, top: 30, bottom: 15),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () async => {
+                          setState(() {
+                            Home.loading = true;
+                          }),
+                          await _auth.signOut(),
+                          setState(() {
+                            Home.loading = false;
+                            Home.user = null;
+                          }),
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Home(selectedScreen: 2)),
+                              (route) => false)
+                        },
+                        child: const Text(
                           'Log Out',
                           style: TextStyle(color: Colors.white, fontSize: 18),
                         ),
@@ -99,9 +133,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(buttonBlueColor),
+                                MaterialStateProperty.all(darkBlue),
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(17)),
+                                const EdgeInsets.all(10)),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)))),
