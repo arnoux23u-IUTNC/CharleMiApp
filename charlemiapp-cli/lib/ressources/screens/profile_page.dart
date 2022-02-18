@@ -30,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                   Center(
                       child: Padding(
-                    padding: const EdgeInsets.only(top: 40),
+                    padding: const EdgeInsets.only(top: 40, bottom: 40),
                     child: Text(
                         'Bonjour ${Home.user?.lastName} ${Home.user?.firstName}',
                         style: GoogleFonts.poppins(
@@ -38,9 +38,19 @@ class _ProfilePageState extends State<ProfilePage> {
                             fontSize: 30,
                             fontWeight: FontWeight.w600)),
                   )),
+                      Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 40),
+                            child: Text(
+                                'Votre solde est de',
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500)),
+                          )),
                   Container(
                       padding: const EdgeInsets.only(
-                          left: 55, right: 55, top: 30, bottom: 15),
+                          left: 55, right: 55, top: 10, bottom: 15),
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async => {
@@ -67,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundColor:
                                 MaterialStateProperty.all(buttonBlueColor),
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(17)),
+                                const EdgeInsets.all(10)),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12)))),
