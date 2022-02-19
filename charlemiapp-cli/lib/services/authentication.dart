@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthenticationService {
-  
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
@@ -12,26 +11,27 @@ class AuthenticationService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      return _toAppUser(user!, null);
+      return user!.emailVerified ? _toAppUser(user, null) : "notverified";
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      return null;
+      return e.toString().contains('user-disabled') ? "disabled" : null;
     }
   }
-  
+
   Future<bool> userExists(String data) async {
     final carteEtu = await _db.collection('users').where('carte_etudiant', isEqualTo: data).get();
     final phone = await _db.collection('users').where('phone', isEqualTo: data).get();
     return carteEtu.docs.isNotEmpty || phone.docs.isNotEmpty;
   }
 
-  Future register(String email, String password, String lastName, String firstName, String phone) async {
+  Future register(String email, String password, String lastName, String firstName, String phone, String carteEtu) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      return _toAppUser(user!, <String>[lastName, firstName, phone]);
+      await user?.sendEmailVerification();
+      return _toAppUser(user!, <String>[lastName, firstName, phone, carteEtu]);
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
@@ -40,7 +40,7 @@ class AuthenticationService {
     }
   }
 
-  Future signUpWithEmailAndPassword(String email, String password) async {
+  /*Future signUpWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
@@ -51,7 +51,7 @@ class AuthenticationService {
       }
       return null;
     }
-  }
+  }*/
 
   Future signOut() async {
     try {
@@ -65,12 +65,12 @@ class AuthenticationService {
   }
 
   Future<AppUser?> _toAppUser(User? user, List? params) async {
-    AppUser _user = params == null ? AppUser(uid: user!.uid) : AppUser(uid: user!.uid, lastName: params[0], firstName: params[1], phone: params[2]);
+    AppUser _user = params == null ? AppUser(uid: user!.uid) : AppUser(uid: user!.uid, lastName: params[0], firstName: params[1], phone: params[2], carteEtudiant: params[3]);
     var exists = await _user.init();
     if (exists) {
       return _user;
     } else if (params != null) {
-      await _user.store(params[0], params[1], params[2], null, false);
+      await _user.store(params[0], params[1], params[2], params[3], null, false, 0);
       return _user;
     }
     return null;

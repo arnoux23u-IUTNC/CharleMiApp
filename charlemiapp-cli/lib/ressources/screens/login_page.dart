@@ -106,12 +106,13 @@ class _LoginState extends State<Login> {
             final String email = emailController.text;
             final String password = passwordController.text;
             var user = await _auth.signInWithEmailAndPassword(email, password);
-            if (user == null) {
+            if (user == null || user == "disabled" || user == "notverified") {
               if (!mounted) return;
               setState(() {
                 Home.loading = false;
                 Home.user = null;
-                error = "Email ou mot de passe incorrect";
+                message = null;
+                error = (user == null) ? "Email ou mot de passe incorrect" : (user == "disabled") ? "Compte désactivé. Contactez un administrateur" : "Compte non valide. Consultez votre boite mail";
                 passwordController.clear();
               });
             } else {
