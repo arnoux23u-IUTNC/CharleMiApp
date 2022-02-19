@@ -302,7 +302,11 @@ class _RegisterState extends State<Register> {
               setState(() {
                 error = "";
                 Navigator.pushAndRemoveUntil(
-                    context, MaterialPageRoute(builder: (context) => const Login(message: "Inscription effectuée, vérifiez vos mails afin d'activer votre compte")), (route) => false);
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const Login(message: "Inscription effectuée, vérifiez vos mails afin d'activer votre compte")),
+                    (route) => false);
               });
             }
           }

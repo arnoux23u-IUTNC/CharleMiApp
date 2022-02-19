@@ -11,10 +11,8 @@ class AuthBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Home.user == null) {
-      print("user is null");
       return const AuthPage();
     } else {
-      print("user is not null");
       return const ProfilePage();
     }
   }

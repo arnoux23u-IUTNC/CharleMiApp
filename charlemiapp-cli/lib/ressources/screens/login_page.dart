@@ -64,8 +64,7 @@ class _LoginState extends State<Login> {
       child: TextFormField(
         controller: passwordController,
         obscureText: true,
-        validator: (value) =>
-            value!.isEmpty ? "Veuillez saisir un mot de passse" : null,
+        validator: (value) => value!.isEmpty ? "Veuillez saisir un mot de passse" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 18,
@@ -112,7 +111,11 @@ class _LoginState extends State<Login> {
                 Home.loading = false;
                 Home.user = null;
                 message = null;
-                error = (user == null) ? "Email ou mot de passe incorrect" : (user == "disabled") ? "Compte désactivé. Contactez un administrateur" : "Compte non valide. Consultez votre boite mail";
+                error = (user == null)
+                    ? "Email ou mot de passe incorrect"
+                    : (user == "disabled")
+                        ? "Compte désactivé. Contactez un administrateur"
+                        : "Compte non valide. Consultez votre boite mail";
                 passwordController.clear();
               });
             } else {
@@ -122,10 +125,7 @@ class _LoginState extends State<Login> {
                 error = "";
               });
               Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const Home(selectedScreen: 2)),
-                  (route) => false);
+                  context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
             }
           }
         },
@@ -136,8 +136,7 @@ class _LoginState extends State<Login> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(buttonBlueColor),
             padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)))),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
       ),
     );
   }

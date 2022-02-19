@@ -1,6 +1,5 @@
-import 'package:charlemiapp_cli/ressources/screens/home.dart';
-
 import '../models/user.dart';
+import '../ressources/screens/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -67,7 +66,9 @@ class AuthenticationService {
   }
 
   Future<AppUser?> _toAppUser(User? user, List? params) async {
-    AppUser _user = params == null ? AppUser(uid: user!.uid) : AppUser(uid: user!.uid, lastName: params[0], firstName: params[1], phone: params[2], carteEtudiant: params[3]);
+    AppUser _user = params == null
+        ? AppUser(uid: user!.uid)
+        : AppUser(uid: user!.uid, lastName: params[0], firstName: params[1], phone: params[2], carteEtudiant: params[3]);
     var exists = await _user.init();
     if (exists) {
       return _user;

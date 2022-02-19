@@ -1,8 +1,8 @@
 import '../assets/colors.dart';
 import '../../models/user.dart';
 import '../assets/app_icons.dart';
-import '../screens/browser_page.dart';
 import '../screens/auth_page.dart';
+import '../screens/browser_page.dart';
 import '../screens/overview_page.dart';
 import '../navigation/appbar_noback.dart';
 import 'package:flutter/material.dart';
