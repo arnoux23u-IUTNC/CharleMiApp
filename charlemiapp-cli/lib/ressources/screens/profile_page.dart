@@ -1,12 +1,12 @@
+import 'home.dart';
+import '../loader.dart';
+import '../assets/colors.dart';
+import '../../models/transaction_data.dart';
+import '../../services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../services/authentication.dart';
-import '../assets/colors.dart';
-import '../loader.dart';
-import 'home.dart';
 
 final AuthenticationService _auth = AuthenticationService();
 
@@ -19,11 +19,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late Future<String> balance;
+  late Future<List<TransactionData>> transactions;
 
   @override
   void initState() {
     super.initState();
     balance = Home.user!.getBalance();
+    transactions = Home.user!.getTransactions();
   }
 
   @override
@@ -50,7 +52,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: FutureBuilder<String>(
                       future: balance,
                       builder: (context, snapshot) {
-                        if (snapshot.hasError) print(snapshot.error);
                         return snapshot.hasData
                             ? Text('Votre solde est de ${snapshot.data} €',
                                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
@@ -92,6 +93,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundColor: MaterialStateProperty.all(Colors.transparent),
                           ),
                         ),
+                      )),
+                  Container(
+                      padding: const EdgeInsets.only(left: 55, right: 55),
+                      width: double.infinity,
+                      child: FutureBuilder<List<TransactionData>>(
+                        future: transactions,
+                        builder: _buildTransactions,
                       )),
                   Container(
                       padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
@@ -152,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: GoogleFonts.poppins(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w300),
                           ),
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                            backgroundColor: MaterialStateProperty.all(Colors.transparent),
                           ),
                         ),
                       )),
@@ -187,7 +195,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)),
-                    (Route<dynamic> route) => false,
+                (Route<dynamic> route) => false,
               );
             } else {
               Fluttertoast.showToast(
@@ -201,5 +209,32 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ],
     );
+  }
+
+  Widget _buildTransactions(BuildContext context, AsyncSnapshot<List<TransactionData>> snapshot) {
+    if (snapshot.hasData) {
+      return ListView.builder(
+        itemCount: snapshot.data!.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        physics: const ScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              title: Text(TransactionData.transform(snapshot.data![index].category)),
+              subtitle: Text(snapshot.data![index].date),
+              trailing: Text("${snapshot.data![index].amount.toString()}€"),
+            ),
+          );
+        },
+      );
+    } else if (snapshot.hasError) {
+      return Text('Aucune transaction trouvée',
+          style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400));
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
   }
 }
