@@ -66,8 +66,7 @@ class _RegisterState extends State<Register> {
       padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: passwordController,
-        validator: (value) =>
-            AuthenticationService.validatePassword(value!, null),
+        validator: (value) => AuthenticationService.validatePassword(value!, null),
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -102,8 +101,7 @@ class _RegisterState extends State<Register> {
       child: TextFormField(
         controller: passwordConfirmController,
         obscureText: true,
-        validator: (value) => AuthenticationService.validatePassword(
-            value!, passwordController.text),
+        validator: (value) => AuthenticationService.validatePassword(value!, passwordController.text),
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -136,8 +134,7 @@ class _RegisterState extends State<Register> {
       padding: const EdgeInsets.only(top: 30),
       child: TextFormField(
         controller: lastNameController,
-        validator: (value) =>
-            value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
+        validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -170,8 +167,7 @@ class _RegisterState extends State<Register> {
       padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
         controller: firstNameController,
-        validator: (value) =>
-            value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
+        validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
           color: Colors.white,
           fontSize: 15,
@@ -232,7 +228,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  /*Widget _studentCardField() {
+  Widget _studentCardField() {
     return Container(
       padding: const EdgeInsets.only(top: 15),
       child: TextFormField(
@@ -264,7 +260,7 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
-  }*/
+  }
 
   Widget _submitBtn() {
     return Container(
@@ -281,10 +277,10 @@ class _RegisterState extends State<Register> {
             final String lastName = lastNameController.text;
             final String firstName = firstNameController.text;
             final String numTel = numTelController.text;
+            final String carteEtu = carteEtuController.text;
             //if(_auth.userExists(phone) || )
             //final String carteEtu = carteEtuController.text;
-            var user = await _auth.register(
-                email, password, lastName, firstName, numTel);
+            var user = await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
             setState(() {
               Home.loading = false;
             });
@@ -306,12 +302,7 @@ class _RegisterState extends State<Register> {
               setState(() {
                 error = "";
                 Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Login(
-                            message:
-                                "Inscription effectuée, veuillez vous connecter")),
-                    (route) => false);
+                    context, MaterialPageRoute(builder: (context) => const Login(message: "Inscription effectuée, vérifiez vos mails afin d'activer votre compte")), (route) => false);
               });
             }
           }
@@ -323,8 +314,7 @@ class _RegisterState extends State<Register> {
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(buttonBlueColor),
             padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)))),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
       ),
     );
   }
@@ -361,7 +351,7 @@ class _RegisterState extends State<Register> {
                         _lastnameField(),
                         _firstnameField(),
                         _phoneField(),
-                        //TODO TEMPORARY REMOVED _studentCardField(),
+                        _studentCardField(),
                         _submitBtn(),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
