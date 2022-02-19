@@ -15,8 +15,16 @@ router.post('/place-order', authMiddleware, async (req, res) => {
         response.user_id = req.user.uid;
         //Calcul du total de la commande depuis la BDD
         let total = 0;
-        let prices = await Promise.all(req.body.items.map(async (product) => total += Math.max(product['qte'], 0) * (await (await db.collection('products').doc(`${product['product_id']}`).get()).data()).price));
-        response.total = prices.reduce((acc, curr) => acc + curr, 0);
+        let prices = await Promise.all(req.body.items.map(async (product) => total += Math.max(product['qte'], 0) * (await (await db.collection('products').doc(`${product['product_id']}`).get()).data())['price']));
+        response.total = parseFloat(prices.reduce((acc, curr) => acc + curr, 0).toFixed(2));
+        await createTransactionForUser(req.user, -(response.total), "BILLING", "PRODUCTS");
+        //On crée la commande dans la BDD
+        /*let order = await db.collection('orders').add({
+            user_id: req.user.uid,
+            items: req.body.items,
+            total: response.total,
+            status: "PENDING"
+        });*/
         const date = new Date();
         response.timestamp = `${date.getFullYear()}-${date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth()}-${date.getDate() > 9 ? date.getDate() : "0" + date.getDate()} ${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()}:${date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds()}`;
         //On retourne l'objet réponse
@@ -45,7 +53,7 @@ router.patch('/add-funds', authMiddleware, async (req, res) => {
             });
         await createTransactionForUser(req.user, amount, "TRANSFER", "ADD");
         //On ajoute le montant au solde de l'utilisateur
-        user.balance += amount;
+        user.balance = parseFloat((user.balance + amount).toFixed(2));
         //On met à jour l'utilisateur dans la BDD
         await db.collection('users').doc(`${req.user.uid}`).set(user);
         //On retourne la réponse avec le nouveau solde
@@ -65,13 +73,11 @@ router.patch('/add-funds', authMiddleware, async (req, res) => {
 router.patch('/remove-funds', authMiddleware, async (req, res) => {
     try {
         //On récupère le montant passé dans la requête
-        console.log(req.body.amount)
         const amount = parseFloat(req.body.amount);
-        console.log(amount)
         //On récupère l'utilisateur depuis firestore
         let user = await (await db.collection('users').doc(`${req.user.uid}`).get()).data();
         //On effectue des verifications
-        if (!amount || isNaN(amount))
+        if (!amount || isNaN(amount) || amount <= 0)
             return res.status(400).send({
                 success: false, error: "Bad request, change the amount"
             });
@@ -81,7 +87,7 @@ router.patch('/remove-funds', authMiddleware, async (req, res) => {
             });
         await createTransactionForUser(req.user, -(amount), "TRANSFER", "REMOVE");
         //On ajoute le montant au solde de l'utilisateur
-        user.balance -= amount;
+        user.balance = parseFloat((user.balance - amount).toFixed(2));
         //On met à jour l'utilisateur dans la BDD
         await db.collection('users').doc(`${req.user.uid}`).set(user);
         //On retourne la réponse avec le nouveau solde
@@ -116,7 +122,7 @@ router.get('/balance', authMiddleware, async (req, res) => {
 //Route correspondant à la récupération de l'historique des commandes d'un utilisateur (/api/order-history/)
 router.get('/order-history', authMiddleware, async (req, res) => {
     try {
-        //On récupère toutes les commandes ayant l'uid de l'utilisateu
+        //On récupère toutes les commandes ayant l'uid de l'utilisateur
         const data = [];
         const orderCollections = db.collection('orders')
         const snapshot = await orderCollections.where('user_id', '==', `${req.user.uid}`).get();
@@ -132,6 +138,31 @@ router.get('/order-history', authMiddleware, async (req, res) => {
                 order.items.push(item.data())
             }
             data.push(doc.id, order)
+        }
+        return res.status(200).send({
+            success: true, history: data
+        });
+    } catch (e) {
+        console.error(e)
+        //En cas d'erreur, on retourne une autre réponse
+        return res.status(500).send({
+            success: false, error: "Internal server error"
+        });
+    }
+});
+
+//Route correspondant à la récupération de l'historique des transactions d'un utilisateur (/api/transactions-history/)
+router.get('/transactions-history', authMiddleware, async (req, res) => {
+    try {
+        const data = [];
+        //On récupère toutes les transactions de l'utilisateur
+        const snapshot = await db.collection('users').doc(`${req.user.uid}`).collection('transactions').limit(parseInt(req.query.limit) ?? 0).get();
+        //Si aucune transaction n'a été trouvée, on retourne un message
+        if (snapshot.empty) return res.status(200).send({
+            success: true, history: "No recent transactions"
+        });
+        for (let doc of snapshot.docs) {
+            data.push(doc.data())
         }
         return res.status(200).send({
             success: true, history: data
