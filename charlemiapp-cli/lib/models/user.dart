@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class AppUser {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -40,4 +44,22 @@ class AppUser {
     }
     return false;
   }
+
+  Future<String> getBalance() async{
+    var response = await http.get(Uri.parse('https://europe-west1-charlemi-app.cloudfunctions.net/api/balance'), headers: {
+      'x-auth-token': uid
+    });
+    return response.statusCode == 200 ? NumberFormat("0.00", "fr_FR").format(jsonDecode(response.body)["balance"]) : '--';
+  }
+
+  updateBalance(double amount) {
+    firestore.collection('users').doc(uid).update({
+      'balance': amount
+    });
+  }
+
+  delete() async {
+    await firestore.collection('users').doc(uid).delete();
+  }
+
 }

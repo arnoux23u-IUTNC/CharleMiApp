@@ -1,3 +1,5 @@
+import 'package:charlemiapp_cli/ressources/screens/home.dart';
+
 import '../models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -118,5 +120,10 @@ class AuthenticationService {
     } else {
       return null;
     }
+  }
+
+  deleteAccount() async {
+    await Home.user!.delete();
+    await _auth.currentUser?.delete();
   }
 }

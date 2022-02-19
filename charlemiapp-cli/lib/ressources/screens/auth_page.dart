@@ -46,15 +46,13 @@ class _AuthPageState extends State<AuthPage> {
               Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(
-                        left: 55, right: 55, top: 30, bottom: 15),
+                    padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()),
+                          MaterialPageRoute(builder: (context) => const Login()),
                         );
                       },
                       child: const Text(
@@ -62,18 +60,13 @@ class _AuthPageState extends State<AuthPage> {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(buttonBlueColor),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.all(17)),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)))),
+                          backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
                     ),
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                    padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
                     child: TextButton(
                       child: const Text(
                         "Inscription",
@@ -82,8 +75,7 @@ class _AuthPageState extends State<AuthPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Register()),
+                          MaterialPageRoute(builder: (context) => const Register()),
                         );
                       },
                     ),
