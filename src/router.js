@@ -177,11 +177,11 @@ router.get('/transactions-history', authMiddleware, async (req, res) => {
 });
 
 //Route correspondant à la récupération de la liste des produits (/api/products-list/)
-router.get('/products-list', authMiddleware, async (req, res) => {
+router.get('/products-list', async (req, res) => {
     try {
         const data = [];
         //On récupère toutes les transactions de l'utilisateur
-        const snapshot = await db.collection('productsg').get();
+        const snapshot = await db.collection('products').get();
         //Si aucune transaction n'a été trouvée, on retourne un message
         if (snapshot.empty) return res.status(200).send({
             success: true, list: "No products found"
