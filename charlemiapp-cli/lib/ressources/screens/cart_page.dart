@@ -58,9 +58,13 @@ class _CartScreenState extends State<CartScreen> {
 
     for (Product element in items) {
       res.add(Container(
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(left: 55, right: 55, top: 20),
+        width: double.infinity,
         child: Container(
-          color: midDarkColor,
+          decoration:  const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            color: midDarkColor,
+          ),
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           child: Text(
             element.getName,
