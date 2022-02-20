@@ -15,7 +15,11 @@ class CartItemsBloc {
       Product(id: "0005", name: "Sandwich Fermier", price: 9.0),
       Product(id: "0006", name: "Sandwich Fermier", price: 9.0),
     ],
-    'cart_items': []
+    'cart_items': [
+      Product(id: "0007", name: "Sandwich F", price: 12.0),
+      Product(id: "0008", name: "Sandwich P", price: 15.5),
+      Product(id: "0008", name: "Sandwich K", price: 5.5),
+      ]
   };
 
   final cartList = ["cart_items"];
