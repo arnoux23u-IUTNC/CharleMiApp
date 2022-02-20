@@ -64,6 +64,14 @@ class _CartScreenState extends State<CartScreen> {
           decoration:  const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12)),
             color: midDarkColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                offset: Offset(3, 3),
+                blurRadius: 1,
+                spreadRadius: 0,
+              ),
+            ],
           ),
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           child: Text(
