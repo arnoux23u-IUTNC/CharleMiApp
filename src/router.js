@@ -26,7 +26,7 @@ router.post('/place-order', authMiddleware, async (req, res) => {
             status: "PENDING"
         });*/
         const date = new Date();
-        response.timestamp = `${date.getFullYear()}-${date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth()}-${date.getDate() > 9 ? date.getDate() : "0" + date.getDate()} ${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()}:${date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds()}`;
+        response.timestamp = `${date.getFullYear()}-${(date.getMonth() +1) > 9 ? (date.getMonth() +1) : "0" + (date.getMonth() +1)}-${date.getDate() > 9 ? date.getDate() : "0" + date.getDate()} ${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()}:${date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds()}`;
         //On retourne l'objet réponse
         return res.status(200).send({
             success: true, order: response
