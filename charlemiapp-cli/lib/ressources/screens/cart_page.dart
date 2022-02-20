@@ -58,14 +58,15 @@ class _CartScreenState extends State<CartScreen> {
 
     for (Product element in items) {
       res.add(Container(
-        color: midDarkColor,
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-        child: Text(element.getName,
-        style: GoogleFonts.poppins(
-          color: Colors.white,
-          fontSize: 18,
-          fontWeight: FontWeight.w500
-        ),),
+        padding: const EdgeInsets.only(top: 20),
+        child: Container(
+          color: midDarkColor,
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+          child: Text(
+            element.getName,
+            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
       ));
     }
     return res;
