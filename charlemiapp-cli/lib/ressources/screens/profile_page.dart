@@ -31,20 +31,19 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) => Home.loading
       ? const Loader()
-      : Container(
-          height: MediaQuery.of(context).size.height,
-          color: darkColor,
-          child: Scrollbar(
-            child: SingleChildScrollView(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
+      : Column(
+          children: <Widget>[
+            Expanded(
+                child: Container(
+              height: MediaQuery.of(context).size.height,
+              color: darkColor,
+              child: Scrollbar(
+                child: SingleChildScrollView(
+                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   Center(
                       child: Padding(
                     padding: const EdgeInsets.only(top: 40, bottom: 50),
-                    child: Text('Bonjour ${Home.user?.firstName}',
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
+                    child: Text('Bonjour ${Home.user?.firstName}', style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
                   )),
                   Center(
                       child: Padding(
@@ -53,11 +52,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       future: balance,
                       builder: (context, snapshot) {
                         return snapshot.hasData
-                            ? Text('Votre solde est de ${snapshot.data} €',
-                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                            ? Text('Votre solde est de ${snapshot.data} €', style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
                             : snapshot.hasError
-                                ? Text('Votre solde est de -- €',
-                                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                                ? Text('Votre solde est de -- €', style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
                                 : const CircularProgressIndicator();
                       },
                     ),
@@ -75,10 +72,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             Home.loading = false;
                             Home.user = null;
                           }),
-                          Navigator.pushAndRemoveUntil(
-                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                         },
-                        child: ElevatedButton(
+                        child: TextButton(
                           onPressed: () {
                             showDialog(
                               context: context,
@@ -101,6 +97,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         future: transactions,
                         builder: _buildTransactions,
                       )),
+                ])),
+              ),
+            )),
+            Container(
+              color: darkColor,
+              child: Column(
+                children: [
                   Container(
                       padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
                       width: double.infinity,
@@ -114,8 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Home.loading = false;
                             Home.user = null;
                           }),
-                          Navigator.pushAndRemoveUntil(
-                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                         },
                         child: Text(
                           'Se déconnecter',
@@ -139,10 +141,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             Home.loading = false;
                             Home.user = null;
                           }),
-                          Navigator.pushAndRemoveUntil(
-                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                         },
-                        child: ElevatedButton(
+                        child: TextButton(
                           onPressed: () async => {
                             setState(() {
                               Home.loading = true;
@@ -152,8 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Home.loading = false;
                               Home.user = null;
                             }),
-                            Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                           },
                           child: Text(
                             'Supprimer mon compte',
@@ -163,9 +163,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             backgroundColor: MaterialStateProperty.all(Colors.transparent),
                           ),
                         ),
-                      )),
-                ])),
-          ),
+                      ))
+                ],
+              ),
+            )
+          ],
         );
 
   Widget _buildPopupBalance(BuildContext context) {
@@ -229,8 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       );
     } else if (snapshot.hasError) {
-      return Text('Aucune transaction trouvée',
-          style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400));
+      return Text('Aucune transaction trouvée', style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400));
     } else {
       return const Center(
         child: CircularProgressIndicator(),
