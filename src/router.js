@@ -18,15 +18,16 @@ router.post('/place-order', authMiddleware, async (req, res) => {
         let prices = await Promise.all(req.body.items.map(async (product) => total += Math.max(product['qte'], 0) * (await (await db.collection('products').doc(`${product['product_id']}`).get()).data())['price']));
         response.total = parseFloat(prices.reduce((acc, curr) => acc + curr, 0).toFixed(2));
         await createTransactionForUser(req.user, -(response.total), "BILLING", "PRODUCTS");
+        const date = new Date();
+        response.timestamp = `${date.getFullYear()}-${date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth()}-${date.getDate() > 9 ? date.getDate() : "0" + date.getDate()} ${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()}:${date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds()}`;
         //On crée la commande dans la BDD
-        /*let order = await db.collection('orders').add({
+        let order = await db.collection('orders').add({
             user_id: req.user.uid,
             items: req.body.items,
             total: response.total,
-            status: "PENDING"
-        });*/
-        const date = new Date();
-        response.timestamp = `${date.getFullYear()}-${(date.getMonth() +1) > 9 ? (date.getMonth() +1) : "0" + (date.getMonth() +1)}-${date.getDate() > 9 ? date.getDate() : "0" + date.getDate()} ${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()}:${date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds()}`;
+            status: "PENDING",
+            timestamp: response.timestamp
+        });
         //On retourne l'objet réponse
         return res.status(200).send({
             success: true, order: response
