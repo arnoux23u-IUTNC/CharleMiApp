@@ -156,7 +156,7 @@ router.get('/transactions-history', authMiddleware, async (req, res) => {
     try {
         const data = [];
         //On récupère toutes les transactions de l'utilisateur
-        const snapshot = await db.collection('users').doc(`${req.user.uid}`).collection('transactions').limit(parseInt(req.query.limit) ?? 0).get();
+        const snapshot = await db.collection('users').doc(`${req.user.uid}`).collection('transactions').limit(req.query.limit ? parseInt(req.query.limit) : 0).get();
         //Si aucune transaction n'a été trouvée, on retourne un message
         if (snapshot.empty) return res.status(200).send({
             success: true, history: "No recent transactions"
@@ -166,6 +166,31 @@ router.get('/transactions-history', authMiddleware, async (req, res) => {
         }
         return res.status(200).send({
             success: true, history: data
+        });
+    } catch (e) {
+        console.error(e)
+        //En cas d'erreur, on retourne une autre réponse
+        return res.status(500).send({
+            success: false, error: "Internal server error"
+        });
+    }
+});
+
+//Route correspondant à la récupération de la liste des produits (/api/products-list/)
+router.get('/products-list', authMiddleware, async (req, res) => {
+    try {
+        const data = [];
+        //On récupère toutes les transactions de l'utilisateur
+        const snapshot = await db.collection('productsg').get();
+        //Si aucune transaction n'a été trouvée, on retourne un message
+        if (snapshot.empty) return res.status(200).send({
+            success: true, list: "No products found"
+        });
+        for (let doc of snapshot.docs) {
+            data.push(doc.data())
+        }
+        return res.status(200).send({
+            success: true, list: data
         });
     } catch (e) {
         console.error(e)
