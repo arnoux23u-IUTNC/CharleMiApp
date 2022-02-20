@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
         //On récupère l'utilisateur correspondant au token dans firebase
         req.user = await getAuth().getUser(token);
         //Si l'utilisateur est invalide, on renvoie une erreur
-        if (req.user.disabled || (!req.user.emailVerified && RUNNING_PROD)) {
+        if (req.user.disabled || !req.user.emailVerified) {
             return res.status(401).send({success: false, msg: 'No user, authorization denied. Contact admin'});
         }
         next();
