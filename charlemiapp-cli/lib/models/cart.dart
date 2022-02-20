@@ -22,7 +22,11 @@ class CartItemsBloc {
       ]
   };
 
-  final cartList = ["cart_items"];
+  final cartList = [
+    Product(id: "0007", name: "Sandwich F", price: 12.0),
+    Product(id: "0008", name: "Sandwich P", price: 15.5),
+    Product(id: "0008", name: "Sandwich K", price: 5.5),
+  ];
 
   void addToCart(product) {
     int present = 0;

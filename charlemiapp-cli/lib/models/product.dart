@@ -10,6 +10,12 @@ class Product {
 
   Product({required this.id, required this.name, required this.price, this.qte = 0, String? image});
 
+  String get getId => id;
+  String get getName => name;
+  int get getQte => qte;
+  double get getPrice => price;
+  String? get getImage => image;
+
   static Future<List<Product>> getProducts() async {
     var response = await http.get(Uri.parse('https://europe-west1-charlemi-app.cloudfunctions.net/api/products-list'));
     if(response.statusCode == 200) {
@@ -32,5 +38,7 @@ class Product {
         image: jsonObject['image'] as String?
     );
   }
+
+
 
 }

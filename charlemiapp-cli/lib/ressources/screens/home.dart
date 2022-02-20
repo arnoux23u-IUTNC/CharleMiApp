@@ -1,7 +1,7 @@
 import 'auth_page.dart';
 import 'no_internet.dart';
 import 'browser_page.dart';
-import 'overview_page.dart';
+import 'cart_page.dart';
 import '../assets/colors.dart';
 import '../../models/user.dart';
 import '../assets/app_icons.dart';
@@ -22,7 +22,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   late int _selectedIndex = widget.selectedScreen;
 
-  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), Overview(), AuthBuilder()];
+  static const List<Widget> _widgetOptions = <Widget>[BrowserPage(), CartScreen(), AuthBuilder()];
 
   void _onItemTapped(int index) {
     setState(() {
