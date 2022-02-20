@@ -130,6 +130,7 @@ vendor/
 #Google
 charlemi-app-*.json
 google-services.json
+functions/
 
 # Logs
 logs
