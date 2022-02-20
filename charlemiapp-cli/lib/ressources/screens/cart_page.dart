@@ -1,5 +1,6 @@
 import 'package:charlemiapp_cli/models/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/product.dart';
 import '../assets/colors.dart';
@@ -25,11 +26,27 @@ class _CartScreenState extends State<CartScreen> {
             child: SingleChildScrollView(
               child: Center(
                   child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: _buildElements(),
               )),
             ),
           ),
-        ))
+        )),
+        Container(
+            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () async => {},
+              child: Text(
+                'Valider',
+                style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+              ),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                  padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+            ))
       ]),
     );
   }
@@ -42,7 +59,13 @@ class _CartScreenState extends State<CartScreen> {
     for (Product element in items) {
       res.add(Container(
         color: midDarkColor,
-        child: Text(element.getName),
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        child: Text(element.getName,
+        style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.w500
+        ),),
       ));
     }
     return res;
