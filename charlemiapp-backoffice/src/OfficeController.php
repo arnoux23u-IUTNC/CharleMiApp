@@ -2,14 +2,12 @@
 
 namespace charlemiapp;
 
-use charlemiapp\views\{HomeView, LoginView};
-use Kreait\Firebase\Exception\Auth\EmailNotFound;
-use Kreait\Firebase\Exception\Auth\InvalidCustomToken;
-use Kreait\Firebase\Exception\Auth\UserNotFound;
-use Lcobucci\JWT\Exception;
 use Slim\Container;
 use Slim\Http\{Request, Response};
+use charlemiapp\views\{HomeView, LoginView, StocksView};
 use Slim\Exception\MethodNotAllowedException;
+use Kreait\Firebase\Exception\Auth\UserNotFound;
+use Kreait\Firebase\Exception\Auth\InvalidCustomToken;
 
 class OfficeController
 {
@@ -34,12 +32,8 @@ class OfficeController
             $orderData = $order->data();
             $orders[$orderData["status"] ?? "ABANDONED"][$order->id()] = $order->data();
         }
-        /*$pendingOrders = $orders->where('status', '==', 'PENDING')->documents();
-        $waitingOrders = $orders->where('status', '==', 'WAITING')->documents();
-        $readyOrders = $orders->where('status', '==', 'READY')->documents();
-        $finishedOrders = $orders->where('status', '==', 'FINISHED')->documents();
-        $canceledOrders = $orders->where('status', '==', 'CANCELED')->documents();*/
-        return $response->write($view->render($orders));
+        $is_open = $this->container['firestore']->collection('global_data')->document('charlemiam')->snapshot()->data()['is_open'] ?? false;
+        return $response->write($view->render($orders, $is_open));
     }
 
     public function login(Request $request, Response $response, array $args): Response
@@ -70,8 +64,6 @@ class OfficeController
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
                     } catch (\Exception) {
-                        $_SESSION = [];
-                        session_regenerate_id(true);
                         return $response->write($view->render(['error' => 'Wrong password or bad computer clock sync.']));
                     }
                 } catch (UserNotFound) {
@@ -84,6 +76,8 @@ class OfficeController
 
     public function profile(Request $request, Response $response, array $args): Response
     {
+        if (empty($_SESSION['USER_UID']))
+            return $response->withRedirect($this->container['router']->pathFor('login'));
         foreach ($_SESSION as $key => $value) {
             print_r($key . ': ' . $value . '<br>');
         }
@@ -94,6 +88,53 @@ class OfficeController
     {
         session_destroy();
         return $response->withRedirect($this->container['router']->pathFor('login'));
+    }
+
+    public function changeOpening(Request $request, Response $response, array $args): Response
+    {
+        if (empty($_SESSION['USER_UID']))
+            return $response->withRedirect($this->container['router']->pathFor('login'));
+        $need_open = $request->getParsedBody()['open'] === "open";
+        $this->container['firestore']->collection('global_data')->document('charlemiam')->update([
+            ['path' => 'is_open', 'value' => $need_open]
+        ]);
+        return $response->withRedirect($this->container['router']->pathFor('home'));
+    }
+
+    public function changeOrderData(Request $request, Response $response, array $args): Response
+    {
+        if (empty($_SESSION['USER_UID']))
+            return $response->withRedirect($this->container['router']->pathFor('login'));
+        $data = $request->getParsedBody();
+        $order_id = $data['cardId'];
+        $order_status = $data['columnId'];
+        $this->container['firestore']->collection('orders')->document($order_id)->update([
+            ['path' => 'status', 'value' => $order_status]
+        ]);
+        return $response->write(json_encode($request->getParsedBody()));
+    }
+
+    public function stocks(Request $request, Response $response, array $args): Response
+    {
+        if (empty($_SESSION['USER_UID']))
+            return $response->withRedirect($this->container['router']->pathFor('login'));
+        switch ($request->getMethod()) {
+            case 'GET':
+                $view = new StocksView($this->container);
+                $products = [];
+                foreach ($this->container['firestore']->collection('products')->documents() as $product) {
+                    $products[] = $product->data();
+                }
+                return $response->write($view->render($products));
+            case 'POST':
+                $data = $request->getParsedBody();
+                $this->container['firestore']->collection('products')->document($data['id'])->update([
+                    ['path' => 'stock', 'value' => $data['stock']]
+                ]);
+                return $response->withRedirect($this->container['router']->pathFor('stocks'));
+            default:
+                throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
+        }
     }
 
 }
