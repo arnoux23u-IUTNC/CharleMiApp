@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'home.dart';
 import '../loader.dart';
 import '../assets/colors.dart';
@@ -39,65 +41,73 @@ class _ProfilePageState extends State<ProfilePage> {
               color: darkColor,
               child: Scrollbar(
                 child: SingleChildScrollView(
-                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  Center(
-                      child: Padding(
-                    padding: const EdgeInsets.only(top: 40, bottom: 50),
-                    child: Text('Bonjour ${Home.user?.firstName}', style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
-                  )),
-                  Center(
-                      child: Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: FutureBuilder<String>(
-                      future: balance,
-                      builder: (context, snapshot) {
-                        return snapshot.hasData
-                            ? Text('Votre solde est de ${snapshot.data} €', style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                            : snapshot.hasError
-                                ? Text('Votre solde est de -- €', style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                                : const CircularProgressIndicator();
-                      },
-                    ),
-                  )),
-                  Container(
-                      padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: () async => {
-                          setState(() {
-                            Home.loading = true;
-                          }),
-                          await _auth.signOut(),
-                          setState(() {
-                            Home.loading = false;
-                            Home.user = null;
-                          }),
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
-                        },
-                        child: TextButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => _buildPopupBalance(context),
-                            );
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                      Center(
+                          child: Padding(
+                        padding: const EdgeInsets.only(top: 40, bottom: 50),
+                        child: Text('Bonjour ${Home.user?.firstName}',
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
+                      )),
+                      Center(
+                          child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: FutureBuilder<String>(
+                          future: balance,
+                          builder: (context, snapshot) {
+                            return snapshot.hasData
+                                ? Text('Votre solde est de ${snapshot.data} €',
+                                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                                : snapshot.hasError
+                                    ? Text('Votre solde est de -- €',
+                                        style:
+                                            GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                                    : const CircularProgressIndicator();
                           },
-                          child: Text(
-                            'Modifier mon solde',
-                            style: GoogleFonts.poppins(color: colorAmbre, fontSize: 15, fontWeight: FontWeight.w300),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                          ),
                         ),
                       )),
-                  Container(
-                      padding: const EdgeInsets.only(left: 55, right: 55),
-                      width: double.infinity,
-                      child: FutureBuilder<List<TransactionData>>(
-                        future: transactions,
-                        builder: _buildTransactions,
-                      )),
-                ])),
+                      Container(
+                          padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () async => {
+                              setState(() {
+                                Home.loading = true;
+                              }),
+                              await _auth.signOut(),
+                              setState(() {
+                                Home.loading = false;
+                                Home.user = null;
+                              }),
+                              Navigator.pushAndRemoveUntil(context,
+                                  MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                            },
+                            child: TextButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => _buildPopupBalance(context),
+                                );
+                              },
+                              child: Text(
+                                'Modifier mon solde',
+                                style: GoogleFonts.poppins(color: colorAmbre, fontSize: 15, fontWeight: FontWeight.w300),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                              ),
+                            ),
+                          )),
+                      Container(
+                          padding: const EdgeInsets.only(left: 55, right: 55),
+                          width: double.infinity,
+                          child: FutureBuilder<List<TransactionData>>(
+                            future: transactions,
+                            builder: _buildTransactions,
+                          )),
+                    ])),
               ),
             )),
             Container(
@@ -117,7 +127,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             Home.loading = false;
                             Home.user = null;
                           }),
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                          Navigator.pushAndRemoveUntil(
+                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                         },
                         child: Text(
                           'Se déconnecter',
@@ -141,7 +152,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             Home.loading = false;
                             Home.user = null;
                           }),
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                          Navigator.pushAndRemoveUntil(
+                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                         },
                         child: TextButton(
                           onPressed: () async => {
@@ -153,7 +165,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               Home.loading = false;
                               Home.user = null;
                             }),
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                            Navigator.pushAndRemoveUntil(
+                                context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
                           },
                           child: Text(
                             'Supprimer mon compte',
@@ -225,13 +238,15 @@ class _ProfilePageState extends State<ProfilePage> {
             child: ListTile(
               title: Text(TransactionData.transform(snapshot.data![index].category)),
               subtitle: Text(snapshot.data![index].date),
-              trailing: Text("${snapshot.data![index].amount.toString()}€"),
+              trailing: Text("${NumberFormat('0.00', 'fr_FR').format(snapshot.data![index].amount)}€"),
             ),
           );
         },
       );
     } else if (snapshot.hasError) {
-      return Text('Aucune transaction trouvée', style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400));
+      return Center(
+          child: Text('Aucune transaction récente',
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
     } else {
       return const Center(
         child: CircularProgressIndicator(),

@@ -1,4 +1,3 @@
-import 'package:charlemiapp_cli/ressources/screens/home.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
