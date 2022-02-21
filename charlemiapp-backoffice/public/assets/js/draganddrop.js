@@ -20,11 +20,24 @@ const drag = event => {
 };
 
 const drop = event => {
-    document.querySelectorAll('.column').forEach(column => column.classList.remove('drop'));
-    document.querySelector(`[data-id="${event.dataTransfer.getData('text/plain')}"]`).remove();
+    try{
+        document.querySelectorAll('.column').forEach(column => column.classList.remove('drop'));
+        document.querySelector(`[data-id="${event.dataTransfer.getData('text/plain')}"]`).remove();
+        event.preventDefault();
+        event.currentTarget.innerHTML = event.currentTarget.innerHTML + event.dataTransfer.getData('text/html');
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `/change-card-data/`);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.addEventListener('load', (event) => {
+            location.reload();
+        });
+        xhr.send(JSON.stringify({
+            cardId: event.dataTransfer.getData('text/plain'),
+            columnId: event.currentTarget.dataset.colId.toUpperCase()
+        }));
+    }catch (err){
 
-    event.preventDefault();
-    event.currentTarget.innerHTML = event.currentTarget.innerHTML + event.dataTransfer.getData('text/html');
+    }
 };
 
 const allowDrop = event => {
@@ -37,14 +50,21 @@ document.querySelectorAll('.column').forEach(column => {
 });
 
 document.addEventListener('dragstart', e => {
-    if (e.target.className.includes('card')) {
-        dragStart(e.target);
+    try {
+        if (e.target.className.includes('card')) {
+            dragStart(e.target);
+        }
+    } catch (err) {
     }
 });
 
 document.addEventListener('dragend', e => {
-    if (e.target.className.includes('card')) {
-        dragEnd(e.target);
+    console.log('dragEnd');
+    try {
+        if (e.target.className.includes('card')) {
+            dragEnd(e.target);
+        }
+    } catch (err) {
     }
 });
 

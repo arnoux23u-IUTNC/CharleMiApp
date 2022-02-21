@@ -1,0 +1,10 @@
+html {
+    background: #222;
+    color: #FFF;
+}
+
+.board {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
