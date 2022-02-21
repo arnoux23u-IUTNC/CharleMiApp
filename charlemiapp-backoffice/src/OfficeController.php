@@ -66,11 +66,13 @@ class OfficeController
                             $_SESSION['USER_UID'] = $user;
                             $_SESSION['SESSION_UUID'] = $token;
                             return $response->withRedirect($this->container['router']->pathFor('home'));
-                        } catch (InvalidCustomToken | \InvalidArgumentException $e) {
+                        } catch (InvalidCustomToken | \InvalidArgumentException) {
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
                     } catch (\Exception) {
-                        return $response->write($view->render(['error' => 'Wrong password.']));
+                        $_SESSION = [];
+                        session_regenerate_id(true);
+                        return $response->write($view->render(['error' => 'Wrong password or bad computer clock sync.']));
                     }
                 } catch (UserNotFound) {
                     return $response->write($view->render(['error' => 'User not found.']));
