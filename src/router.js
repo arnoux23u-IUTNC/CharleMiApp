@@ -202,4 +202,49 @@ router.get('/products-list', async (req, res) => {
     }
 });
 
+//Route correspondant à la vérification d'ouverture de la cafétaria (/api/is-open/)
+router.get('/is-open', async (req, res) => {
+    try {
+        //On récupère une variable en BDD
+        const snapshot = await db.collection('global_data').doc('charlemiam').get();
+        if (snapshot.empty) return res.status(200).send({
+            success: true, open: false
+        });
+        else return res.status(200).send({
+            success: true, open: (snapshot.data()['is_open'] === true) ?? false
+        });
+    } catch (e) {
+        console.error(e)
+        //En cas d'erreur, on retourne une autre réponse
+        return res.status(500).send({
+            success: false, error: "Internal server error"
+        });
+    }
+});
+
+//Route correspondant à la gestion d'ouverture de la cafétaria (/api/set-opening/)
+router.patch('/set-opening', async (req, res) => {
+    try {
+        const open = req.body['opened'] === "true" ?? false;
+        const document = await db.collection('global_data').doc('charlemiam');
+        if (document.get().empty) return res.status(200).send({
+            success: true, updated: false
+        });
+        else {
+            await document.update({
+                is_open: open
+            });
+            return res.status(200).send({
+                success: true, updated: true
+            });
+        }
+    } catch (e) {
+        console.error(e)
+        //En cas d'erreur, on retourne une autre réponse
+        return res.status(500).send({
+            success: false, error: "Internal server error"
+        });
+    }
+});
+
 module.exports = router;
