@@ -31,10 +31,25 @@ $container['errorHandler'] = function () use ($container) {
 };
 $app = new App($container);
 
-$app->get('/logout', function (Request $request, Response $response, array $args) {
+$app->any('/remove-product[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->stocks($request, $response, $args);
+})->setName('removeProduct');
+$app->any('/add-product[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->stocks($request, $response, $args);
+})->setName('addProduct');
+$app->any('/stocks[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->stocks($request, $response, $args);
+})->setName('stocks');
+$app->post('/change-card-data[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->changeOrderData($request, $response, $args);
+});
+$app->post('/change-opening[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->changeOpening($request, $response, $args);
+})->setName('openSet');
+$app->get('/logout[/]', function (Request $request, Response $response, array $args) {
     return (new OfficeController($this))->logout($request, $response, $args);
 })->setName('logout');
-$app->any('/login', function (Request $request, Response $response, array $args) {
+$app->any('/login[/]', function (Request $request, Response $response, array $args) {
     return (new OfficeController($this))->login($request, $response, $args);
 })->setName('login');
 $app->get('/', function (Request $request, Response $response, array $args) {
@@ -71,6 +86,7 @@ function genererHeader(string $title, array $styles = []): string
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="/assets/css/global.css"/>
         <title>$title</title>
     EOD;
     foreach ($styles as $style)
