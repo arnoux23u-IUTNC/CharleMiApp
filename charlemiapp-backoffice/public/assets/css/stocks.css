@@ -1,0 +1,25 @@
+.product{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+
+.products{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+input[type=number] {
+    width: 20%;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.out-of-stock{
+    background-color: red;
+}
+
+.in-stock{
+    background-color: green;
+}
