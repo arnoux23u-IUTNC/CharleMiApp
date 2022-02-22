@@ -1,0 +1,303 @@
+[
+  {
+    "id": "P0001",
+    "name": "Pain chocolat",
+    "price": 0.80,
+    "stock": 0,
+    "category": "Viennoiseries"
+  },
+  {
+    "id": "P0002",
+    "name": "Croissant",
+    "price": 0.70,
+    "stock": 0,
+    "category": "Viennoiseries"
+  },
+  {
+    "id": "P0003",
+    "name": "Pain raisin",
+    "price": 0.90,
+    "stock": 0,
+    "category": "Viennoiseries"
+  },
+  {
+    "id": "P0004",
+    "name": "Choco suisse",
+    "price": 1.10,
+    "stock": 0,
+    "category": "Viennoiseries"
+  },
+  {
+    "id": "P0005",
+    "name": "Petit café",
+    "price": 0.70,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0006",
+    "name": "Grand café",
+    "price": 0.95,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0007",
+    "name": "Petit crème",
+    "price": 0.85,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0008",
+    "name": "Grand crème",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0009",
+    "name": "Thé",
+    "price": 0.90,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0010",
+    "name": "Chocolat",
+    "price": 1.20,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0011",
+    "name": "Cafe liégeois",
+    "price": 1.30,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0012",
+    "name": "Chocolat viennois",
+    "price": 1.25,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0013",
+    "name": "Eau Cristalline plate",
+    "price": 0.60,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0014",
+    "name": "Eau Cristalline pétillante",
+    "price": 0.70,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0015",
+    "name": "Coca Cola",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0016",
+    "name": "Coca Cola Cherry",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0017",
+    "name": "Coca Cola Zero",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0018",
+    "name": "Fanta Orange",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0019",
+    "name": "Fanta Citron",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0020",
+    "name": "Minute Maid",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0021",
+    "name": "Oasis",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0022",
+    "name": "Fuze Tea",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0023",
+    "name": "Soda 50cl",
+    "price": 1.70,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0024",
+    "name": "Powerade",
+    "price": 1.80,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
+    "id": "P0025",
+    "name": "Le Fermier",
+    "price": 3.00,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0026",
+    "name": "Le Bagnat",
+    "price": 3.00,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0027",
+    "name": "Le Vegetarien",
+    "price": 2.80,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0028",
+    "name": "Le Jambon/Emmental",
+    "price": 2.40,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0029",
+    "name": "Panini Poulet",
+    "price": 3.10,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0030",
+    "name": "Panini Fromage",
+    "price": 3.10,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0031",
+    "name": "Panini Lardon-Raclette",
+    "price": 3.10,
+    "stock": 0,
+    "category": "Sandwichs"
+  },
+  {
+    "id": "P0032",
+    "name": "Wrap Poulet",
+    "price": 2.50,
+    "stock": 0,
+    "category": "Petite faim"
+  },
+  {
+    "id": "P0033",
+    "name": "Wrap Thon",
+    "price": 2.50,
+    "stock": 0,
+    "category": "Petite faim"
+  },
+  {
+    "id": "P0034",
+    "name": "Pasta Box",
+    "price": 3.10,
+    "stock": 0,
+    "category": "Plats chauds"
+  },
+  {
+    "id": "P0035",
+    "name": "Pasta Box Bollo Balls XL",
+    "price": 3.50,
+    "stock": 0,
+    "category": "Plats chauds"
+  },
+  {
+    "id": "P0036",
+    "name": "Pizza Part",
+    "price": 2.30,
+    "stock": 0,
+    "category": "Plats chauds"
+  },
+  {
+    "id": "P0037",
+    "name": "Yaourt Mamie Nova",
+    "price": 1.25,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0038",
+    "name": "Yop a boire",
+    "price": 1.50,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0039",
+    "name": "Gourde de compote",
+    "price": 0.90,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0040",
+    "name": "Donut nature",
+    "price": 0.80,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0041",
+    "name": "Donut fourre",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0042",
+    "name": "Donut nappe Daim",
+    "price": 1.40,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0043",
+    "name": "Donut nappe Milka",
+    "price": 1.40,
+    "stock": 0,
+    "category": "Desserts"
+  }
+]
