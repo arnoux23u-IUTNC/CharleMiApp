@@ -1,8 +1,9 @@
+import 'cart_page.dart';
 import 'auth_page.dart';
 import 'no_internet.dart';
 import 'browser_page.dart';
-import 'cart_page.dart';
 import '../assets/colors.dart';
+import '../../models/cart.dart';
 import '../../models/user.dart';
 import '../assets/app_icons.dart';
 import '../navigation/appbar_noback.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_offline/flutter_offline.dart';
 class Home extends StatefulWidget {
   const Home({Key? key, this.selectedScreen = 0}) : super(key: key);
   static bool loading = false;
+  static Cart cart = Cart();
   static AppUser? user;
   final int selectedScreen;
 

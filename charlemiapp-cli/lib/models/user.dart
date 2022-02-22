@@ -1,3 +1,4 @@
+import '../ressources/assets/const.dart';
 import '../models/transaction_data.dart';
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -47,8 +48,7 @@ class AppUser {
   }
 
   Future<String> getBalance() async {
-    var response = await http
-        .get(Uri.parse('https://europe-west1-charlemi-app.cloudfunctions.net/api/balance'), headers: {'x-auth-token': uid});
+    var response = await http.get(Uri.parse(urlAPI + '/balance'), headers: {'x-auth-token': uid});
     return response.statusCode == 200 ? NumberFormat("0.00", "fr_FR").format(jsonDecode(response.body)["balance"]) : '--';
   }
 
@@ -61,13 +61,11 @@ class AppUser {
   }
 
   Future<List<TransactionData>> getTransactions() async {
-    var response = await http
-        .get(Uri.parse('https://europe-west1-charlemi-app.cloudfunctions.net/api/transactions-history/?limit=5'), headers: {'x-auth-token': uid});
-    if(response.statusCode == 200) {
-      if(jsonDecode(response.body)["history"] == "No recent orders") {
+    var response = await http.get(Uri.parse(urlAPI + '/transactions-history/?limit=5'), headers: {'x-auth-token': uid});
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["history"] == "No recent orders") {
         return List<TransactionData>.empty();
-      }
-      else{
+      } else {
         return List<TransactionData>.from(jsonDecode(response.body)["history"].map((e) => TransactionData.fromJson(e)));
       }
     }
