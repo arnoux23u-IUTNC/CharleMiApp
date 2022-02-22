@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const authMiddleware = require('./middleware/auth');
 const {getFirestore} = require("firebase-admin/firestore");
+const {client, sendWarn} = require('./discord.js');
 const {createTransactionForUser} = require("./utils");
 
 const db = getFirestore();
@@ -21,7 +22,7 @@ router.post('/place-order', authMiddleware, async (req, res) => {
         const date = new Date();
         response.timestamp = `${date.getFullYear()}-${date.getMonth() > 9 ? date.getMonth() : "0" + date.getMonth()}-${date.getDate() > 9 ? date.getDate() : "0" + date.getDate()} ${date.getHours() > 9 ? date.getHours() : "0" + date.getHours()}:${date.getMinutes() > 9 ? date.getMinutes() : "0" + date.getMinutes()}:${date.getSeconds() > 9 ? date.getSeconds() : "0" + date.getSeconds()}`;
         //On crée la commande dans la BDD
-        let order = await db.collection('orders').add({
+        await db.collection('orders').add({
             user_id: req.user.uid,
             items: req.body.items,
             total: response.total,
@@ -33,6 +34,7 @@ router.post('/place-order', authMiddleware, async (req, res) => {
             success: true, order: response
         });
     } catch (e) {
+        await sendWarn('Create order', e, req.user.uid);
         //Si une erreur est survenue, on envoie une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -62,7 +64,7 @@ router.patch('/add-funds', authMiddleware, async (req, res) => {
             success: true, balance: user.balance
         });
     } catch (e) {
-        console.error(e)
+        await sendWarn('Add funds', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -96,6 +98,7 @@ router.patch('/remove-funds', authMiddleware, async (req, res) => {
             success: true, balance: user.balance
         });
     } catch (e) {
+        await sendWarn('Remove funds', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -113,6 +116,7 @@ router.get('/balance', authMiddleware, async (req, res) => {
             success: true, balance: user.balance
         });
     } catch (e) {
+        await sendWarn('Get balance', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -144,7 +148,7 @@ router.get('/order-history', authMiddleware, async (req, res) => {
             success: true, history: data
         });
     } catch (e) {
-        console.error(e)
+        await sendWarn('Get orders history', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -169,7 +173,7 @@ router.get('/transactions-history', authMiddleware, async (req, res) => {
             success: true, history: data
         });
     } catch (e) {
-        console.error(e)
+        await sendWarn('Get transaction history', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -194,7 +198,7 @@ router.get('/products-list', async (req, res) => {
             success: true, list: data
         });
     } catch (e) {
-        console.error(e)
+        await sendWarn('Get products list', e);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -214,7 +218,7 @@ router.get('/is-open', async (req, res) => {
             success: true, open: (snapshot.data()['is_open'] === true) ?? false
         });
     } catch (e) {
-        console.error(e)
+        await sendWarn('Get opening status', e);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
@@ -223,7 +227,7 @@ router.get('/is-open', async (req, res) => {
 });
 
 //Route correspondant à la gestion d'ouverture de la cafétaria (/api/set-opening/)
-router.patch('/set-opening', async (req, res) => {
+router.patch('/set-opening', authMiddleware, async (req, res) => {
     try {
         const open = req.body['opened'] === "true" ?? false;
         const document = await db.collection('global_data').doc('charlemiam');
@@ -239,7 +243,7 @@ router.patch('/set-opening', async (req, res) => {
             });
         }
     } catch (e) {
-        console.error(e)
+        await sendWarn('Change opening status', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
