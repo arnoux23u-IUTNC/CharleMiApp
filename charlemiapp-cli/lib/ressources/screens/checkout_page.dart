@@ -1,27 +1,29 @@
-import '../../models/cart.dart';
+/*import '../../models/cart.dart';
 import 'package:flutter/material.dart';
 
 class Checkout extends StatelessWidget {
+  const Checkout({Key? key}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Panier')),
+      appBar: AppBar(title: const Text('Panier')),
       body: StreamBuilder(
         stream: bloc.getStream,
         initialData: bloc.allItems,
         builder: (context, snapshot) {
-          return ['cart items'].length > 0
+          return ['cart_items'].isNotEmpty
               ? Column(
                   children: <Widget>[
                     Expanded(child: checkoutListBuilder(snapshot)),
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () {},
-                      child: Text("Payer"),
-                      color: Colors.white,
+                      child: const Text("Payer"),
                     ),
-                    SizedBox(height: 40)
+                    const SizedBox(height: 40)
                   ],
                 )
-              : Center(child: Text("Aucun produit dans le panier"));
+              : const Center(child: Text("Aucun produit dans le panier"));
         },
       ),
     );
@@ -30,14 +32,14 @@ class Checkout extends StatelessWidget {
 
 Widget checkoutListBuilder(snapshot) {
   return ListView.builder(
-    itemCount: snapshot.data["cart items"].length,
+    itemCount: snapshot.data["cart_items"].length,
     itemBuilder: (BuildContext context, i) {
-      final cartList = snapshot.data["cart items"];
+      final cartList = snapshot.data["cart_items"];
       return ListTile(
         title: Text(cartList[i].name),
         subtitle: Text("Quantité : ${cartList[i].qte}"),
         trailing: IconButton(
-          icon: Icon(Icons.remove_shopping_cart),
+          icon: const Icon(Icons.remove_shopping_cart),
           onPressed: () {
             bloc.removeFromCart(cartList[i]);
           },
@@ -47,3 +49,4 @@ Widget checkoutListBuilder(snapshot) {
     },
   );
 }
+*/

@@ -16,15 +16,15 @@ class ProductCard extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       Expanded(
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
             color: Colors.red,
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Hero(
-            tag: product.name,
-            child: Image.asset(product.image ?? "assets/food.jpeg"),
-          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(product.image ?? 'assets/food.jpg'),
+          )
         ),
       ),
       Text(

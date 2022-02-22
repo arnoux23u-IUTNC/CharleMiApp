@@ -1,4 +1,4 @@
-import '../../models/cart.dart';
+/*import '../../models/cart.dart';
 import 'package:flutter/material.dart';
 
 class ShopItems extends StatelessWidget {
@@ -38,9 +38,9 @@ class ShopItemsWidget extends StatelessWidget {
 
 Widget shopItemsListBuilder(snapshot) {
   return ListView.builder(
-    itemCount: snapshot.data["shop items"].length,
+    itemCount: snapshot.data["shop_items"].length,
     itemBuilder: (BuildContext context, i) {
-      final shopList = snapshot.data["shop items"];
+      final shopList = snapshot.data["shop_items"];
       return ListTile(
         title: Text(shopList[i].name),
         subtitle: Text("${shopList[i].price}\€"),
@@ -55,3 +55,4 @@ Widget shopItemsListBuilder(snapshot) {
     },
   );
 }
+*/

@@ -1,3 +1,4 @@
+import '../ressources/assets/const.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -10,18 +11,21 @@ class Product {
   Product({required this.id, required this.name, required this.price, this.qte = 0, String? image});
 
   String get getId => id;
+
   String get getName => name;
+
   int get getQte => qte;
+
   double get getPrice => price;
+
   String? get getImage => image;
 
   static Future<List<Product>> getProducts() async {
-    var response = await http.get(Uri.parse('https://europe-west1-charlemi-app.cloudfunctions.net/api/products-list'));
-    if(response.statusCode == 200) {
-      if(jsonDecode(response.body)["list"] == "No products found") {
+    var response = await http.get(Uri.parse(urlAPI + '/products-list'));
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["list"] == "No products found") {
         return List<Product>.empty();
-      }
-      else{
+      } else {
         return List<Product>.from(jsonDecode(response.body)["list"].map((e) => Product.fromJson(e)));
       }
     }
@@ -34,10 +38,13 @@ class Product {
         name: jsonObject['name'] as String,
         qte: int.parse(jsonObject['stock'].toString()),
         price: double.parse(jsonObject['price'].toString()),
-        image: jsonObject['image'] as String?
-    );
+        image: jsonObject['image'] as String?);
   }
 
-
-
+  toJson() {
+    return {
+      'product_id': id,
+      'qte': qte,
+    };
+  }
 }

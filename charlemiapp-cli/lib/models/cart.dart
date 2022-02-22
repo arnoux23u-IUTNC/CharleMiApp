@@ -1,34 +1,29 @@
 import 'product.dart';
 import 'dart:async';
 
-class CartItemsBloc {
+class Cart {
   final cartStreamController = StreamController.broadcast();
 
   Stream get getStream => cartStreamController.stream;
 
-  Map allItems = {
-    'shop_items': [
-      Product(id: "0001", name: "Sandwich Fermier", price: 9.0),
-      Product(id: "0002", name: "Sandwich Fermier", price: 9.0),
-      Product(id: "0003", name: "Sandwich Fermier", price: 9.0),
-      Product(id: "0004", name: "Sandwich Fermier", price: 9.0),
-      Product(id: "0005", name: "Sandwich Fermier", price: 9.0),
-      Product(id: "0006", name: "Sandwich Fermier", price: 9.0),
-    ],
-    'cart_items': [
-      Product(id: "0007", name: "Sandwich F", price: 12.0),
+/*Map items = {
+    /*'cart_items': [
+      /*Product(id: "0007", name: "Sandwich F", price: 12.0),
       Product(id: "0008", name: "Sandwich P", price: 15.5),
       Product(id: "0008", name: "Sandwich K", price: 5.5),
-      ]
-  };
+      ]*/
+  };*/*/
+  //create list with one product
 
-  final cartList = [
-    Product(id: "0007", name: "Sandwich F", price: 12.0),
-    Product(id: "0008", name: "Sandwich P", price: 15.5),
-    Product(id: "0008", name: "Sandwich K", price: 5.5),
+
+  List<Product> cartItems = [
+    Product(id: "P0007", name: "Sandwich F", price: 12.0, qte: 1),
+    Product(id: "P0008", name: "Sandwich P", price: 15.5, qte: 3),
+    Product(id: "P0009", name: "Sandwich K", price: 5.5, qte: 1),
   ];
 
-  void addToCart(product) {
+
+  /*void addToCart(product) {
     int present = 0;
     for (int i = 0; i < allItems['cart_items'].length; i++) {
       var element = allItems['cart_items'][i];
@@ -55,9 +50,9 @@ class CartItemsBloc {
     //total a ajouter au panier
     print("total is $total");
     cartStreamController.sink.add(allItems);
-  }
+  }*/
 
-  void removeFromCart(product) {
+  /*void removeFromCart(product) {
     var newProduct = Product(id: product.id, name: product.name, price: product.price, qte: product.qte - 1);
     if (newProduct.qte < 1) {
       allItems['cart_items'].remove(product);
@@ -76,11 +71,9 @@ class CartItemsBloc {
     //total a ajouter au panier
     print("total is  : $total");
     cartStreamController.sink.add(allItems);
-  }
+  }*/
 
   void dispose() {
     cartStreamController.close(); // close our StreamController
   }
 }
-
-final bloc = CartItemsBloc();
