@@ -207,7 +207,7 @@ router.get('/products-list', async (req, res) => {
 });
 
 //Route correspondant à la vérification d'ouverture de la cafétaria (/api/is-open/)
-router.get('/is-open', async (req, res) => {
+router.get('/is-open', authMiddleware, async (req, res) => {
     try {
         //On récupère une variable en BDD
         const snapshot = await db.collection('global_data').doc('charlemiam').get();
@@ -231,7 +231,7 @@ router.patch('/set-opening', authMiddleware, async (req, res) => {
     try {
         const open = req.body['opened'] === "true" ?? false;
         const document = await db.collection('global_data').doc('charlemiam');
-        if (document.get().empty) return res.status(200).send({
+        if (await document.get()['empty']) return res.status(200).send({
             success: true, updated: false
         });
         else {
