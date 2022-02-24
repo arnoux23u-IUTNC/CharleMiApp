@@ -1,7 +1,6 @@
 //Import des modules et des fichiers d'envirronement
 const express = require('express');
 const {initializeApp, cert} = require('firebase-admin/app');
-const {startBot} = require('./discord.js');
 const credentials = require("../charlemi-app-b053ffa81bac.json");
 require('dotenv').config();
 //On definit un booleen, a vrai si nous sommes en production
@@ -21,7 +20,6 @@ app.use('/api', require('./router.js'));
 //Démmarage de l'application sur le port désiré
 app.listen(RUNNING_PROD ? process.env.SERVED_PORT_PROD : process.env.SERVED_PORT_DEV, async function () {
     console.log(`Server is listening on port ${this.address().port}`);
-    await startBot();
 });
 
 module.exports = {
