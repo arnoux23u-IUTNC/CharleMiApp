@@ -57,7 +57,7 @@ flutter:
     - assets/logo_white.png
     - assets/food.jpg
     - assets/wifi-slash.png
-    - assets/products
+    - assets/products/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

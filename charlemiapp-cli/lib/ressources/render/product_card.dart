@@ -12,12 +12,24 @@ class ProductCard extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
+  String getImgPath() {
+    /*
+    // TODO Voir pourquoi le product image est toujours null
+    if (product.image == null) {
+      return 'assets/food.jpg';
+    }
+    */
+    return 'assets/products/${product.id}.png';
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       Expanded(
         child: ClipRRect(
-          child: Image.asset(product.image ?? 'assets/food.jpg'),
+          child: Image.asset(getImgPath()),
         ),
       ),
       Text(
