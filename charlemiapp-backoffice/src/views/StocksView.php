@@ -34,16 +34,13 @@ class StocksView
                 <a href="{$this->container['router']->pathFor('addProduct')}">
                     <button class="openclose open">Ajouter un produit</button>
                 </a>
-                <a href="{$this->container['router']->pathFor('removeProduct')}">
-                    <button class="openclose close">Supprimer produit</button>
-                </a>
             </div>
             <script src="/assets/js/draganddrop.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
         </html>
         HTML;
-        return genererHeader("Gestion des stocks - CharleMi'App", ["home.css","stocks.css"]) . $html;
+        return genererHeader("Gestion des stocks - CharleMi'App", ["home.css", "stocks.css"]) . $html;
     }
 
     private function buildDomProducts(array $products): string
@@ -57,14 +54,118 @@ class StocksView
                         <form method="POST" action="#">
                             <label class="$classStock" for="datastock">Stock :</label>
                             <input name="id" type="hidden" required value="{$product['id']}" >
-                            <input id="datastock" name="stock" type="number" required value="{$product['stock']}" >
+                            <input id="datastock" name="stock" class="stockinput" type="number" required value="{$product['stock']}" >
                             <button type="submit">Mettre à jour</button>
                         </form>
+                        <a href="{$this->container['router']->pathFor('editProduct', ['id' => $product['id']])}" class="stocks">Modifier</a>
+                        <a href="{$this->container['router']->pathFor('deleteProduct', ['id' => $product['id']])}" class="openclose close">Supprimer</a>
                     </div>
 
             HTML;
         }
         return $domProducts;
+    }
+
+    public function renderAddProduct(array $categories): string
+    {
+        $domCategories = $this->buildDomCategories($categories);
+        $html = <<<HTML
+            <div class="form">
+                <form action="#" method="POST">
+                    <div class="form-element">
+                        <label for="name">Nom du produit :</label>
+                        <input id="name" name="name" type="text" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="category">Catégorie :</label>
+                        <select name="category" id="category">
+                            $domCategories
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label for="price">Prix</label>
+                        <input id="price" name="price" type="number" step="0.01" required>
+                    </div>
+                    <button type="submit" class="openclose open">Ajouter</button>
+                </form>
+            </div>
+            <div class="buttons">
+                <a href="{$this->container['router']->pathFor('logout')}">
+                    <button class="logout">Logout</button>
+                </a>
+                <form action="{$this->container['router']->pathFor('openSet')}" method="POST">
+                </form>
+                <a href="{$this->container['router']->pathFor('stocks')}">
+                    <button class="stocks">Gestion des stocks</button>
+                </a>
+                <a href="{$this->container['router']->pathFor('home')}">
+                    <button class="stocks">Gestion des commandes</button>
+                </a>
+                
+            </div>
+        </body>
+        </html>
+        HTML;
+        return genererHeader("Ajout produit - CharleMi'App", ["home.css", "stocks.css"]) . $html;
+    }
+
+    private function buildDomCategories(array $categories, string $selected = ''): string
+    {
+        $domCategories = '';
+        foreach ($categories as $category) {
+            $domCategories .= $selected == $category ?
+            <<<HTML
+                <option selected value="$category">$category</option>
+            HTML
+            : <<<HTML
+                <option value="$category">$category</option>
+            HTML;
+        }
+        return $domCategories;
+    }
+
+    public function renderEditProduct(array $product, array $categories): string
+    {
+        $domCategories = $this->buildDomCategories($categories, $product['category']);
+        $html = <<<HTML
+            <div class="form">
+                <form action="#" method="POST">
+                    <input name="id" value="{$product['id']}" type="hidden" required>
+                    <div class="form-element">
+                        <label for="name">Nom du produit :</label>
+                        <input id="name" name="name" value="{$product['name']}" type="text" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="category">Catégorie :</label>
+                        <select name="category" id="category">
+                            $domCategories
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <label for="price">Prix</label>
+                        <input id="price" name="price" type="number" value="{$product['price']}" step="0.01" required>
+                    </div>
+                    <button type="submit" class="openclose open">Modifier</button>
+                </form>
+            </div>
+            <div class="buttons">
+                <a href="{$this->container['router']->pathFor('logout')}">
+                    <button class="logout">Logout</button>
+                </a>
+                <form action="{$this->container['router']->pathFor('openSet')}" method="POST">
+                </form>
+                <a href="{$this->container['router']->pathFor('stocks')}">
+                    <button class="stocks">Gestion des stocks</button>
+                </a>
+                <a href="{$this->container['router']->pathFor('home')}">
+                    <button class="stocks">Gestion des commandes</button>
+                </a>
+                
+            </div>
+        </body>
+        </html>
+        HTML;
+        return genererHeader("Modification produit - CharleMi'App", ["home.css", "stocks.css"]) . $html;
     }
 
 }
