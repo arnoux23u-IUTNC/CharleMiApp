@@ -60,7 +60,7 @@ class OfficeController
                             $_SESSION['USER_UID'] = $user;
                             $_SESSION['SESSION_UUID'] = $token;
                             return $response->withRedirect($this->container['router']->pathFor('home'));
-                        } catch (InvalidCustomToken | \InvalidArgumentException) {
+                        } catch (InvalidCustomToken|\InvalidArgumentException) {
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
                     } catch (\Exception) {
@@ -135,6 +135,85 @@ class OfficeController
             default:
                 throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
         }
+    }
+
+    public function addProduct(Request $request, Response $response, array $args): Response
+    {
+        switch ($request->getMethod()) {
+            case 'GET':
+                $view = new StocksView($this->container);
+                //category attribute is stored in document product
+                $categories = [];
+                foreach ($this->container['firestore']->collection('products')->documents() as $category) {
+                    $categName = $category->data()['category'] ?? '';
+                    if (!in_array($categName, $categories))
+                        $categories[] = $categName;
+                }
+                return $response->write($view->renderAddProduct($categories));
+            case 'POST':
+                $data = $request->getParsedBody();
+                $id = sprintf("P%04d", $this->getNextProductId());
+                $this->container['firestore']->collection('products')->document($id)->set([
+                    'id' => $id,
+                    'name' => $data['name'],
+                    'category' => $data['category'],
+                    'price' => $data['price'],
+                    'stock' => 0
+                ]);
+                return $response->withRedirect($this->container['router']->pathFor('stocks'));
+            default:
+                throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
+        }
+    }
+
+    public function editProduct(Request $request, Response $response, array $args): Response
+    {
+        switch ($request->getMethod()) {
+            case 'GET':
+                $view = new StocksView($this->container);
+                //category attribute is stored in document product
+                $categories = [];
+                foreach ($this->container['firestore']->collection('products')->documents() as $category) {
+                    $categName = $category->data()['category'] ?? '';
+                    if (!in_array($categName, $categories))
+                        $categories[] = $categName;
+                }
+                $product = $this->container['firestore']->collection('products')->document($args['id']);
+                return $response->write($view->renderEditProduct($product->snapshot()->data(), $categories));
+            case 'POST':
+                $data = $request->getParsedBody();
+                $this->container['firestore']->collection('products')->document($data['id'])->set([
+                    'id' => $data['id'],
+                    'name' => $data['name'],
+                    'category' => $data['category'],
+                    'price' => $data['price'],
+                    'stock' => 0
+                ]);
+                return $response->withRedirect($this->container['router']->pathFor('stocks'));
+            default:
+                throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
+        }
+    }
+
+    public function deleteProduct(Request $request, Response $response, array $args): Response
+    {
+        switch ($request->getMethod()) {
+            case 'GET':
+                $this->container['firestore']->collection('products')->document($args['id'])->delete();
+                return $response->withRedirect($this->container['router']->pathFor('stocks'));
+            default:
+                throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
+        }
+    }
+
+    private function getNextProductId()
+    {
+        $products = $this->container['firestore']->collection('products')->documents();
+        $id = 0;
+        foreach ($products as $product) {
+            $id = max($id, intval(substr($product->id(), 1)));
+        }
+        return $id + 1;
     }
 
 }
