@@ -15,13 +15,29 @@ class Cart {
   };*/*/
   //create list with one product
 
-
   List<Product> cartItems = [
-    Product(id: "P0007", name: "Sandwich F", price: 12.0, qte: 1),
-    Product(id: "P0008", name: "Sandwich P", price: 15.5, qte: 3),
-    Product(id: "P0009", name: "Sandwich K", price: 5.5, qte: 1),
+    Product(id: "P0007", name: "Sandwich F", price: 12.0, qte: 3),
+    Product(id: "P0008", name: "Sandwich P", price: 15.5, qte: 1),
+    Product(id: "P0009", name: "Sandwich K", price: 5.5, qte: 3),
   ];
 
+  //increment by 1 quantity
+  void addQuantity(product) {
+    product.qte = product.qte + 1;
+  }
+
+  //decrement by 1 quantity
+  void removeQuantity(product) {
+    product.qte = product.qte - 1;
+    if (product.qte == 0) {
+      removeFromCart(product);
+    }
+  }
+
+  //remove product from cart
+  void removeFromCart(product) {
+    cartItems.remove(product);
+  }
 
   /*void addToCart(product) {
     int present = 0;
@@ -49,27 +65,6 @@ class Cart {
     }
     //total a ajouter au panier
     print("total is $total");
-    cartStreamController.sink.add(allItems);
-  }*/
-
-  /*void removeFromCart(product) {
-    var newProduct = Product(id: product.id, name: product.name, price: product.price, qte: product.qte - 1);
-    if (newProduct.qte < 1) {
-      allItems['cart_items'].remove(product);
-    } else {
-      var i = allItems['cart_items'].indexOf(product);
-      allItems['cart_items'].insert(i, newProduct);
-      allItems['cart_items'].remove(product);
-    }
-    num total = 0;
-    for (int i = 0; i < allItems['cart_items'].length; i++) {
-      var element = allItems['cart_items'][i];
-      var price = element.price;
-      var qte = element.qte;
-      total += price * qte;
-    }
-    //total a ajouter au panier
-    print("total is  : $total");
     cartStreamController.sink.add(allItems);
   }*/
 
