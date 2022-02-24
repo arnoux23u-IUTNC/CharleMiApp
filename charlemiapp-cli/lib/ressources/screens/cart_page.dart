@@ -39,9 +39,7 @@ class _CartScreenState extends State<CartScreen> {
             child: Home.user != null
                 ? (Home.cart.cartItems.isNotEmpty
                     ? ElevatedButton(
-                        onPressed: () async => {
-                          await placeOrder(Home.cart.cartItems)
-                        },
+                        onPressed: () async => {await placeOrder(Home.cart.cartItems)},
                         child: Text(
                           'Commander',
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
@@ -58,17 +56,15 @@ class _CartScreenState extends State<CartScreen> {
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         style: ButtonStyle(
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
                 : ElevatedButton(
                     onPressed: null,
                     child: Text(
                       'Vous n\'êtes pas connecté',
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                     ),
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                    style:
+                        ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
       ]),
     );
   }
@@ -79,7 +75,7 @@ class _CartScreenState extends State<CartScreen> {
     if (items.isNotEmpty) {
       for (Product element in items) {
         res.add(Container(
-          padding: const EdgeInsets.only(left: 55, right: 55, top: 20),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           width: double.infinity,
           child: Container(
             decoration: const BoxDecoration(
@@ -95,9 +91,39 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: Text(
-              element.getName,
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Text(
+                    element.getName,
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Row(
+                  children: [
+                    TextButton(
+                      child: Text(
+                        "+",
+                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                      ),
+                      onPressed: () {},
+                    ),
+                    Text(
+                      "0",
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                    ),
+                    TextButton(
+                      child: Text(
+                        "-",
+                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                      ),
+                      onPressed: () {},
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ));
