@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../models/product.dart';
 import '../render/product_card.dart';
+import '../assets/colors.dart';
 
 class BrowserPage extends StatefulWidget {
   const BrowserPage({Key? key}) : super(key: key);
@@ -30,13 +31,14 @@ class _BrowserPageState extends State<BrowserPage> {
   Widget _buildProducts(BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
     if (snapshot.hasData) {
       return Container(
+        color: darkColor,
         padding: const EdgeInsets.all(16),
           child: GridView.builder(
               itemCount: snapshot.data!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: 2,
                 mainAxisSpacing: 10,
-                crossAxisSpacing: 22,
+                crossAxisSpacing: 10,
                 childAspectRatio: 0.75,
               ),
               itemBuilder: (context, index) => ProductCard(product: snapshot.data![index])));
