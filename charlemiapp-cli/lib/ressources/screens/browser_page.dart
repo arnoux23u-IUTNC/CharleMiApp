@@ -16,11 +16,9 @@ class _BrowserPageState extends State<BrowserPage> {
   bool _hasBeenPressedSandwich = false;
   bool _hasBeenPressedBoissons = false;
   bool _hasBeenPressedViennoiseries = false;
-  bool _hasBeenPressedPlatsChauds= false;
+  bool _hasBeenPressedPlatsChauds = false;
   bool _hasBeenPressedDesserts = false;
   bool _hasBeenPressedPetiteFaim = false;
-
-
 
   @override
   void initState() {
@@ -150,20 +148,25 @@ class _BrowserPageState extends State<BrowserPage> {
       return Container(
           color: darkColor,
           padding: const EdgeInsets.all(16),
-          child: /*Column(
-            children: _buildFiltersButtons(),
-          )
-          */
-
-          GridView.builder(
-              itemCount: snapshot.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 0.75,
-              ),
-              itemBuilder: (context, index) => ProductCard(product: snapshot.data![index])));
+          child: Column(
+            children: [
+              Expanded(
+                  child: GridView.count(
+                crossAxisCount: 3,
+                children: _buildFiltersButtons(),
+              )),
+              Expanded(
+                  child: GridView.builder(
+                      itemCount: snapshot.data!.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemBuilder: (context, index) => ProductCard(product: snapshot.data![index])))
+            ],
+          ));
     } else if (snapshot.hasError) {
       return Center(child: Text('Aucune produit trouvé', style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
     } else {
