@@ -2,6 +2,7 @@ import 'package:charlemiapp_cli/models/cart.dart';
 import 'package:charlemiapp_cli/ressources/screens/home.dart';
 import 'package:charlemiapp_cli/services/orderManager.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/product.dart';
@@ -34,69 +35,49 @@ class _CartScreenState extends State<CartScreen> {
           ),
         )),
         Container(
-            padding:
-                const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
             width: double.infinity,
             child: Home.user != null
                 ? (Home.cart.cartItems.isNotEmpty
                     ? ElevatedButton(
-                        onPressed: () async =>
-                            {await placeOrder(Home.cart.cartItems)},
+                        onPressed: () async => {/* TODO await placeOrder(Home.cart.cartItems)*/},
                         child: Text(
                           'Commander',
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                         ),
                         style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(buttonBlueColor),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)))),
+                            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
                       )
                     : ElevatedButton(
                         onPressed: null,
                         child: Text(
                           'Panier vide',
-                          style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600),
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12))))))
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
                 : ElevatedButton(
                     onPressed: null,
                     child: Text(
                       'Vous n\'êtes pas connecté',
-                      style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                     style: ButtonStyle(
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))))))
+                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
       ]),
     );
   }
 
   List<Widget> _buildElements() {
-    List<Product> items = Home.cart.cartItems;
+    Map<Product, int> items = Home.cart.cartItems;
     List<Widget> res = List.empty(growable: true);
     if (items.isNotEmpty) {
-      for (Product element in items) {
-        var qte = element.qte;
+      for (Product element in items.keys) {
+        int qte = items[element] ?? 0;
         res.add(Container(
           padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           width: double.infinity,
@@ -121,10 +102,7 @@ class _CartScreenState extends State<CartScreen> {
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Text(
                     element.getName,
-                    style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500),
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Row(
@@ -132,28 +110,33 @@ class _CartScreenState extends State<CartScreen> {
                     TextButton(
                       child: Text(
                         "+",
-                        style: GoogleFonts.poppins(
-                            color: Colors.white, fontSize: 18),
+                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
                       ),
                       onPressed: () {
-                        Home.cart.addQuantity(element);
-                        setState(() {});
+                        setState(() {
+                          if(!Home.cart.addToCart(element)){
+                            Fluttertoast.showToast(
+                              msg: "Impossible d'ajouter plus",
+                              toastLength: Toast.LENGTH_SHORT,
+                              timeInSecForIosWeb: 1,
+                            );
+                          }
+                        });
                       },
                     ),
                     Text(
                       "$qte",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white, fontSize: 18),
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
                     ),
                     TextButton(
                       child: Text(
                         "-",
-                        style: GoogleFonts.poppins(
-                            color: Colors.white, fontSize: 18),
+                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
                       ),
                       onPressed: () {
-                        Home.cart.removeQuantity(element);
-                        setState(() {});
+                        setState(() {
+                          Home.cart.removeFromCart(element);
+                        });
                       },
                     )
                   ],
@@ -170,8 +153,7 @@ class _CartScreenState extends State<CartScreen> {
           child: Center(
               child: Text(
             'Votre panier est vide',
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
           ))));
     }
     return res;

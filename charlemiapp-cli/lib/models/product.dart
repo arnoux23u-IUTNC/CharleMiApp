@@ -1,20 +1,19 @@
+import 'package:charlemiapp_cli/ressources/screens/home.dart';
+
 import '../ressources/assets/const.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Product {
   String id, name;
-  int qte;
   double price;
   String? image;
 
-  Product({required this.id, required this.name, required this.price, this.qte = 0, String? image});
+  Product({required this.id, required this.name, required this.price, String? image});
 
   String get getId => id;
 
   String get getName => name;
-
-  int get getQte => qte;
 
   double get getPrice => price;
 
@@ -36,7 +35,6 @@ class Product {
     return Product(
         id: jsonObject['id'] as String,
         name: jsonObject['name'] as String,
-        qte: int.parse(jsonObject['stock'].toString()),
         price: double.parse(jsonObject['price'].toString()),
         image: jsonObject['image'] as String?);
   }
@@ -44,7 +42,7 @@ class Product {
   toJson() {
     return {
       'product_id': id,
-      'qte': qte,
+      'qte': Home.cart.cartItems[this]
     };
   }
 }
