@@ -31,11 +31,14 @@ $container['errorHandler'] = function () use ($container) {
 };
 $app = new App($container);
 
-$app->any('/remove-product[/]', function (Request $request, Response $response, array $args) {
-    return (new OfficeController($this))->stocks($request, $response, $args);
-})->setName('removeProduct');
+$app->any('/edit-product/{id}[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->editProduct($request, $response, $args);
+})->setName('editProduct');
+$app->any('/remove-product/{id}[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->deleteProduct($request, $response, $args);
+})->setName('deleteProduct');
 $app->any('/add-product[/]', function (Request $request, Response $response, array $args) {
-    return (new OfficeController($this))->stocks($request, $response, $args);
+    return (new OfficeController($this))->addProduct($request, $response, $args);
 })->setName('addProduct');
 $app->any('/stocks[/]', function (Request $request, Response $response, array $args) {
     return (new OfficeController($this))->stocks($request, $response, $args);
@@ -85,7 +88,6 @@ function genererHeader(string $title, array $styles = []): string
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="/assets/css/global.css"/>
         <title>$title</title>
     EOD;
