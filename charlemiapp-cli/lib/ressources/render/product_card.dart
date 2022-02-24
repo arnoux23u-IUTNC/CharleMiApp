@@ -16,10 +16,9 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       Expanded(
-        child: Container(
-            child: ClipRRect(
-              child: Image.asset(product.image ?? 'assets/food.jpg'),
-            )),
+        child: ClipRRect(
+          child: Image.asset(product.image ?? 'assets/food.jpg'),
+        ),
       ),
       Text(
         product.name,
