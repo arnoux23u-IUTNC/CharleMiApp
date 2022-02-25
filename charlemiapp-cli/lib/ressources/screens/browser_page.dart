@@ -12,18 +12,20 @@ class BrowserPage extends StatefulWidget {
 }
 
 class _BrowserPageState extends State<BrowserPage> {
+  String category = "Sandwichs";
   late Future<List<Product>> products;
-  bool _hasBeenPressedSandwich = false;
-  bool _hasBeenPressedBoissons = false;
-  bool _hasBeenPressedViennoiseries = false;
-  bool _hasBeenPressedPlatsChauds = false;
-  bool _hasBeenPressedDesserts = false;
-  bool _hasBeenPressedPetiteFaim = false;
 
   @override
   void initState() {
     products = Product.getProducts();
     super.initState();
+  }
+
+  void setSelectedCategory(String category) {
+    print(category);
+    setState(() {
+      category = category;
+    });
   }
 
   @override
@@ -34,129 +36,58 @@ class _BrowserPageState extends State<BrowserPage> {
     );
   }
 
-  List<Widget> _buildFiltersButtons() {
-    List<Widget> buttonsFilter = List.empty(growable: true);
+  ElevatedButton _buildButton(String text) {
+    return ElevatedButton(
+      onPressed: () => setSelectedCategory(text),
+      child: Text(
+        text,
+        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
+      ),
+      style: ButtonStyle(
+        backgroundColor: category == text ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
+        padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
 
-    buttonsFilter.add(Container(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        onPressed: () => {
-          setState(() {
-            _hasBeenPressedSandwich = !_hasBeenPressedSandwich;
-          })
-        },
-        style: ButtonStyle(
-          backgroundColor: _hasBeenPressedSandwich ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
-        ),
-        child: Text(
-          "Sandwichs",
-          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
-        ),
-      ),
-    ));
-    buttonsFilter.add(Container(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        onPressed: () => {
-          setState(() {
-            _hasBeenPressedBoissons = !_hasBeenPressedBoissons;
-          })
-        },
-        style: ButtonStyle(
-          backgroundColor: _hasBeenPressedBoissons ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
-        ),
-        child: Text(
-          "Boissons",
-          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
-        ),
-      ),
-    ));
-    buttonsFilter.add(Container(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        onPressed: () => {
-          setState(() {
-            _hasBeenPressedViennoiseries = !_hasBeenPressedViennoiseries;
-          })
-        },
-        style: ButtonStyle(
-          backgroundColor: _hasBeenPressedViennoiseries ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
-        ),
-        child: Text(
-          "Viennoiseries",
-          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
-        ),
-      ),
-    ));
-    buttonsFilter.add(Container(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        onPressed: () => {
-          setState(() {
-            _hasBeenPressedPlatsChauds = !_hasBeenPressedPlatsChauds;
-          })
-        },
-        style: ButtonStyle(
-          backgroundColor: _hasBeenPressedPlatsChauds ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
-        ),
-        child: Text(
-          "Plats Chauds",
-          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
-        ),
-      ),
-    ));
-    buttonsFilter.add(Container(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        onPressed: () => {
-          setState(() {
-            _hasBeenPressedDesserts = !_hasBeenPressedDesserts;
-          })
-        },
-        style: ButtonStyle(
-          backgroundColor: _hasBeenPressedDesserts ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
-        ),
-        child: Text(
-          "Desserts",
-          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
-        ),
-      ),
-    ));
-    buttonsFilter.add(Container(
-      padding: const EdgeInsets.all(5),
-      child: ElevatedButton(
-        onPressed: () => {
-          setState(() {
-            _hasBeenPressedPetiteFaim = !_hasBeenPressedPetiteFaim;
-          })
-        },
-        style: ButtonStyle(
-          backgroundColor: _hasBeenPressedPetiteFaim ? MaterialStateProperty.all(buttonBlueColor) : MaterialStateProperty.all(midDarkColor),
-        ),
-        child: Text(
-          "Petites faims",
-          style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
-        ),
-      ),
-    ));
-
-    return buttonsFilter;
+  List<Widget> _buildButtons() {
+    return [
+      _buildButton("Sandwichs"),
+      const SizedBox(width: 8),
+      _buildButton("Viennoiseries"),
+      const SizedBox(width: 8),
+      _buildButton("Plats chauds"),
+      const SizedBox(width: 8),
+      _buildButton("Desserts"),
+      const SizedBox(width: 8),
+      _buildButton("Petites faim"),
+      const SizedBox(width: 8),
+      _buildButton("Boissons")
+    ];
   }
 
   Widget _buildProducts(BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
     if (snapshot.hasData) {
       return Container(
           color: darkColor,
-          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              Expanded(
-                  child: GridView.count(
-                crossAxisCount: 3,
-                children: _buildFiltersButtons(),
-              )),
+              SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 5),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: _buildButtons(),
+                ),
+                //top padings
+              ),
               Expanded(
                   child: GridView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       itemCount: snapshot.data!.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -168,7 +99,9 @@ class _BrowserPageState extends State<BrowserPage> {
             ],
           ));
     } else if (snapshot.hasError) {
-      return Center(child: Text('Aucune produit trouvé', style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
+      return Center(
+          child: Text('Aucune produit trouvé',
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
     } else {
       return const Center(
         child: CircularProgressIndicator(),
