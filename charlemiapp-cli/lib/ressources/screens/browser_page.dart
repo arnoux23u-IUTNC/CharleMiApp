@@ -22,7 +22,6 @@ class _BrowserPageState extends State<BrowserPage> {
   }
 
   void setSelectedCategory(String category) {
-    print(category);
     setState(() {
       category = category;
     });

@@ -7,17 +7,15 @@ import 'dart:convert';
 class Product {
   String id, name;
   double price;
-  String? image;
+  String? imageURL;
 
-  Product({required this.id, required this.name, required this.price, String? image});
+  Product({required this.id, required this.name, required this.price, this.imageURL});
 
   String get getId => id;
 
   String get getName => name;
 
   double get getPrice => price;
-
-  String? get getImage => image;
 
   static Future<List<Product>> getProducts() async {
     var response = await http.get(Uri.parse(urlAPI + '/products-list'));
@@ -36,7 +34,7 @@ class Product {
         id: jsonObject['id'] as String,
         name: jsonObject['name'] as String,
         price: double.parse(jsonObject['price'].toString()),
-        image: jsonObject['image'] as String?);
+        imageURL: jsonObject['image'] as String?);
   }
 
   toJson() {

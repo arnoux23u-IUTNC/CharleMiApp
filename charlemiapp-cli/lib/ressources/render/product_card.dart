@@ -1,8 +1,7 @@
+import '../../models/product.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-
-import '../../models/product.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -12,24 +11,19 @@ class ProductCard extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  String getImgPath() {
-    /*
-    // TODO Voir pourquoi le product image est toujours null
-    if (product.image == null) {
-      return 'assets/food.jpg';
-    }
-    */
-    return 'assets/products/${product.id}.png';
+  Image buildImage() {
+    return Image.asset('assets/products/${product.id}.png',
+        errorBuilder: (c, e, s) =>
+            Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png")));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       Expanded(
         child: ClipRRect(
-          child: Image.asset(getImgPath()),
+          borderRadius: BorderRadius.circular(10),
+          child: buildImage(),
         ),
       ),
       Text(

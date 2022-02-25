@@ -40,7 +40,9 @@ class _CartScreenState extends State<CartScreen> {
             child: Home.user != null
                 ? (Home.cart.cartItems.isNotEmpty
                     ? ElevatedButton(
-                        onPressed: () async => {/* TODO await placeOrder(Home.cart.cartItems)*/},
+                        onPressed: () async => {
+                          /* TODO await placeOrder(Home.cart.cartItems)*/
+                        },
                         child: Text(
                           'Commander',
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
@@ -114,7 +116,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          if(!Home.cart.addToCart(element)){
+                          if (!Home.cart.addToCart(element)) {
                             Fluttertoast.showToast(
                               msg: "Impossible d'ajouter plus",
                               toastLength: Toast.LENGTH_SHORT,
