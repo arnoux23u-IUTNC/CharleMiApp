@@ -221,35 +221,35 @@
     "name": "Wrap Poulet",
     "price": 2.50,
     "stock": 0,
-    "category": "Petite faim"
+    "category": "Petite Faim"
   },
   {
     "id": "P0033",
     "name": "Wrap Thon",
     "price": 2.50,
     "stock": 0,
-    "category": "Petite faim"
+    "category": "Petite Faim"
   },
   {
     "id": "P0034",
     "name": "Pasta Box",
     "price": 3.10,
     "stock": 0,
-    "category": "Plats chauds"
+    "category": "Plats Chauds"
   },
   {
     "id": "P0035",
     "name": "Pasta Box Bollo Balls XL",
     "price": 3.50,
     "stock": 0,
-    "category": "Plats chauds"
+    "category": "Plats Chauds"
   },
   {
     "id": "P0036",
     "name": "Pizza Part",
     "price": 2.30,
     "stock": 0,
-    "category": "Plats chauds"
+    "category": "Plats Chauds"
   },
   {
     "id": "P0037",
