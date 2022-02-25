@@ -107,10 +107,14 @@ let getTransactions = async (req) => {
     return data
 }
 
-let getProducts = async () => {
+let getProducts = async (category) => {
     const data = [];
+    let snapshot;
     //On récupère toutes les transactions de l'utilisateur
-    const snapshot = await db.collection('products').get();
+    if (category != null && category !== "")
+        snapshot = await db.collection('products').where('category', '=', category).get();
+    else
+        snapshot = await db.collection('products').get();
     //Si aucune transaction n'a été trouvée, on retourne false
     if (snapshot.empty) return false;
     for (let doc of snapshot.docs) {

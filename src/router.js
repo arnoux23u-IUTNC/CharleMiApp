@@ -169,7 +169,7 @@ router.get('/product-categories', async (req, res) => {
 //Route correspondant à la récupération de la liste des produits (/api/products-list/)
 router.get('/products-list', async (req, res) => {
     try {
-        const data = await getProducts();
+        const data = await getProducts(req.query['category'] ?? '');
         if (data === false)
             return res.status(200).send({
                 success: true, list: "No products found"
