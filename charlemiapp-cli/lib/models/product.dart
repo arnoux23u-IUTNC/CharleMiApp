@@ -17,8 +17,8 @@ class Product {
 
   double get getPrice => price;
 
-  static Future<List<Product>> getProducts() async {
-    var response = await http.get(Uri.parse(urlAPI + '/products-list'));
+  static Future<List<Product>> getProducts(String category) async {
+    var response = await http.get(Uri.parse(urlAPI + '/products-list?category=$category'));
     if (response.statusCode == 200) {
       if (jsonDecode(response.body)["list"] == "No products found") {
         return List<Product>.empty();
@@ -27,6 +27,18 @@ class Product {
       }
     }
     return List<Product>.empty();
+  }
+
+  static Future<List<String>> getCategories() async {
+    var response = await http.get(Uri.parse(urlAPI + '/product-categories'));
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["categories"] == "No categories found") {
+        return List<String>.empty();
+      } else {
+        return List<String>.from(jsonDecode(response.body)["categories"]);
+      }
+    }
+    return List<String>.empty();
   }
 
   factory Product.fromJson(dynamic jsonObject) {
@@ -38,9 +50,6 @@ class Product {
   }
 
   toJson() {
-    return {
-      'product_id': id,
-      'qte': Home.cart.cartItems[this]
-    };
+    return {'product_id': id, 'qte': Home.cart.cartItems[this]};
   }
 }
