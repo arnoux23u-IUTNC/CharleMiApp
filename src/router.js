@@ -8,6 +8,7 @@ const {
     getOrders,
     getProducts,
     getTransactions,
+    getCategories,
     isOpen,
     setOpening
 } = require("./workers/functions");
@@ -144,7 +145,25 @@ router.get('/transactions-history', authMiddleware, async (req, res) => {
             success: false, error: "Internal server error"
         });
     }
+});
 
+//Route correspondant à la récupération des categories (/api/product-categories/)
+router.get('/product-categories', async (req, res) => {
+    try {
+        const data = await getCategories();
+        if (data === false) return res.status(200).send({
+            success: true, categories: "No categories found"
+        });
+        else return res.status(200).send({
+            success: true, categories: data
+        });
+    } catch (e) {
+        await sendWarn('Get categories', e, req.user.uid);
+        //En cas d'erreur, on retourne une autre réponse
+        return res.status(500).send({
+            success: false, error: "Internal server error"
+        });
+    }
 });
 
 //Route correspondant à la récupération de la liste des produits (/api/products-list/)

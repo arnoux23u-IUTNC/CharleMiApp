@@ -135,6 +135,30 @@ let setOpening = async (req) => {
     return true;
 }
 
+let getCategories = async () => {
+    const data = [];
+    const tmp = ["Sandwichs", "Viennoiseries", "Boissons", "Plats Chauds", "Petite Faim", "Desserts"];
+    //On récupère toutes les categories de produits
+    const snapshot = await db.collection('products').get();
+    //Si aucune categorie n'a été trouvée, on retourne false
+    if (snapshot.empty) return false;
+    for (let doc of snapshot.docs) {
+        const category = doc.data()["category"];
+        if (!data.includes(category)) data.push(category);
+    }
+    data.sort((a, b) => tmp.includes(a) && tmp.includes(b) ? tmp.indexOf(a) - tmp.indexOf(b) : tmp.length + 1);
+    return data;
+}
+
 module.exports = {
-    placeOrder, addFunds, removeFunds, getBalance, getOrders, getTransactions, getProducts, isOpen, setOpening
+    placeOrder,
+    addFunds,
+    removeFunds,
+    getBalance,
+    getOrders,
+    getTransactions,
+    getProducts,
+    isOpen,
+    setOpening,
+    getCategories
 }
