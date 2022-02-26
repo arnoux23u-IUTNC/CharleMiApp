@@ -255,4 +255,4 @@ google-services.json
 .flutter-plugins
 
 #flutter generated files
-**/windows/flutter
+**/windows/flutter/
