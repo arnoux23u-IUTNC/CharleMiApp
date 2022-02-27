@@ -1,11 +1,8 @@
 import 'package:charlemiapp_cli/main.dart';
-import 'package:charlemiapp_cli/ressources/screens/home.dart';
 
 import '../ressources/assets/const.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'cart.dart';
 
 class Product {
   String id, name;
@@ -65,4 +62,16 @@ class Product {
     return id == other.id;
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Product &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          price == other.price &&
+          imageURL == other.imageURL;
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode ^ price.hashCode ^ imageURL.hashCode;
 }
