@@ -2,8 +2,8 @@ import '../assets/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyAppBarNoBack extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBarNoBack({Key? key}) : super(key: key);
+class AppBarNoBack extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarNoBack({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

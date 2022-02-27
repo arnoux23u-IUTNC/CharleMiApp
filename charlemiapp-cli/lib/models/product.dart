@@ -1,8 +1,11 @@
+import 'package:charlemiapp_cli/main.dart';
 import 'package:charlemiapp_cli/ressources/screens/home.dart';
 
 import '../ressources/assets/const.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'cart.dart';
 
 class Product {
   String id, name;
@@ -50,6 +53,16 @@ class Product {
   }
 
   toJson() {
-    return {'product_id': id, 'qte': Home.cart.cartItems[this]};
+    return {'product_id': id, 'qte': CharlemiappInstance.cart.cartItems[this]};
   }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, price: $price, imageURL: $imageURL}';
+  }
+
+  equals(Product other) {
+    return id == other.id;
+  }
+
 }

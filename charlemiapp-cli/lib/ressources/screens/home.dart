@@ -13,7 +13,6 @@ import 'package:flutter_offline/flutter_offline.dart';
 class Home extends StatefulWidget {
   const Home({Key? key, this.selectedScreen = 0}) : super(key: key);
   static bool loading = false;
-  static Cart cart = Cart();
   static AppUser? user;
   final int selectedScreen;
 
@@ -39,7 +38,7 @@ class _HomeState extends State<Home> {
         final bool connected = result != ConnectivityResult.none;
         return connected
             ? Scaffold(
-                appBar: const MyAppBarNoBack(),
+                appBar: const AppBarNoBack(),
                 body: _widgetOptions[_selectedIndex],
                 bottomNavigationBar: Theme(
                   data: ThemeData(

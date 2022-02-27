@@ -1,3 +1,4 @@
+import 'package:charlemiapp_cli/main.dart';
 import 'package:charlemiapp_cli/models/cart.dart';
 import 'package:charlemiapp_cli/ressources/screens/home.dart';
 import 'package:charlemiapp_cli/services/orderManager.dart';
@@ -38,7 +39,7 @@ class _CartScreenState extends State<CartScreen> {
             padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
             width: double.infinity,
             child: Home.user != null
-                ? (Home.cart.cartItems.isNotEmpty
+                ? (CharlemiappInstance.cart.cartItems.isNotEmpty
                     ? ElevatedButton(
                         onPressed: () async => {
                           /* TODO await placeOrder(Home.cart.cartItems)*/
@@ -75,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   List<Widget> _buildElements() {
-    Map<Product, int> items = Home.cart.cartItems;
+    Map<Product, int> items = CharlemiappInstance.cart.cartItems;
     List<Widget> res = List.empty(growable: true);
     if (items.isNotEmpty) {
       for (Product element in items.keys) {
@@ -116,7 +117,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          if (!Home.cart.addToCart(element)) {
+                          if (!CharlemiappInstance.cart.addToCart(element)) {
                             Fluttertoast.showToast(
                               msg: "Impossible d'ajouter plus",
                               toastLength: Toast.LENGTH_SHORT,
@@ -137,7 +138,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          Home.cart.removeFromCart(element);
+                          CharlemiappInstance.cart.removeFromCart(element);
                         });
                       },
                     )

@@ -169,7 +169,7 @@ class _LoginState extends State<Login> {
         ? const Loader()
         : Scaffold(
             resizeToAvoidBottomInset: true,
-            appBar: const MyAppBarBack(),
+            appBar: const AppBarBack(),
             body: Container(
                 constraints: const BoxConstraints.expand(),
                 color: darkColor,

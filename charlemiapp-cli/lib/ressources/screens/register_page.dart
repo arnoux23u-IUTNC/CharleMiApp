@@ -328,7 +328,7 @@ class _RegisterState extends State<Register> {
     return Home.loading
         ? const Loader()
         : Scaffold(
-            appBar: const MyAppBarBack(),
+            appBar: const AppBarBack(),
             body: Container(
                 height: MediaQuery.of(context).size.height,
                 color: darkColor,
