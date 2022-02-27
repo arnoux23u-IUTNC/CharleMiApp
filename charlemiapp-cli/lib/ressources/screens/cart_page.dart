@@ -42,18 +42,29 @@ class _CartScreenState extends State<CartScreen> {
             width: double.infinity,
             child: Home.user != null
                 ? (CharlemiappInstance.cart.cartItems.isNotEmpty
-                    ? ElevatedButton(
-                        onPressed: () async => {
-                          /* TODO await placeOrder(Home.cart.cartItems)*/
-                        },
-                        child: Text(
-                          'Commander',
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                        ),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                    ? Column(
+                        children: [
+                          Text(
+                            "Total : " + _calcTotal().toString() + " €",
+                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () async => {
+                                  /* TODO await placeOrder(Home.cart.cartItems)*/
+                                },
+                                child: Text(
+                                  'Commander',
+                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                                ),
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                                    padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                              ))
+                        ],
                       )
                     : ElevatedButton(
                         onPressed: null,
