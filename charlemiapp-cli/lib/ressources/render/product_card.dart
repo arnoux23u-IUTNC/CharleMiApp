@@ -11,10 +11,32 @@ class ProductCard extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  Image buildImage() {
-    return Image.asset('assets/products/${product.id}.png',
-        errorBuilder: (c, e, s) =>
-            Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png")));
+  ConstrainedBox buildImage(BuildContext context) {
+    return ConstrainedBox(
+        constraints: const BoxConstraints.expand(),
+        child: InkWell(
+            onTap: () => {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => _buildAddToCartPopUp(context),
+                  )
+                },
+            child: Image.asset('assets/products/${product.id}.png',
+                errorBuilder: (c, e, s) => Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png")))));
+  }
+
+  Widget _buildAddToCartPopUp(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Ajouter ce produit au panier?'),
+      actions: <Widget>[
+        ElevatedButton(
+          onPressed: () async {
+
+          },
+          child: const Text('Oui'),
+        ),
+      ],
+    );
   }
 
   @override
@@ -23,7 +45,7 @@ class ProductCard extends StatelessWidget {
       Expanded(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: buildImage(),
+          child: buildImage(context),
         ),
       ),
       Text(
