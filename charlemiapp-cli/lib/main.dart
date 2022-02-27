@@ -13,11 +13,10 @@ void main() async {
 
 class CharlemiappInstance extends StatelessWidget {
   const CharlemiappInstance({Key? key}) : super(key: key);
-  static late Cart cart;
+  static Cart cart = Cart();
 
   @override
   Widget build(BuildContext context) {
-    cart = Cart();
     /*StreamProvider<AppUser?>.value(value: AuthenticationService().user, catchError: (_, __) => null, initialData: null, child:*/
     return const MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -1,12 +1,7 @@
 import 'product.dart';
 
 class Cart {
-
-  Map<Product, int> cartItems = {
-    Product(id: "P0007", name: "Sandwich F", price: 12.0): 1,
-    Product(id: "P0008", name: "Sandwich P", price: 15.5): 2,
-    Product(id: "P0009", name: "Sandwich K", price: 5.5): 3,
-  };
+  Map<Product, int> cartItems = {};
 
   bool addToCart(product) {
     if (cartItems.containsKey(product)) {
