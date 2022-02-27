@@ -1,7 +1,12 @@
+import 'package:charlemiapp_cli/models/cart.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../models/product.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../screens/home.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -30,8 +35,14 @@ class ProductCard extends StatelessWidget {
       title: const Text('Ajouter ce produit au panier?'),
       actions: <Widget>[
         ElevatedButton(
-          onPressed: () async {
-
+          onPressed: () {
+            if (!Home.cart.addToCart(product)) {
+              Fluttertoast.showToast(
+                msg: "Impossible d'ajouter plus",
+                toastLength: Toast.LENGTH_SHORT,
+                timeInSecForIosWeb: 1,
+              );
+            }
           },
           child: const Text('Oui'),
         ),
