@@ -1,7 +1,9 @@
 import 'package:charlemiapp_cli/models/cart.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:charlemiapp_cli/main.dart';
 
 import '../../models/product.dart';
+import '../../ressources/screens/home.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,7 +38,7 @@ class ProductCard extends StatelessWidget {
       actions: <Widget>[
         ElevatedButton(
           onPressed: () {
-            if (!Home.cart.addToCart(product)) {
+            if (!CharlemiappInstance.cart.addToCart(product)) {
               Fluttertoast.showToast(
                 msg: "Impossible d'ajouter plus",
                 toastLength: Toast.LENGTH_SHORT,
@@ -54,18 +56,37 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
       Expanded(
+        flex: 0,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
           child: buildImage(context),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
       Text(
         product.name,
         style: GoogleFonts.poppins(color: Colors.white),
       ),
-      Text(
-        "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
-        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold),
+      Row(
+        children: [
+          Text(
+            "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
+            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          Material(
+              //TODO ANIMATION CLIC
+              child: IconButton(
+                alignment: Alignment.centerRight,
+                color: Colors.white,
+                padding: const EdgeInsets.all(0),
+                constraints: const BoxConstraints(),
+                icon: const Icon(Icons.add_shopping_cart),
+                onPressed: () {
+                  CharlemiappInstance.cart.addToCart(product);
+                },
+              ),
+              color: Colors.transparent),
+        ],
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
       )
     ]);
   }
