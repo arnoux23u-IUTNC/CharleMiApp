@@ -1,4 +1,5 @@
 import 'package:charlemiapp_cli/models/cart.dart';
+import 'package:charlemiapp_cli/ressources/assets/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:charlemiapp_cli/main.dart';
 
@@ -18,25 +19,37 @@ class ProductCard extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  ConstrainedBox buildImage(BuildContext context) {
-    return ConstrainedBox(
-        constraints: const BoxConstraints.expand(),
-        child: InkWell(
-            onTap: () => {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => _buildAddToCartPopUp(context),
-                  )
-                },
-            child: Image.asset('assets/products/${product.id}.png',
-                errorBuilder: (c, e, s) => Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png")))));
+  InkWell buildImage(BuildContext context) {
+    return InkWell(
+      onTap: () => {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildAddToCartPopUp(context),
+        )
+      },
+      child: Image.asset('assets/products/${product.id}.png', errorBuilder: (c, e, s) => Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+    );
   }
 
   Widget _buildAddToCartPopUp(BuildContext context) {
     return AlertDialog(
-      title: const Text('Ajouter ce produit au panier?'),
+      backgroundColor: midDarkColor,
+      title: Text(
+        product.getName,
+        style: GoogleFonts.poppins(color: Colors.white),
+      ),
+      content: Column(
+        children: [
+          Image.asset('assets/products/${product.id}.png', errorBuilder: (c, e, s) => Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+          const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
+          Text(
+            product.getPrice.toString() + ' €',
+            style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          )
+        ],
+      ),
       actions: <Widget>[
-        ElevatedButton(
+        IconButton(
           onPressed: () {
             if (!CharlemiappInstance.cart.addToCart(product)) {
               Fluttertoast.showToast(
@@ -46,7 +59,10 @@ class ProductCard extends StatelessWidget {
               );
             }
           },
-          child: const Text('Oui'),
+          icon: const Icon(
+            Icons.add_shopping_cart,
+            color: Colors.white,
+          ),
         ),
       ],
     );

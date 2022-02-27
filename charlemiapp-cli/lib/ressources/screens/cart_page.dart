@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:charlemiapp_cli/main.dart';
 import 'package:charlemiapp_cli/models/cart.dart';
 import 'package:charlemiapp_cli/ressources/screens/home.dart';
@@ -60,19 +62,34 @@ class _CartScreenState extends State<CartScreen> {
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         style: ButtonStyle(
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
-                : ElevatedButton(
-                    onPressed: null,
-                    child: Text(
-                      'Vous n\'êtes pas connecté',
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                : Column(
+                    children: [
+                      Text(
+                        "Total : " + _calcTotal().toString() + " €",
+                        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
+                      ),
+                      const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                      ElevatedButton(
+                          onPressed: null,
+                          child: Text(
+                            'Vous n\'êtes pas connecté',
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
+                    ],
+                  ))
       ]),
     );
+  }
+
+  double _calcTotal() {
+    double total = 0.0;
+    CharlemiappInstance.cart.cartItems.forEach((key, value) {
+      total += key.getPrice * value;
+    });
+    return total;
   }
 
   List<Widget> _buildElements() {
