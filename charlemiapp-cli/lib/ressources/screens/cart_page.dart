@@ -7,6 +7,7 @@ import 'package:charlemiapp_cli/services/orderManager.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/product.dart';
 import '../assets/colors.dart';
@@ -45,7 +46,7 @@ class _CartScreenState extends State<CartScreen> {
                     ? Column(
                         children: [
                           Text(
-                            "Total : " + _calcTotal().toString() + " €",
+                            "Total : " + _displayTotal() + " €",
                             style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
                           ),
                           const Padding(padding: EdgeInsets.only(top: 10)),
@@ -77,7 +78,7 @@ class _CartScreenState extends State<CartScreen> {
                 : Column(
                     children: [
                       Text(
-                        "Total : " + _calcTotal().toString() + " €",
+                        "Total : " + _displayTotal() + " €",
                         style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
                       ),
                       const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
@@ -95,12 +96,12 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  double _calcTotal() {
+   String _displayTotal() {
     double total = 0.0;
     CharlemiappInstance.cart.cartItems.forEach((key, value) {
       total += key.getPrice * value;
     });
-    return total;
+    return NumberFormat("0.00", "fr_FR").format(total);
   }
 
   List<Widget> _buildElements() {

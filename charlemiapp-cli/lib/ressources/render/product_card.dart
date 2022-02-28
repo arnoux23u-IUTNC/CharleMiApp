@@ -27,45 +27,73 @@ class ProductCard extends StatelessWidget {
           builder: (BuildContext context) => _buildAddToCartPopUp(context),
         )
       },
-      child: Image.asset('assets/products/${product.id}.png', errorBuilder: (c, e, s) => Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+      child: Image.asset('assets/products/${product.id}.png',
+          errorBuilder: (c, e, s) =>
+              Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
     );
   }
 
   Widget _buildAddToCartPopUp(BuildContext context) {
     return AlertDialog(
-      backgroundColor: midDarkColor,
-      title: Text(
-        product.getName,
-        style: GoogleFonts.poppins(color: Colors.white),
-      ),
-      content: Column(
-        children: [
-          Image.asset('assets/products/${product.id}.png', errorBuilder: (c, e, s) => Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
-          const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
-          Text(
-            product.getPrice.toString() + ' €',
-            style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+        backgroundColor: midDarkColor,
+        title: Row(
+          children: [
+            Text(
+              product.getName,
+              style: GoogleFonts.poppins(color: Colors.white),
+            ),
+            //cross close button
+            IconButton(
+              padding: const EdgeInsets.all(0),
+              constraints: const BoxConstraints(),
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ),
+        content: Column(
+          children: [
+            Image.asset('assets/products/${product.id}.png',
+                errorBuilder: (c, e, s) =>
+                    Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
+            Text(
+              "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
+            Text(
+              //TODO PRODUCT DESCRIPTION
+              "Aucune description disponible",
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+            )
+          ],
+        ),
+        actions: <Widget>[
+          ElevatedButton.icon(
+            icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
+            onPressed: () {
+              if (!CharlemiappInstance.cart.addToCart(product)) {
+                Fluttertoast.showToast(
+                  msg: "Impossible d'ajouter plus",
+                  toastLength: Toast.LENGTH_SHORT,
+                  timeInSecForIosWeb: 1,
+                );
+              }
+              Navigator.pop(context);
+            },
+            label: Text(
+              'Ajouter au panier',
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+            ),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
           )
         ],
-      ),
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {
-            if (!CharlemiappInstance.cart.addToCart(product)) {
-              Fluttertoast.showToast(
-                msg: "Impossible d'ajouter plus",
-                toastLength: Toast.LENGTH_SHORT,
-                timeInSecForIosWeb: 1,
-              );
-            }
-          },
-          icon: const Icon(
-            Icons.add_shopping_cart,
-            color: Colors.white,
-          ),
-        ),
-      ],
-    );
+        actionsAlignment: MainAxisAlignment.center);
   }
 
   @override
