@@ -81,6 +81,7 @@ class StocksView
                         <select name="category" id="category">
                             $domCategories
                         </select>
+                        <input id="category-new" name="category-new" type="text" hidden required>
                     </div>
                     <div class="form-element">
                         <label for="price">Prix</label>
@@ -103,6 +104,7 @@ class StocksView
                 </a>
                 
             </div>
+            <script src="/assets/js/category.js"></script>
         </body>
         </html>
         HTML;
@@ -121,6 +123,9 @@ class StocksView
                 <option value="$category">$category</option>
             HTML;
         }
+        $domCategories .= <<<HTML
+            <option value="other">Nouvelle catégorie</option>
+        HTML;
         return $domCategories;
     }
 

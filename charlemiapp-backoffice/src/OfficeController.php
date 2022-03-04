@@ -152,11 +152,11 @@ class OfficeController
                 return $response->write($view->renderAddProduct($categories));
             case 'POST':
                 $data = $request->getParsedBody();
-                $id = sprintf("P%04d", $this->getNextProductId());
+                $id = sprintf("P%04d", max(100, $this->getNextProductId()));
                 $this->container['firestore']->collection('products')->document($id)->set([
                     'id' => $id,
                     'name' => $data['name'],
-                    'category' => $data['category'],
+                    'category' => $data['category'] == "other" ? $data['category-new'] : $data['category'],
                     'price' => $data['price'],
                     'stock' => 0
                 ]);
@@ -185,7 +185,7 @@ class OfficeController
                 $this->container['firestore']->collection('products')->document($data['id'])->set([
                     'id' => $data['id'],
                     'name' => $data['name'],
-                    'category' => $data['category'],
+                    'category' => $data['category'] == "other" ? $data['category-new'] : $data['category'],
                     'price' => $data['price'],
                     'stock' => 0
                 ]);
