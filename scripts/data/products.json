@@ -15,148 +15,148 @@
   },
   {
     "id": "P0003",
-    "name": "Pain raisin",
-    "price": 0.90,
-    "stock": 0,
-    "category": "Viennoiseries"
-  },
-  {
-    "id": "P0004",
     "name": "Choco suisse",
     "price": 1.10,
     "stock": 0,
     "category": "Viennoiseries"
   },
   {
-    "id": "P0005",
+    "id": "P0004",
     "name": "Petit café",
     "price": 0.70,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0006",
+    "id": "P0005",
     "name": "Grand café",
     "price": 0.95,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0007",
+    "id": "P0006",
     "name": "Petit crème",
     "price": 0.85,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0008",
+    "id": "P0007",
     "name": "Grand crème",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0009",
+    "id": "P0008",
     "name": "Thé",
     "price": 0.90,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0010",
+    "id": "P0009",
     "name": "Chocolat",
     "price": 1.20,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0011",
+    "id": "P0010",
     "name": "Cafe liégeois",
     "price": 1.30,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0012",
+    "id": "P0011",
     "name": "Chocolat viennois",
     "price": 1.25,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0013",
+    "id": "P0012",
     "name": "Eau Cristalline plate",
     "price": 0.60,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0014",
+    "id": "P0013",
     "name": "Eau Cristalline pétillante",
     "price": 0.70,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0015",
+    "id": "P0014",
     "name": "Coca Cola",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0016",
+    "id": "P0015",
     "name": "Coca Cola Cherry",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0017",
+    "id": "P0016",
     "name": "Coca Cola Zero",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0018",
+    "id": "P0017",
     "name": "Fanta Orange",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
-    "id": "P0019",
+    "id": "P0018",
     "name": "Fanta Citron",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
+    "id": "P0019",
+    "name": "Minute Maid Pomme",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Boissons"
+  },
+  {
     "id": "P0020",
-    "name": "Minute Maid",
+    "name": "Minute Maid Orange",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
     "id": "P0021",
-    "name": "Oasis",
+    "name": "Oasis Tropicale",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
     "id": "P0022",
-    "name": "Fuze Tea",
+    "name": "Oasis Pomme Cassis",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
     "id": "P0023",
-    "name": "Soda 50cl",
-    "price": 1.70,
+    "name": "Fuze Tea",
+    "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
@@ -232,71 +232,99 @@
   },
   {
     "id": "P0034",
-    "name": "Pasta Box",
+    "name": "Pasta Box Bolognaise",
     "price": 3.10,
     "stock": 0,
     "category": "Plats Chauds"
   },
   {
     "id": "P0035",
+    "name": "Pasta Box Carbonara",
+    "price": 3.10,
+    "stock": 0,
+    "category": "Plats Chauds"
+  },
+  {
+    "id": "P0036",
+    "name": "Pasta Box Lardon Raclette",
+    "price": 3.10,
+    "stock": 0,
+    "category": "Plats Chauds"
+  },
+  {
+    "id": "P0037",
     "name": "Pasta Box Bollo Balls XL",
     "price": 3.50,
     "stock": 0,
     "category": "Plats Chauds"
   },
   {
-    "id": "P0036",
+    "id": "P0038",
     "name": "Pizza Part",
     "price": 2.30,
     "stock": 0,
     "category": "Plats Chauds"
   },
   {
-    "id": "P0037",
+    "id": "P0039",
     "name": "Yaourt Mamie Nova",
     "price": 1.25,
     "stock": 0,
     "category": "Desserts"
   },
   {
-    "id": "P0038",
+    "id": "P0040",
     "name": "Yop a boire",
     "price": 1.50,
     "stock": 0,
     "category": "Desserts"
   },
   {
-    "id": "P0039",
+    "id": "P0041",
     "name": "Gourde de compote",
     "price": 0.90,
     "stock": 0,
     "category": "Desserts"
   },
   {
-    "id": "P0040",
+    "id": "P0042",
     "name": "Donut nature",
     "price": 0.80,
     "stock": 0,
     "category": "Desserts"
   },
   {
-    "id": "P0041",
-    "name": "Donut fourre",
+    "id": "P0043",
+    "name": "Donut Chocolat",
     "price": 1.00,
     "stock": 0,
     "category": "Desserts"
   },
   {
-    "id": "P0042",
-    "name": "Donut nappe Daim",
-    "price": 1.40,
+    "id": "P0044",
+    "name": "Donut Fraise",
+    "price": 1.00,
     "stock": 0,
     "category": "Desserts"
   },
   {
-    "id": "P0043",
-    "name": "Donut nappe Milka",
-    "price": 1.40,
+    "id": "P0045",
+    "name": "Donut Myrtille",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0046",
+    "name": "Donut Daim",
+    "price": 1.30,
+    "stock": 0,
+    "category": "Desserts"
+  },
+  {
+    "id": "P0047",
+    "name": "Donut Milka",
+    "price": 1.30,
     "stock": 0,
     "category": "Desserts"
   }
