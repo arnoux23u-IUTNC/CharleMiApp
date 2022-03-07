@@ -1,5 +1,6 @@
 import 'home.dart';
 import 'login_page.dart';
+import 'forgotpassword_page.dart';
 import 'profile_page.dart';
 import 'register_page.dart';
 import '../assets/colors.dart';
@@ -40,11 +41,11 @@ class _AuthPageState extends State<AuthPage> {
         children: [
           Column(
             children: [
-              Image.asset("assets/logo_white.png"),
+              Image.asset("assets/logo_white.png", height: MediaQuery.of(context).size.height * 0.4),
               Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+                    padding: const EdgeInsets.only(left: 55, right: 55, top: 0, bottom: 15),
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
@@ -74,6 +75,21 @@ class _AuthPageState extends State<AuthPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const Register()),
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                    child: TextButton(
+                      child: const Text(
+                        "Mot de passe oublié ?",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ForgotPassword()),
                         );
                       },
                     ),

@@ -136,4 +136,16 @@ class AuthenticationService {
       return false;
     }
   }
+
+  Future resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return e.toString().contains('user-not-found') ? "notfound" : e.toString().contains('invalid-email') ? 'email' : null;
+    }
+  }
 }
