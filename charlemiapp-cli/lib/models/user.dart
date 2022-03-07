@@ -57,6 +57,11 @@ class AppUser {
   }
 
   delete() async {
+    await firestore.collection('users').doc(uid).collection('transactions').get().then((snapshot) async {
+      for (var doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
+    });
     await firestore.collection('users').doc(uid).delete();
   }
 

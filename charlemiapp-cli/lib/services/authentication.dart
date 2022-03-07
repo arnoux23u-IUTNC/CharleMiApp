@@ -15,6 +15,7 @@ class AuthenticationService {
       return user!.emailVerified ? _toAppUser(user, null) : "notverified";
     } catch (e) {
       if (kDebugMode) {
+        print("ERRE");
         print(e.toString());
       }
       return e.toString().contains('user-disabled') ? "disabled" : null;
@@ -123,8 +124,16 @@ class AuthenticationService {
     }
   }
 
-  deleteAccount() async {
-    await Home.user!.delete();
-    await _auth.currentUser?.delete();
+  Future<bool> deleteAccount() async {
+    try {
+      await Home.user!.delete();
+      await _auth.currentUser?.delete();
+      return true;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return false;
+    }
   }
 }

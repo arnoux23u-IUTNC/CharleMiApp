@@ -22,6 +22,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late Future<String> balance;
   late Future<List<TransactionData>> transactions;
+  String error = "";
 
   @override
   void initState() {
@@ -107,6 +108,16 @@ class _ProfilePageState extends State<ProfilePage> {
                             future: transactions,
                             builder: _buildTransactions,
                           )),
+                      Container(
+                        child: Text(error,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                              color: Colors.red,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            )),
+                        padding: const EdgeInsets.only(top: 20),
+                      )
                     ])),
               ),
             )),
@@ -115,73 +126,93 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 children: [
                   Container(
-                      padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async => {
-                          setState(() {
-                            Home.loading = true;
-                          }),
-                          await _auth.signOut(),
-                          setState(() {
-                            Home.loading = false;
-                            Home.user = null;
-                          }),
-                          Navigator.pushAndRemoveUntil(
-                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
-                        },
-                        child: Text(
-                          'Se déconnecter',
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                        ),
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
-                      )),
+                    padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async => {
+                        setState(() {
+                          Home.loading = true;
+                        }),
+                        await _auth.signOut(),
+                        setState(() {
+                          Home.loading = false;
+                          Home.user = null;
+                        }),
+                        Navigator.pushAndRemoveUntil(
+                            context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                      },
+                      child: Text(
+                        'Se déconnecter',
+                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                      ),
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                    ),
+                  ),
                   Container(
-                      padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: () async => {
-                          setState(() {
-                            Home.loading = true;
-                          }),
-                          await _auth.signOut(),
-                          setState(() {
-                            Home.loading = false;
-                            Home.user = null;
-                          }),
-                          Navigator.pushAndRemoveUntil(
-                              context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
-                        },
-                        child: TextButton(
-                          onPressed: () async => {
-                            setState(() {
-                              Home.loading = true;
-                            }),
-                            await _auth.deleteAccount(),
-                            setState(() {
-                              Home.loading = false;
-                              Home.user = null;
-                            }),
-                            Navigator.pushAndRemoveUntil(
-                                context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
-                          },
-                          child: Text(
-                            'Supprimer mon compte',
-                            style: GoogleFonts.poppins(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w300),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                          ),
-                        ),
-                      ))
+                    padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
+                    width: double.infinity,
+                    child: TextButton(
+                      onPressed: () async => _buildPopupConfirmDeleteAccount(context),
+                      child: Text(
+                        'Supprimer mon compte',
+                        style: GoogleFonts.poppins(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w300),
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                      ),
+                    ),
+                  )
                 ],
               ),
             )
           ],
         );
+
+  Future _buildPopupConfirmDeleteAccount(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Supprimer mon compte'),
+            content: const Text('Voulez-vous vraiment supprimer votre compte ?'),
+            actions: [
+              ElevatedButton(
+                child: const Text('Annuler'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              ElevatedButton(
+                child: const Text('Supprimer'),
+                onPressed: () async => {
+                  //Navigator.of(context, rootNavigator: true).pop(),
+                  setState(() {
+                    Home.loading = true;
+                  }),
+                  if (await _auth.deleteAccount())
+                    {
+                      setState(() {
+                        Home.loading = false;
+                        Home.user = null;
+                        error = "";
+                      }),
+                      Navigator.pushAndRemoveUntil(
+                          context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 0)), (route) => false)
+                    }
+                  else
+                    {
+                      setState(() {
+                        Home.loading = false;
+                        error = "Déconnectez-vous et réessayez";
+                      }),
+                    }
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   Widget _buildPopupBalance(BuildContext context) {
     var _controller = TextEditingController();
