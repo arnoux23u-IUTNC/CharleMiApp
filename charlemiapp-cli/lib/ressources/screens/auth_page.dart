@@ -1,9 +1,9 @@
 import 'home.dart';
 import 'login_page.dart';
-import 'forgotpassword_page.dart';
 import 'profile_page.dart';
 import 'register_page.dart';
 import '../assets/colors.dart';
+import 'forgotpassword_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthBuilder extends StatelessWidget {

@@ -3,7 +3,6 @@ import 'auth_page.dart';
 import 'no_internet.dart';
 import 'browser_page.dart';
 import '../assets/colors.dart';
-import '../../models/cart.dart';
 import '../../models/user.dart';
 import '../assets/app_icons.dart';
 import '../navigation/appbar_noback.dart';

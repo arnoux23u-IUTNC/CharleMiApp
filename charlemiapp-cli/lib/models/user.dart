@@ -1,9 +1,9 @@
 import '../ressources/assets/const.dart';
 import '../models/transaction_data.dart';
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AppUser {
   FirebaseFirestore firestore = FirebaseFirestore.instance;

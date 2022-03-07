@@ -1,11 +1,10 @@
-import 'package:charlemiapp_cli/ressources/navigation/appbar_back.dart';
-import 'package:charlemiapp_cli/ressources/screens/home.dart';
+import '../loader.dart';
+import '../assets/colors.dart';
+import '../../ressources/screens/home.dart';
+import '../../services/authentication.dart';
+import '../../ressources/navigation/appbar_back.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../services/authentication.dart';
-import '../assets/colors.dart';
-import '../loader.dart';
 
 final AuthenticationService _auth = AuthenticationService();
 

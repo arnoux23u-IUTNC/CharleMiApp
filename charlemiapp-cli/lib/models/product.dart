@@ -1,8 +1,7 @@
-import 'package:charlemiapp_cli/main.dart';
-
+import '../main.dart';
 import '../ressources/assets/const.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Product {
   String id, name;

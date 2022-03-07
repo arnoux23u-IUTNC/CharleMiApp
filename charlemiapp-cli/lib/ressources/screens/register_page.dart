@@ -1,6 +1,6 @@
 import 'home.dart';
-import 'login_page.dart';
 import '../loader.dart';
+import 'login_page.dart';
 import '../assets/colors.dart';
 import '../navigation/appbar_back.dart';
 import '../../services/authentication.dart';
@@ -330,49 +330,52 @@ class _RegisterState extends State<Register> {
         : Scaffold(
             appBar: const AppBarBack(),
             body: Container(
-                height: MediaQuery.of(context).size.height,
-                color: darkColor,
-                child: Scrollbar(
-                    child: SingleChildScrollView(
-                        child: Padding(
-                  padding: const EdgeInsets.all(30),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Inscription",
-                          style: GoogleFonts.poppins(
-                            color: whiteColor,
-                            fontSize: 29,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        _emailField(),
-                        _passwordField(),
-                        _confirmPasswordField(),
-                        _lastnameField(),
-                        _firstnameField(),
-                        _phoneField(),
-                        _studentCardField(),
-                        _submitBtn(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            error,
-                            textAlign: TextAlign.center,
+              height: MediaQuery.of(context).size.height,
+              color: darkColor,
+              child: Scrollbar(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Inscription",
                             style: GoogleFonts.poppins(
-                              color: Colors.red,
-                              fontSize: 16,
+                              color: whiteColor,
+                              fontSize: 29,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                        ),
-                      ],
+                          _emailField(),
+                          _passwordField(),
+                          _confirmPasswordField(),
+                          _lastnameField(),
+                          _firstnameField(),
+                          _phoneField(),
+                          _studentCardField(),
+                          _submitBtn(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              error,
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                color: Colors.red,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                )))),
+                ),
+              ),
+            ),
           );
   }
 }

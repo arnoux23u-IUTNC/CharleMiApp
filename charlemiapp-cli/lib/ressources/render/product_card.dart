@@ -1,15 +1,10 @@
-import 'package:charlemiapp_cli/models/cart.dart';
-import 'package:charlemiapp_cli/ressources/assets/colors.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:charlemiapp_cli/main.dart';
-
+import '../../main.dart';
 import '../../models/product.dart';
-import '../../ressources/screens/home.dart';
+import '../../ressources/assets/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../screens/home.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -42,7 +37,6 @@ class ProductCard extends StatelessWidget {
               product.getName,
               style: GoogleFonts.poppins(color: Colors.white),
             ),
-            //cross close button
             IconButton(
               padding: const EdgeInsets.all(0),
               constraints: const BoxConstraints(),
@@ -91,47 +85,50 @@ class ProductCard extends StatelessWidget {
                 backgroundColor: MaterialStateProperty.all(buttonBlueColor),
                 padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
-          )
+          ),
         ],
         actionsAlignment: MainAxisAlignment.center);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-      Expanded(
-        flex: 0,
-        child: ClipRRect(
-          child: buildImage(context),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      Text(
-        product.name,
-        style: GoogleFonts.poppins(color: Colors.white),
-      ),
-      Row(
-        children: [
-          Text(
-            "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
-            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Expanded(
+          flex: 0,
+          child: ClipRRect(
+            child: buildImage(context),
+            borderRadius: BorderRadius.circular(10),
           ),
-          Material(
-              //TODO ANIMATION CLIC
-              child: IconButton(
-                alignment: Alignment.centerRight,
-                color: Colors.white,
-                padding: const EdgeInsets.all(0),
-                constraints: const BoxConstraints(),
-                icon: const Icon(Icons.add_shopping_cart),
-                onPressed: () {
-                  CharlemiappInstance.cart.addToCart(product);
-                },
-              ),
-              color: Colors.transparent),
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      )
-    ]);
+        ),
+        Text(
+          product.name,
+          style: GoogleFonts.poppins(color: Colors.white),
+        ),
+        Row(
+          children: [
+            Text(
+              "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
+              style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            Material(
+                //TODO ANIMATION CLIC
+                child: IconButton(
+                  alignment: Alignment.centerRight,
+                  color: Colors.white,
+                  padding: const EdgeInsets.all(0),
+                  constraints: const BoxConstraints(),
+                  icon: const Icon(Icons.add_shopping_cart),
+                  onPressed: () {
+                    CharlemiappInstance.cart.addToCart(product);
+                  },
+                ),
+                color: Colors.transparent),
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        )
+      ],
+    );
   }
 }

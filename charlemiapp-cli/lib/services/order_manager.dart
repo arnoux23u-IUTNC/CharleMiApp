@@ -2,6 +2,8 @@ import '../ressources/screens/home.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+//TODO CLASSE A REVOIR
+
 import '../models/product.dart';
 
 Future<String> placeOrder(List<Product> items) async {

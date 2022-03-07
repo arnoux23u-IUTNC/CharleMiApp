@@ -1,10 +1,9 @@
-import 'package:intl/intl.dart';
-
 import 'home.dart';
 import '../loader.dart';
 import '../assets/colors.dart';
 import '../../models/transaction_data.dart';
 import '../../services/authentication.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,39 +36,42 @@ class _ProfilePageState extends State<ProfilePage> {
       : Column(
           children: <Widget>[
             Expanded(
-                child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: darkColor,
-              child: Scrollbar(
-                child: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                color: darkColor,
+                child: Scrollbar(
+                  child: SingleChildScrollView(
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                      Center(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
                           child: Padding(
-                        padding: const EdgeInsets.only(top: 40, bottom: 50),
-                        child: Text('Bonjour ${Home.user?.firstName}',
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
-                      )),
-                      Center(
+                            padding: const EdgeInsets.only(top: 40, bottom: 50),
+                            child: Text('Bonjour ${Home.user?.firstName}',
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
+                          ),
+                        ),
+                        Center(
                           child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: FutureBuilder<String>(
-                          future: balance,
-                          builder: (context, snapshot) {
-                            return snapshot.hasData
-                                ? Text('Votre solde est de ${snapshot.data} €',
-                                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                                : snapshot.hasError
-                                    ? Text('Votre solde est de -- €',
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: FutureBuilder<String>(
+                              future: balance,
+                              builder: (context, snapshot) {
+                                return snapshot.hasData
+                                    ? Text('Votre solde est de ${snapshot.data} €',
                                         style:
                                             GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                                    : const CircularProgressIndicator();
-                          },
+                                    : snapshot.hasError
+                                        ? Text('Votre solde est de -- €',
+                                            style: GoogleFonts.poppins(
+                                                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                                        : const CircularProgressIndicator();
+                              },
+                            ),
+                          ),
                         ),
-                      )),
-                      Container(
+                        Container(
                           padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
                           width: double.infinity,
                           child: TextButton(
@@ -100,27 +102,34 @@ class _ProfilePageState extends State<ProfilePage> {
                                 backgroundColor: MaterialStateProperty.all(Colors.transparent),
                               ),
                             ),
-                          )),
-                      Container(
+                          ),
+                        ),
+                        Container(
                           padding: const EdgeInsets.only(left: 55, right: 55),
                           width: double.infinity,
                           child: FutureBuilder<List<TransactionData>>(
                             future: transactions,
                             builder: _buildTransactions,
-                          )),
-                      Container(
-                        child: Text(error,
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            error,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(
                               color: Colors.red,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                            )),
-                        padding: const EdgeInsets.only(top: 20),
-                      )
-                    ])),
+                            ),
+                          ),
+                          padding: const EdgeInsets.only(top: 20),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            )),
+            ),
             Container(
               color: darkColor,
               child: Column(

@@ -42,19 +42,6 @@ class AuthenticationService {
     }
   }
 
-  /*Future signUpWithEmailAndPassword(String email, String password) async {
-    try {
-      UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      User? user = result.user;
-      return _toAppUser(user!, null);
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
-      return null;
-    }
-  }*/
-
   Future signOut() async {
     try {
       return await _auth.signOut();
@@ -79,10 +66,6 @@ class AuthenticationService {
     }
     return null;
   }
-
-  /*Stream<AppUser?> get user {
-    return _auth.authStateChanges().asyncMap((v) async => await _toAppUser(v, null));
-  }*/
 
   static String? validateEmail(String? value) {
     String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
@@ -145,7 +128,12 @@ class AuthenticationService {
       if (kDebugMode) {
         print(e.toString());
       }
-      return e.toString().contains('user-not-found') ? "notfound" : e.toString().contains('invalid-email') ? 'email' : null;
+      if (e.toString().contains('user-not-found')) {
+        return "notfound";
+      } else if (e.toString().contains('invalid-email')) {
+        return "email";
+      }
+      return null;
     }
   }
 }

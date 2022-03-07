@@ -171,33 +171,34 @@ class _LoginState extends State<Login> {
             resizeToAvoidBottomInset: true,
             appBar: const AppBarBack(),
             body: Container(
-                constraints: const BoxConstraints.expand(),
-                color: darkColor,
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(55),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Connexion",
-                            style: GoogleFonts.poppins(
-                              color: whiteColor,
-                              fontSize: 29,
-                              fontWeight: FontWeight.w600,
-                            ),
+              constraints: const BoxConstraints.expand(),
+              color: darkColor,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(55),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Connexion",
+                          style: GoogleFonts.poppins(
+                            color: whiteColor,
+                            fontSize: 29,
+                            fontWeight: FontWeight.w600,
                           ),
-                          _emailField(),
-                          _passwordField(),
-                          _displayMessages(),
-                          _submitBtn()
-                        ],
-                      ),
+                        ),
+                        _emailField(),
+                        _passwordField(),
+                        _displayMessages(),
+                        _submitBtn()
+                      ],
                     ),
                   ),
-                )),
+                ),
+              ),
+            ),
           );
   }
 }
