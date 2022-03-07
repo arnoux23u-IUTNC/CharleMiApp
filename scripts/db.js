@@ -1,13 +1,13 @@
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+const {initializeApp, cert} = require('firebase-admin/app');
+const {getFirestore} = require('firebase-admin/firestore');
+const fs = require('fs');
 const serviceAccount = require('./charlemi-app-b053ffa81bac.json');
-const products = require("./data/products.json");
 
 initializeApp({
     credential: cert(serviceAccount)
 });
 
-let dbInit = async() => {
+let dbInit = async () => {
     const db = getFirestore();
     console.log("Deleting [PRODUCTS] collection...".red);
     await db.collection('products').get().then(snapshot => {
@@ -34,6 +34,37 @@ let dbInit = async() => {
         await db.collection('global_data').doc(document.id).set(document.data);
 }
 
+let dbBackup = async () => {
+    const db = getFirestore();
+    const time = generateTimestamp();
+    if (!fs.existsSync('./backup'))
+        fs.mkdirSync('./backup');
+    if (!fs.existsSync('./backup/'+time))
+        fs.mkdirSync('./backup/'+time);
+    console.log("Backup [PRODUCTS] collection...".magenta);
+    let products = (await db.collection('products').get()).docs.map(doc => doc.data());
+    fs.writeFileSync(`./backup/${time}/products.json`, JSON.stringify(products));
+    console.log("Backup [ORDERS] collection...".magenta);
+    let orders = (await db.collection('orders').get()).docs.map(doc => doc.data());
+    fs.writeFileSync(`./backup/${time}/orders.json`, JSON.stringify(orders));
+    console.log("Backup [USERS] collection...".magenta);
+    let users = {};
+    for (let user of (await db.collection('users').get()).docs) {
+        const data = user.data();
+        data['transactions'] = (await db.collection('users').doc(user.id).collection('transactions').get()).docs.map(doc => doc.data());
+        users[user.id] = data;
+    }
+    fs.writeFileSync(`./backup/${time}/users.json`, JSON.stringify(users));
+}
+
+let generateTimestamp = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day}`;
+}
+
 module.exports = {
-    dbInit
+    dbInit, dbBackup
 };

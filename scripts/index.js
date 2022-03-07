@@ -1,8 +1,9 @@
 const readline = require("readline");
-const {dbInit} = require("./db.js");
+const {dbInit, dbBackup} = require("./db.js");
 require("colors");
 
 const questions = "\t1] Init database\n" +
+    "\t2] Backup database\n" +
     "\t2] --\n";
 
 let startapp = async () => {
@@ -16,6 +17,10 @@ let startapp = async () => {
             case "1":
                 console.log("[INIT DATABASE]".blue);
                 await dbInit();
+                break;
+            case "2":
+                console.log("[BACKUP DATABASE]".blue);
+                await dbBackup();
                 break;
             default:
                 console.log("Goodbye!".red);

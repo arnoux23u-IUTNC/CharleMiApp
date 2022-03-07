@@ -64,7 +64,7 @@
   },
   {
     "id": "P0010",
-    "name": "Cafe liégeois",
+    "name": "Café liégeois",
     "price": 1.30,
     "stock": 0,
     "category": "Boissons"
@@ -141,14 +141,14 @@
   },
   {
     "id": "P0021",
-    "name": "Oasis Tropicale",
+    "name": "Oasis Tropical",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
   },
   {
     "id": "P0022",
-    "name": "Oasis Pomme Cassis",
+    "name": "Oasis Pomme-Cassis",
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -274,14 +274,14 @@
   },
   {
     "id": "P0040",
-    "name": "Yop a boire",
+    "name": "Yop à boire",
     "price": 1.50,
     "stock": 0,
     "category": "Desserts"
   },
   {
     "id": "P0041",
-    "name": "Gourde de compote",
+    "name": "Compote",
     "price": 0.90,
     "stock": 0,
     "category": "Desserts"
