@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 class Product {
   String id, name;
   double price;
-  String? imageURL;
+  String imageURL;
 
-  Product({required this.id, required this.name, required this.price, this.imageURL});
+  Product({required this.id, required this.name, required this.price, required this.imageURL});
 
   String get getId => id;
 
@@ -45,7 +45,7 @@ class Product {
         id: jsonObject['id'] as String,
         name: jsonObject['name'] as String,
         price: double.parse(jsonObject['price'].toString()),
-        imageURL: jsonObject['image'] as String?);
+        imageURL: jsonObject['image'] as String? ?? "null");
   }
 
   toJson() {

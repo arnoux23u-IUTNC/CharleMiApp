@@ -19,6 +19,7 @@ class CharlemiappInstance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    cart.cache();
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CharleMi\'App',

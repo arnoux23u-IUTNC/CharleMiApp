@@ -103,17 +103,17 @@ class _CartScreenState extends State<CartScreen> {
   String _displayTotal() {
     double total = 0.0;
     CharlemiappInstance.cart.cartItems.forEach((key, value) {
-      total += key.getPrice * value;
+      total += key.getPrice * int.parse(value);
     });
     return NumberFormat("0.00", "fr_FR").format(total);
   }
 
   List<Widget> _buildElements() {
-    Map<Product, int> items = CharlemiappInstance.cart.cartItems;
+    Map<Product, String> items = CharlemiappInstance.cart.cartItems;
     List<Widget> res = List.empty(growable: true);
     if (items.isNotEmpty) {
       for (Product element in items.keys) {
-        int qte = items[element] ?? 0;
+        int qte = int.parse(items[element] ?? "0");
         res.add(
           Container(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),

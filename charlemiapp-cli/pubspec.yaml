@@ -41,6 +41,7 @@ dependencies:
   fluttertoast: ^8.0.8
   flutter_offline: ^2.1.0
   flutter_local_notifications: ^9.3.2
+  shared_preferences: ^2.0.13
   rxdart: ^0.27.3 #peut être retirer plus tard
 
 dev_dependencies:

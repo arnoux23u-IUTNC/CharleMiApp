@@ -12,6 +12,7 @@ class AuthenticationService {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
+      _auth.setPersistence(Persistence.LOCAL);
       return user!.emailVerified ? _toAppUser(user, null) : "notverified";
     } catch (e) {
       if (kDebugMode) {
