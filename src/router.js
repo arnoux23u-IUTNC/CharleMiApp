@@ -32,6 +32,10 @@ router.post('/place-order', authMiddleware, async (req, res) => {
                 return res.status(401).send({
                     success: false, message: "Invalid order"
                 });
+            case "NOT_ENOUGH_STOCKS":
+                return res.status(401).send({
+                    success: false, message: "Not enough stocks"
+                });
             default:
                 return res.status(200).send({
                     success: true, order: response

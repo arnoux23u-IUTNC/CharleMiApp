@@ -13,11 +13,26 @@ let placeOrder = async (req) => {
     //Calcul du total de la commande depuis la BDD
     let total = 0;
     await Promise.all(req.body.items.map(async (product) => {
-        total += Math.max(product['qte'], 0) * (await (await db.collection('products').doc(`${product['product_id']}`).get()).data())['price'];
+        const price = (await (await db.collection('products').doc(`${product['product_id']}`).get()).data())['price'];
+        total += Math.max(product['qte'], 0) * price;
     }));
     response.total = total;
+    if (parseFloat(total) !== parseFloat(req.body['total'])) return "INVALID_TOTAL";
     if (response.total > solde) return "NOT_ENOUGH_FUNDS";
     if (response.total <= 0) return "MONEY_LESS_THAN_ZERO";
+    for (let product of req.body.items) {
+        const doc = (await (await db.collection('products').doc(`${product['product_id']}`).get()).data());
+        const qte = doc['stock'];
+        if (qte < Math.max(product['qte'], 0))
+            return "NOT_ENOUGH_STOCKS";
+    }
+    for (let product of req.body.items) {
+        const doc = (await (await db.collection('products').doc(`${product['product_id']}`).get()).data());
+        const qte = doc['stock'];
+        await db.collection('products').doc(`${product['product_id']}`).update({
+            stock: qte - Math.max(product['qte'], 0)
+        });
+    }
     //Enregistrement de la transaction dans la BDD. On considère que la transaction est valide
     await createTransactionForUser(req.user, -(response.total), "BILLING", "PRODUCTS");
     response.timestamp = generateTimestamp()
