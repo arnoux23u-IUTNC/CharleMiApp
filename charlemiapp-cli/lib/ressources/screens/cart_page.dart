@@ -129,15 +129,15 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                runAlignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text(
-                      element.getName,
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-                    ),
+                  Text(
+                    element.getName,
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Expanded(
                       child: Wrap(
