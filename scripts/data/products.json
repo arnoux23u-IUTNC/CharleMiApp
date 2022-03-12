@@ -2,12 +2,9 @@
   {
     "id": "P0001",
     "name": "Pain chocolat",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Pain chocolat",
     "description" : "Petit pain boulanger constitué de pâte feuilletée et fourré au chocolat.",
     "calories" : "224 kcal",
->>>>>>> Stashed changes
     "price": 0.80,
     "stock": 0,
     "category": "Viennoiseries"
@@ -15,12 +12,9 @@
   {
     "id": "P0002",
     "name": "Croissant",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Croissant",
     "description" : "Viennoiserie à base d'une pâte levée feuilletée spécifique.",
     "calories" : "222 kcal",
->>>>>>> Stashed changes
     "price": 0.70,
     "stock": 0,
     "category": "Viennoiseries"
@@ -28,12 +22,9 @@
   {
     "id": "P0003",
     "name": "Choco suisse",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Choco suisse",
     "description" : "Viennoiserie formée d’un rectangle de pâte briochée garnie d’une crème pâtissière à la vanille et de pépites de chocolat.",
     "calories" : "361 kcal",
->>>>>>> Stashed changes
     "price": 1.10,
     "stock": 0,
     "category": "Viennoiseries"
@@ -41,12 +32,9 @@
   {
     "id": "P0004",
     "name": "Petit café",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Petit café",
     "description" : "Boisson énergisante, obtenue à partir de graines torréfiées de diverses variétés de caféier.",
     "calories" : "2 kcal",
->>>>>>> Stashed changes
     "price": 0.70,
     "stock": 0,
     "category": "Boissons"
@@ -54,12 +42,9 @@
   {
     "id": "P0005",
     "name": "Grand café",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Grand café",
     "description" : "Boisson énergisante, obtenue à partir de graines torréfiées de diverses variétés de caféier.",
     "calories" : "3 kcal",
->>>>>>> Stashed changes
     "price": 0.95,
     "stock": 0,
     "category": "Boissons"
@@ -67,12 +52,9 @@
   {
     "id": "P0006",
     "name": "Petit crème",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Petit crème",
     "description" : "Café agrémenté d’une généreuse couche de crème fouettée.",
     "calories" : "21 kcal",
->>>>>>> Stashed changes
     "price": 0.85,
     "stock": 0,
     "category": "Boissons"
@@ -80,12 +62,9 @@
   {
     "id": "P0007",
     "name": "Grand crème",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Grand crème",
     "description" : "Café agrémenté d’une généreuse couche de crème fouettée.",
     "calories" : "37 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -93,12 +72,9 @@
   {
     "id": "P0008",
     "name": "Thé",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Thé",
     "description" : "Boisson aromatique préparée par infusion de feuilles séchées de théier.",
     "calories" : "0.4 kcal",
->>>>>>> Stashed changes
     "price": 0.90,
     "stock": 0,
     "category": "Boissons"
@@ -106,12 +82,9 @@
   {
     "id": "P0009",
     "name": "Chocolat",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Chocolat",
     "description" : "Boisson chaude constituée de chocolat additionné de lait.",
     "calories" : "200 kcal",
->>>>>>> Stashed changes
     "price": 1.20,
     "stock": 0,
     "category": "Boissons"
@@ -119,12 +92,9 @@
   {
     "id": "P0010",
     "name": "Café liégeois",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Café liégeois",
     "description" : "Café expresso surmonté de lait battu, couronné de crème fouettée et puis décoré de chocolat en poudre",
     "calories" : "155 kcal",
->>>>>>> Stashed changes
     "price": 1.30,
     "stock": 0,
     "category": "Boissons"
@@ -132,12 +102,9 @@
   {
     "id": "P0011",
     "name": "Chocolat viennois",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Chocolat viennois",
     "description" : "Déclinaison du café liégeois, mais où le café est remplacé par du chocolat",
     "calories" : "155 kcal",
->>>>>>> Stashed changes
     "price": 1.25,
     "stock": 0,
     "category": "Boissons"
@@ -145,12 +112,9 @@
   {
     "id": "P0012",
     "name": "Eau Cristalline plate",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Eau plate",
     "description" : "Bouteille d'eau plate 50cl.",
     "calories" : "0 kcal",
->>>>>>> Stashed changes
     "price": 0.60,
     "stock": 0,
     "category": "Boissons"
@@ -158,12 +122,9 @@
   {
     "id": "P0013",
     "name": "Eau Cristalline pétillante",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Eau pétillante",
     "description" : "Bouteille d'eau pétillante 50cl.",
     "calories" : "0 kcal",
->>>>>>> Stashed changes
     "price": 0.70,
     "stock": 0,
     "category": "Boissons"
@@ -171,12 +132,9 @@
   {
     "id": "P0014",
     "name": "Coca Cola",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Coca Cola",
     "description" : "Boisson gazeuse à base d'extraits de feuilles de coca et de noix de cola.",
     "calories" : "140 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -184,12 +142,9 @@
   {
     "id": "P0015",
     "name": "Coca Cola Cherry",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Coca Cherry",
     "description" : "Variante du Coca Cola saveur cerise.",
     "calories" : "139kca",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -197,12 +152,9 @@
   {
     "id": "P0016",
     "name": "Coca Cola Zero",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Coca Zero",
     "description" : "Variante du Coca Cola sans sucre ajouté.",
     "calories" : "1 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -210,12 +162,9 @@
   {
     "id": "P0017",
     "name": "Fanta Orange",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Fanta Orange",
     "description" : "Boisson gazeuse goût orange.",
     "calories" : "129 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -223,12 +172,9 @@
   {
     "id": "P0018",
     "name": "Fanta Citron",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Fanta Citron",
     "description" : "Boisson gazeuse goût citron.",
     "calories" : "129 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -236,12 +182,9 @@
   {
     "id": "P0019",
     "name": "Minute Maid Pomme",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "MM Pomme",
     "description" : "Boisson fraiche goût pomme au goût intense et délicatement acidulé.",
     "calories" : "149 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -249,12 +192,9 @@
   {
     "id": "P0020",
     "name": "Minute Maid Orange",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "MM Orange",
     "description" : "Boisson fraiche goût orange au goût intense et délicatement acidulé",
     "calories" : "149 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -262,12 +202,9 @@
   {
     "id": "P0021",
     "name": "Oasis Tropical",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Oasis Tropical",
     "description" : "Boisson fraiche composé d'eau et de jus de fruits (orange, pomme, fruit de la patssion, mangue).",
     "calories" : "127 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -275,12 +212,9 @@
   {
     "id": "P0022",
     "name": "Oasis Pomme-Cassis",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Oasis Pomme-Cassis",
     "description" : "Boisson fraiche composé d'eau et de jus de fruits (pomme, cassis, framboise).",
     "calories" : "130 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -288,12 +222,9 @@
   {
     "id": "P0023",
     "name": "Fuze Tea",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Fuze Tea",
     "description" : "Thé glacé regroupant jus de fruits et extraits de plantes.",
     "calories" : "20 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Boissons"
@@ -301,12 +232,9 @@
   {
     "id": "P0024",
     "name": "Powerade",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Powerade",
     "description" : "Boisson energisante",
     "calories" : "120 kcal",
->>>>>>> Stashed changes
     "price": 1.80,
     "stock": 0,
     "category": "Boissons"
@@ -314,12 +242,9 @@
   {
     "id": "P0025",
     "name": "Le Fermier",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Fermier",
     "description" : "Pain accompagné de tomates, emmentale en tranche, salade et beurre.",
     "calories" : "469 kcal",
->>>>>>> Stashed changes
     "price": 3.00,
     "stock": 0,
     "category": "Sandwichs"
@@ -327,12 +252,9 @@
   {
     "id": "P0026",
     "name": "Le Bagnat",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Bagnat",
     "description" : "",
     "calories" : "",
->>>>>>> Stashed changes
     "price": 3.00,
     "stock": 0,
     "category": "Sandwichs"
@@ -340,12 +262,9 @@
   {
     "id": "P0027",
     "name": "Le Vegetarien",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Vegetarien",
     "description" : "",
     "calories" : "",
->>>>>>> Stashed changes
     "price": 2.80,
     "stock": 0,
     "category": "Sandwichs"
@@ -353,12 +272,9 @@
   {
     "id": "P0028",
     "name": "Le Jambon/Emmental",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Jambon/Emmental",
     "description" : "",
     "calories" : "",
->>>>>>> Stashed changes
     "price": 2.40,
     "stock": 0,
     "category": "Sandwichs"
@@ -366,12 +282,9 @@
   {
     "id": "P0029",
     "name": "Panini Poulet",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Panini Poulet",
     "description" : "Panini poulet tikka massala",
     "calories" : "431 kcal",
->>>>>>> Stashed changes
     "price": 3.10,
     "stock": 0,
     "category": "Sandwichs"
@@ -379,12 +292,9 @@
   {
     "id": "P0030",
     "name": "Panini Fromage",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Panini Fromage",
     "description" : "Panini 3 fromages ( Chèvre, Mozzarella, Roquefort )",
     "calories" : "582 kcal",
->>>>>>> Stashed changes
     "price": 3.10,
     "stock": 0,
     "category": "Sandwichs"
@@ -392,12 +302,9 @@
   {
     "id": "P0031",
     "name": "Panini Lardon-Raclette",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Panini Lardon-Raclette",
     "description" : "Panini Lardon-Raclette",
     "calories" : "504 kcal",
->>>>>>> Stashed changes
     "price": 3.10,
     "stock": 0,
     "category": "Sandwichs"
@@ -405,12 +312,9 @@
   {
     "id": "P0032",
     "name": "Wrap Poulet",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Wrap Poulet",
     "description" : "",
     "calories" : "",
->>>>>>> Stashed changes
     "price": 2.50,
     "stock": 0,
     "category": "Petite Faim"
@@ -418,12 +322,9 @@
   {
     "id": "P0033",
     "name": "Wrap Thon",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Wrap Thon",
     "description" : "",
     "calories" : "",
->>>>>>> Stashed changes
     "price": 2.50,
     "stock": 0,
     "category": "Petite Faim"
@@ -431,12 +332,9 @@
   {
     "id": "P0034",
     "name": "Pasta Box Bolognaise",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Pasta Box Bolo",
     "description" : "Radiatori cuits accompagnés de viande boeuf, purée de tomate et de concentré de tomate.",
     "calories" : "444 kcal",
->>>>>>> Stashed changes
     "price": 3.10,
     "stock": 0,
     "category": "Plats Chauds"
@@ -444,26 +342,19 @@
   {
     "id": "P0035",
     "name": "Pasta Box Carbonara",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Pasta Box Carbo",
     "description" : "Pâtes fraîches cuites accompagnées de lardons cuits fumés et de crème fraîche légère.",
     "calories" : "498 kcal",
->>>>>>> Stashed changes
     "price": 3.10,
     "stock": 0,
     "category": "Plats Chauds"
   },
   {
     "id": "P0036",
-<<<<<<< Updated upstream
-    "name": "Pasta Box Lardon Raclette",
-=======
     "name": "Pasta Box Lardon-Raclette",
     "diminutif" : "Pasta Box Raclette",
     "description" : "Radiatori cuits accompagnés de lardons cuits fumés, de mozzarella et de raclette.",
     "calories" : "585 kcal",
->>>>>>> Stashed changes
     "price": 3.10,
     "stock": 0,
     "category": "Plats Chauds"
@@ -471,12 +362,9 @@
   {
     "id": "P0037",
     "name": "Pasta Box Bollo Balls XL",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Pasta Box XL",
     "description" : "Box Serpentini sauce Bolo Balls Lustucru, c'est un max de plaisir pour les gourmands ! De généreuses boulettes au bœuf savoureux et une sauce bolognaise délicieusement cuisinée.",
     "calories" : "660 kcal",
->>>>>>> Stashed changes
     "price": 3.50,
     "stock": 0,
     "category": "Plats Chauds"
@@ -484,12 +372,9 @@
   {
     "id": "P0038",
     "name": "Pizza Part",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Pizza Part",
     "description" : "Part de pizza",
     "calories" : "300 kcal",
->>>>>>> Stashed changes
     "price": 2.30,
     "stock": 0,
     "category": "Plats Chauds"
@@ -497,12 +382,9 @@
   {
     "id": "P0039",
     "name": "Yaourt Mamie Nova",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Yaourt",
     "description" : "Yaourt Mamie Nova, généreux, crémeux et riche en fruits est idéal pour satisfaire tous les gourmands.",
     "calories" : "87 kcal",
->>>>>>> Stashed changes
     "price": 1.25,
     "stock": 0,
     "category": "Desserts"
@@ -510,12 +392,9 @@
   {
     "id": "P0040",
     "name": "Yop à boire",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Yop",
     "description" : "yaourt à boire avec une texture nappante unique qui est à la fois rafraîchissante et nourrissante.",
     "calories" : "118.8 kcal",
->>>>>>> Stashed changes
     "price": 1.50,
     "stock": 0,
     "category": "Desserts"
@@ -523,12 +402,9 @@
   {
     "id": "P0041",
     "name": "Compote",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Compote",
     "description" : "Compote de pomme.",
     "calories" : "63 kcal",
->>>>>>> Stashed changes
     "price": 0.90,
     "stock": 0,
     "category": "Desserts"
@@ -536,12 +412,9 @@
   {
     "id": "P0042",
     "name": "Donut nature",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Donut nature",
     "description" : "Pate levée frite et recouverte d'une pellicule de sucre en poudre.",
     "calories" : "203 kcal",
->>>>>>> Stashed changes
     "price": 0.80,
     "stock": 0,
     "category": "Desserts"
@@ -549,12 +422,9 @@
   {
     "id": "P0043",
     "name": "Donut Chocolat",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Donut Choco",
     "description" : "Donut fourré au cacao, recouvert d'un glaçage au cacao et décoré de rayures blanches.",
     "calories" : "371 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Desserts"
@@ -562,12 +432,9 @@
   {
     "id": "P0044",
     "name": "Donut Fraise",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Donut Fraise",
     "description" : "Donut avec préparation à base de fraises, aromatisé, glaçage rose et perles de sucre rouge.",
     "calories" : "286 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Desserts"
@@ -575,12 +442,9 @@
   {
     "id": "P0045",
     "name": "Donut Myrtille",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Donut Myrtille",
     "description" : "Donut avec préparation à base de myrtilles, aromatisé, glaçage violet et perles de sucre rouge.",
     "calories" : "270 kcal",
->>>>>>> Stashed changes
     "price": 1.00,
     "stock": 0,
     "category": "Desserts"
@@ -588,12 +452,9 @@
   {
     "id": "P0046",
     "name": "Donut Daim",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Donut Daim",
     "description" : "Donut garni d'un fourrage caramel, décoré avec un glaçage contenant du cacao et des éclats d'amandes craquantes enrobées de chocolat au lait.", 
     "calories" : "294 kcal",
->>>>>>> Stashed changes
     "price": 1.30,
     "stock": 0,
     "category": "Desserts"
@@ -601,12 +462,9 @@
   {
     "id": "P0047",
     "name": "Donut Milka",
-<<<<<<< Updated upstream
-=======
     "diminutif" : "Donut Milka",
     "description" : "Donut avec fourrage lait cacao et décoré de chocolat Milka.",
     "calories" : "300 kcal",
->>>>>>> Stashed changes
     "price": 1.30,
     "stock": 0,
     "category": "Desserts"
