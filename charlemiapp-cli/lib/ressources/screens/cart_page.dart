@@ -130,9 +130,13 @@ class _CartScreenState extends State<CartScreen> {
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                runAlignment: WrapAlignment.center,
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.center,
+                spacing:8.0,
+                runAlignment:WrapAlignment.center,
+                runSpacing: 8.0,
                 crossAxisAlignment: WrapCrossAlignment.center,
+                verticalDirection: VerticalDirection.up,
                 children: [
                   Text(
                     element.getName,
