@@ -2,7 +2,7 @@ import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
 import '../../ressources/screens/home.dart';
-import '../../ressources/screens/confirmation.dart';
+import '../../ressources/screens/confirmation_screen.dart';
 
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,7 @@ class _CartScreenState extends State<CartScreen> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () => {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Confirmation())),
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ConfirmationScreen())),
                     },
                     child: Text(
                       'Commander',

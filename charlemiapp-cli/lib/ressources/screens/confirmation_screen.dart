@@ -9,14 +9,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../navigation/appbar_back.dart';
 
-class Confirmation extends StatefulWidget {
-  const Confirmation({Key? key}) : super(key: key);
+class ConfirmationScreen extends StatefulWidget {
+  const ConfirmationScreen({Key? key}) : super(key: key);
 
   @override
-  State<Confirmation> createState() => _ConfirmationState();
+  State<ConfirmationScreen> createState() => _ConfirmationScreenState();
 }
 
-class _ConfirmationState extends State<Confirmation> {
+class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +49,7 @@ class _ConfirmationState extends State<Confirmation> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () => {
-                        // TODO Trigger commande
+                        /* TODO await placeOrder(Home.cart.cartItems)*/
                       },
                       child: Text(
                         'Commander',
