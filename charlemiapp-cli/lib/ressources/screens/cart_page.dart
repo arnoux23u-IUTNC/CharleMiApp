@@ -61,8 +61,7 @@ class _CartScreenState extends State<CartScreen> {
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(buttonBlueColor),
                                   padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                                  shape:
-                                      MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
                             ),
                           )
                         ],
@@ -74,8 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         style: ButtonStyle(
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
                 : Column(
                     children: [
                       Text(
@@ -90,8 +88,7 @@ class _CartScreenState extends State<CartScreen> {
                             style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
                           ),
                           style: ButtonStyle(
-                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
                     ],
                   ),
           )
@@ -142,7 +139,11 @@ class _CartScreenState extends State<CartScreen> {
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Row(
+                  Expanded(
+                      child: Wrap(
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       TextButton(
                         child: Text(
@@ -177,7 +178,7 @@ class _CartScreenState extends State<CartScreen> {
                         },
                       )
                     ],
-                  )
+                  ))
                 ],
               ),
             ),
