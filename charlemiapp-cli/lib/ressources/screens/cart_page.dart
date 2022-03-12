@@ -129,60 +129,54 @@ class _CartScreenState extends State<CartScreen> {
                 ],
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-              child: Wrap(
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.center,
-                spacing:8.0,
-                runAlignment:WrapAlignment.center,
-                runSpacing: 8.0,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                verticalDirection: VerticalDirection.up,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    element.getName,
-                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-                    overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    width: 165,
+                    child: Text(
+                      element.getName,
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  Expanded(
-                      child: Wrap(
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
+
+                  Row(
                     children: [
-                      TextButton(
-                        child: Text(
-                          "+",
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            if (!CharlemiappInstance.cart.addToCart(element)) {
-                              Fluttertoast.showToast(
-                                msg: "Impossible d'ajouter plus",
-                                toastLength: Toast.LENGTH_SHORT,
-                                timeInSecForIosWeb: 1,
-                              );
-                            }
-                          });
-                        },
-                      ),
-                      Text(
-                        "$qte",
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
-                      ),
-                      TextButton(
-                        child: Text(
-                          "-",
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            CharlemiappInstance.cart.removeFromCart(element);
-                          });
-                        },
-                      )
+                  TextButton(
+                    child: Text(
+                      "+",
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (!CharlemiappInstance.cart.addToCart(element)) {
+                          Fluttertoast.showToast(
+                            msg: "Impossible d'ajouter plus",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                          );
+                        }
+                      });
+                    },
+                  ),
+                  Text(
+                    "$qte",
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                  ),
+                  TextButton(
+                    child: Text(
+                      "-",
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        CharlemiappInstance.cart.removeFromCart(element);
+                      });
+                    },
+                  )
                     ],
-                  ))
+                  )
                 ],
               ),
             ),
