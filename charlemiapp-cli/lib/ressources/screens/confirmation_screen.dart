@@ -1,10 +1,13 @@
 import '../../main.dart';
+import '../assets/const.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
+import '../navigation/appbar_back.dart';
+import 'dart:io' show Platform;
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../navigation/appbar_back.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ConfirmationScreen extends StatefulWidget {
   const ConfirmationScreen({Key? key}) : super(key: key);
@@ -84,6 +87,9 @@ List<Widget> _buildElements() {
 }
 
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
+  TimeOfDay? _selected;
+  String _selectedStr = "Heure de retrait";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +107,6 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-
                       Container(
                         padding: const EdgeInsets.only(top: 30),
                         height: 200,
@@ -145,31 +150,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                   ),
                                 ),
                                 const Padding(padding: EdgeInsets.only(top: 20)),
-                                TextFormField(
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  autofocus: false,
-                                  keyboardType: TextInputType.emailAddress,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    errorMaxLines: 2,
-                                    fillColor: midDarkColor,
-                                    contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                    hintText: "Heure de retrait",
-                                    hintStyle: GoogleFonts.poppins(
-                                      color: greyedFont,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
+                                _buildTimePicker()
                               ],
                             ),
                           ),
@@ -190,31 +171,80 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             ),
           ),
           Container(
-              padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => {
+            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+            width: double.infinity,
+            child: Column(
+              children: [
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_selected == null || _selectedStr == "Heure de retrait") {
+                        Fluttertoast.showToast(
+                          msg: "Heure de retrait invalide",
+                          toastLength: Toast.LENGTH_SHORT,
+                          timeInSecForIosWeb: 1,
+                        );
+                      } else {
                         /* TODO await placeOrder(Home.cart.cartItems)*/
-                      },
-                      child: Text(
-                        'Commander',
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                      ),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                      }
+                    },
+                    child: Text(
+                      'Commander',
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                     ),
-                  )
-                ],
-              ))
+                    style: defaultButtonStyle,
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
+    );
+  }
+
+  Widget _buildTimePicker() {
+    return ElevatedButton(
+      onPressed: () async {
+        var time = DateTime.now();
+        //if (Platform.isAndroid) {
+        _selected = await showTimePicker(
+          context: context,
+          initialTime: TimeOfDay(hour: time.hour, minute: time.minute + 15),
+        );
+        if (_selected != null) {
+          if (_selected!.hour < time.hour ||
+              (_selected!.hour == time.hour && _selected!.minute < (time.minute + 15)) ||
+              _selected!.hour > 15 ||
+              _selected!.hour < 10) {
+            Fluttertoast.showToast(
+              msg: "> ${time.hour}:${time.minute + 15} | < 16h",
+              toastLength: Toast.LENGTH_SHORT,
+              timeInSecForIosWeb: 2,
+            );
+          } else {
+            MaterialLocalizations localizations = MaterialLocalizations.of(context);
+            String formattedTime = localizations.formatTimeOfDay(_selected!, alwaysUse24HourFormat: true);
+            setState(() {
+              _selectedStr = formattedTime;
+            });
+          }
+        } else {
+          setState(() {
+            _selectedStr = "Heure de retrait";
+          });
+        }
+        /*} else {
+          //TODO IOS
+        }*/
+      },
+      child: Text(
+        _selectedStr,
+        style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+      ),
+      style: defaultButtonStyle,
     );
   }
 }

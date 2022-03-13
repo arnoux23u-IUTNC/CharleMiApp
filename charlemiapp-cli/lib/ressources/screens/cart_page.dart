@@ -25,10 +25,7 @@ class _CartScreenState extends State<CartScreen> {
         children: <Widget>[
           Expanded(
             child: Container(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height,
+              height: MediaQuery.of(context).size.height,
               color: darkColor,
               child: SingleChildScrollView(
                 child: Center(
@@ -46,56 +43,59 @@ class _CartScreenState extends State<CartScreen> {
             width: double.infinity,
             child: Home.user != null
                 ? (CharlemiappInstance.cart.cartItems.isNotEmpty
-                ? Column(
-              children: [
-                Text(
-                  "Total : " + _displayTotal() + " €",
-                  style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
-                ),
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ConfirmationScreen())),
-                    },
-                    child: Text(
-                      'Commander',
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
-                  ),
-                )
-              ],
-            )
-                : ElevatedButton(
-                onPressed: null,
-                child: Text(
-                  'Panier vide',
-                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                    ? Column(
+                        children: [
+                          Text(
+                            "Total : " + _displayTotal() + " €",
+                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 10)),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () => {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const ConfirmationScreen())),
+                              },
+                              child: Text(
+                                'Commander',
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                              ),
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(buttonBlueColor),
+                                  padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                                  shape:
+                                      MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                            ),
+                          )
+                        ],
+                      )
+                    : ElevatedButton(
+                        onPressed: null,
+                        child: Text(
+                          'Panier vide',
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
                 : Column(
-              children: [
-                Text(
-                  "Total : " + _displayTotal() + " €",
-                  style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
-                ),
-                const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
-                ElevatedButton(
-                    onPressed: null,
-                    child: Text(
-                      'Vous n\'êtes pas connecté',
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                    ),
-                    style: ButtonStyle(
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)), shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
-              ],
-            ),
+                    children: [
+                      Text(
+                        "Total : " + _displayTotal() + " €",
+                        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
+                      ),
+                      const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                      ElevatedButton(
+                          onPressed: null,
+                          child: Text(
+                            'Vous n\'êtes pas connecté',
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
+                    ],
+                  ),
           )
         ],
       ),
@@ -145,7 +145,6 @@ class _CartScreenState extends State<CartScreen> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-
                   Row(
                     children: [
                       TextButton(
@@ -203,5 +202,64 @@ class _CartScreenState extends State<CartScreen> {
       );
     }
     return res;
+  }
+
+  void _buildToastOrder(data) {
+    if (data['success'] == true) {
+      Fluttertoast.showToast(
+          msg: "Succès",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      setState(() {
+        CharlemiappInstance.cart.clearCart();
+      });
+    } else {
+      switch (data['message']) {
+        case 'Charlemiam is closed':
+          Fluttertoast.showToast(
+              msg: "Charlemiam is closed",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        case 'Not enough funds':
+          Fluttertoast.showToast(
+              msg: "Solde insuffisant",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        case 'Not enough stocks':
+          Fluttertoast.showToast(
+              msg: "Un produit n'est plus disponible",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        default:
+          Fluttertoast.showToast(
+              msg: "An error occured",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+      }
+    }
   }
 }

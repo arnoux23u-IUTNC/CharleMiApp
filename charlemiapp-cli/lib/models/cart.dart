@@ -77,5 +77,18 @@ class Cart {
     return cart;
   }
 
+  double total() {
+    double total = 0.0;
+    cartItems.forEach((key, value) {
+      total += key.getPrice * int.parse(value);
+    });
+    return total;
+  }
+
   void cache() {}
+
+  void clearCart() {
+    cartItems.clear();
+    saveToSP(cartItems);
+  }
 }
