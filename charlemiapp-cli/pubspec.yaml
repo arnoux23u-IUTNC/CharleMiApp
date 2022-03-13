@@ -69,6 +69,7 @@ flutter:
     - assets/logo_white.png
     - assets/wifi-slash.png
     - assets/products/
+    - assets/check-circle.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

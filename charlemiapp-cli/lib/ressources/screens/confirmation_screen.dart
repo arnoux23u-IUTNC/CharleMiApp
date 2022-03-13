@@ -20,7 +20,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarBack(),
+      appBar: const AppBarBack(),
       backgroundColor: darkColor,
       body: Column(
         children: <Widget>[
@@ -33,7 +33,23 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [],
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 30),
+                        height: 200,
+                        child: Image.asset('assets/check-circle.png'),
+                      ),
+                      Column(
+                        children: [
+                          Text("Votre commande à été passée!",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20
+                          ),)
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
