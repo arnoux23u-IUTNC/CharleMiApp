@@ -1,3 +1,5 @@
+import 'package:charlemiapp_cli/ressources/screens/cart_page.dart';
+
 import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
@@ -14,6 +16,76 @@ class ConfirmationScreen extends StatefulWidget {
 
   @override
   State<ConfirmationScreen> createState() => _ConfirmationScreenState();
+}
+
+String _displayTotal() {
+  double total = 0.0;
+  CharlemiappInstance.cart.cartItems.forEach((key, value) {
+    total += key.getPrice * int.parse(value);
+  });
+  return NumberFormat("0.00", "fr_FR").format(total);
+}
+
+List<Widget> _buildElements() {
+  Map<Product, String> items = CharlemiappInstance.cart.cartItems;
+  List<Widget> res = List.empty(growable: true);
+  if (items.isNotEmpty) {
+    for (Product element in items.keys) {
+      int qte = int.parse(items[element] ?? "0");
+      res.add(
+        Container(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          width: double.infinity,
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              color: midDarkColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  offset: Offset(3, 3),
+                  blurRadius: 1,
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 165,
+                  child: Text(
+                    element.getName,
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  "x " "$qte",
+                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+  } else {
+    res.add(
+      Container(
+        padding: const EdgeInsets.only(left: 55, right: 55, top: 80),
+        width: double.infinity,
+        child: Center(
+          child: Text(
+            'Votre panier est vide',
+            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+        ),
+      ),
+    );
+  }
+  return res;
 }
 
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
@@ -39,15 +111,26 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                         height: 200,
                         child: Image.asset('assets/check-circle.png'),
                       ),
-                      Column(
-                        children: [
-                          Text("Votre commande à été passée!",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20
-                          ),)
-                        ],
+
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Text("Finalisez votre commande",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20
+                              ),),
+                            const Padding(padding: EdgeInsets.only(top:20)),
+                            Text(
+                              "Total : " + _displayTotal() + " €",
+                              style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w400, fontSize:18),
+                            ),
+                            Column(
+                              children: _buildElements(),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
