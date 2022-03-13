@@ -1,5 +1,6 @@
 import '../../main.dart';
 import '../../models/product.dart';
+import '../../ressources/assets/const.dart';
 import '../../ressources/assets/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class ProductCard extends StatelessWidget {
       },
       child: Image.asset('assets/products/${product.id}.png',
           errorBuilder: (c, e, s) =>
-              Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+              Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
     );
   }
 
@@ -50,7 +51,7 @@ class ProductCard extends StatelessWidget {
           children: [
             Image.asset('assets/products/${product.id}.png',
                 errorBuilder: (c, e, s) =>
-                    Image.network("${product.imageURL}", errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+                    Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
             const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
             Text(
               "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
@@ -81,10 +82,7 @@ class ProductCard extends StatelessWidget {
               'Ajouter au panier',
               style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
             ),
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+            style: defaultButtonStyle,
           ),
         ],
         actionsAlignment: MainAxisAlignment.center);

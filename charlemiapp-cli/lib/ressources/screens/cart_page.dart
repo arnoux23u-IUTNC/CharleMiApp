@@ -1,9 +1,9 @@
 import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
+import '../../ressources/assets/const.dart';
 import '../../ressources/screens/home.dart';
 import '../../ressources/screens/confirmation_screen.dart';
-
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,11 +60,7 @@ class _CartScreenState extends State<CartScreen> {
                                 'Commander',
                                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                               ),
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                                  padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                                  shape:
-                                      MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                              style: defaultButtonStyle,
                             ),
                           )
                         ],

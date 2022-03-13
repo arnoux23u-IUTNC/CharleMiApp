@@ -2,6 +2,7 @@ import 'home.dart';
 import '../loader.dart';
 import '../assets/colors.dart';
 import '../../models/transaction_data.dart';
+import '../../ressources/assets/const.dart';
 import '../../services/authentication.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -154,10 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         'Se déconnecter',
                         style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                       ),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                      style: defaultButtonStyle,
                     ),
                   ),
                   Container(

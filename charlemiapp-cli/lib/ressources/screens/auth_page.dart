@@ -4,6 +4,7 @@ import 'profile_page.dart';
 import 'register_page.dart';
 import '../assets/colors.dart';
 import 'forgotpassword_page.dart';
+import '../../ressources/assets/const.dart';
 import 'package:flutter/material.dart';
 
 class AuthBuilder extends StatelessWidget {
@@ -31,7 +32,6 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     setState(() {
       Home.loading = false;
-      Home.user = null;
     });
     return Container(
       color: darkColor,
@@ -58,10 +58,7 @@ class _AuthPageState extends State<AuthPage> {
                         'Connexion',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                      style: defaultButtonStyle,
                     ),
                   ),
                   Container(

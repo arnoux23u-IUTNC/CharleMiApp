@@ -1,3 +1,4 @@
+import '../assets/const.dart';
 import '../assets/colors.dart';
 import 'dart:io';
 import 'package:flutter/services.dart';
@@ -55,10 +56,7 @@ class _NoInternetState extends State<NoInternet> {
                       'Quitter',
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                     ),
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+                    style: defaultButtonStyle,
                   ),
                 ),
               ),

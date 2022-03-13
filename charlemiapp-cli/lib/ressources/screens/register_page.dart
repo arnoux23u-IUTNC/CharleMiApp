@@ -3,6 +3,7 @@ import '../loader.dart';
 import 'login_page.dart';
 import '../assets/colors.dart';
 import '../navigation/appbar_back.dart';
+import '../../ressources/assets/const.dart';
 import '../../services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -315,10 +316,7 @@ class _RegisterState extends State<Register> {
           'Valider',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
-            padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+        style: defaultButtonStyle,
       ),
     );
   }
