@@ -106,32 +106,88 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+
                       Container(
                         padding: const EdgeInsets.only(top: 30),
                         height: 200,
                         child: Image.asset('assets/check-circle.png'),
                       ),
-
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Text("Finalisez votre commande",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20
-                              ),),
-                            const Padding(padding: EdgeInsets.only(top:20)),
-                            Text(
-                              "Total : " + _displayTotal() + " €",
-                              style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w400, fontSize:18),
+                      Column(
+                        children: [
+                          Text(
+                            "Finalisez votre commande",
+                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+                            width: double.infinity,
+                            child: Column(
+                              children: [
+                                const Padding(padding: EdgeInsets.only(top: 20)),
+                                TextFormField(
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  autofocus: false,
+                                  keyboardType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    errorMaxLines: 2,
+                                    fillColor: midDarkColor,
+                                    contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                    hintText: "Commentaire",
+                                    hintStyle: GoogleFonts.poppins(
+                                      color: greyedFont,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                                const Padding(padding: EdgeInsets.only(top: 20)),
+                                TextFormField(
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  autofocus: false,
+                                  keyboardType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    errorMaxLines: 2,
+                                    fillColor: midDarkColor,
+                                    contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                    hintText: "Heure de retrait",
+                                    hintStyle: GoogleFonts.poppins(
+                                      color: greyedFont,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Column(
-                              children: _buildElements(),
-                            )
-                          ],
-                        ),
-                      )
+                          ),
+                          const Padding(padding: EdgeInsets.only(top: 20)),
+                          Text(
+                            "Total : " + _displayTotal() + " €",
+                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
+                          ),
+                          Column(
+                            children: _buildElements(),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
