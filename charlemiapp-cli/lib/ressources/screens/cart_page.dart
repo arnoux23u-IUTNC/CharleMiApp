@@ -107,6 +107,11 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   List<Widget> _buildElements() {
+    ButtonStyle _textButtonStyle = TextButton.styleFrom(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+      minimumSize: Size.zero,
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    );
     Map<Product, String> items = CharlemiappInstance.cart.cartItems;
     List<Widget> res = List.empty(growable: true);
     if (items.isNotEmpty) {
@@ -133,50 +138,56 @@ class _CartScreenState extends State<CartScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: 165,
+                  Expanded(
+                    flex: 13,
                     child: Text(
                       element.getName,
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Row(
-                    children: [
-                      TextButton(
-                        child: Text(
-                          "+",
+                  Expanded(
+                    flex: 7,
+                    child: Row(
+                      children: [
+                        TextButton(
+                          style: _textButtonStyle,
+                          child: Text(
+                            "+",
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              if (!CharlemiappInstance.cart.addToCart(element)) {
+                                Fluttertoast.showToast(
+                                  msg: "Impossible d'ajouter plus",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  timeInSecForIosWeb: 1,
+                                );
+                              }
+                            });
+                          },
+                        ),
+                        Text(
+                          "$qte",
                           style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            if (!CharlemiappInstance.cart.addToCart(element)) {
-                              Fluttertoast.showToast(
-                                msg: "Impossible d'ajouter plus",
-                                toastLength: Toast.LENGTH_SHORT,
-                                timeInSecForIosWeb: 1,
-                              );
-                            }
-                          });
-                        },
-                      ),
-                      Text(
-                        "$qte",
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
-                      ),
-                      TextButton(
-                        child: Text(
-                          "-",
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            CharlemiappInstance.cart.removeFromCart(element);
-                          });
-                        },
-                      )
-                    ],
-                  )
+                        TextButton(
+                          style: _textButtonStyle,
+                          child: Text(
+                            "-",
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              CharlemiappInstance.cart.removeFromCart(element);
+                            });
+                          },
+                        )
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.end,
+                    ),
+                  ),
                 ],
               ),
             ),
