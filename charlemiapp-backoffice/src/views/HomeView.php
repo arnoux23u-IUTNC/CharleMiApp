@@ -74,9 +74,11 @@ class HomeView
                 <a href="{$this->container['router']->pathFor('stocks')}">
                     <button class="stocks">Gestion des stocks</button>
                 </a>
+                <a href="{$this->container['router']->pathFor('users')}">
+                    <button class="stocks">Gestion des utilisateurs</button>
+                </a>
             </div>
             <script src="/assets/js/draganddrop.js"></script>
-            <script src="/assets/js/xhr-open.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
         </html>
@@ -84,13 +86,29 @@ class HomeView
         return genererHeader("Home - CharleMi'App", ["home.css", "draganddrop.css"]) . $html;
     }
 
-    #[Pure] public function noOrders(): string
+    #[Pure] public function noOrders(bool $open): string
     {
-        return genererHeader("Home - CharleMi'App") . <<<HTML
-            No ORDERS
+        $btn = $open ? "<button id='chg-btn' name='open' value='close' class=\"openclose close\">Close</button>" : "<button id='chg-btn' name='open' value='open' class=\"openclose open\">Open</button>";
+        $html = <<<HTML
+            <div class="buttons">
+                <a href="{$this->container['router']->pathFor('logout')}">
+                    <button class="logout">Logout</button>
+                </a>
+                <form action="{$this->container['router']->pathFor('openSet')}" method="POST">
+                    $btn
+                </form>
+                <a href="{$this->container['router']->pathFor('stocks')}">
+                    <button class="stocks">Gestion des stocks</button>
+                </a>
+                <a href="{$this->container['router']->pathFor('users')}">
+                    <button class="stocks">Gestion des utilisateurs</button>
+                </a>
+            </div>
+            <script src="/assets/js/xhr-open.js"></script>
         </body>
         </html>
         HTML;
+        return genererHeader("Home - CharleMi'App",["home.css"]) . $html;
     }
 
     private function renderColumn(array $order, string $id): string

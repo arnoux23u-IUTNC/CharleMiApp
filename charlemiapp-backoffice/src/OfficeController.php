@@ -4,7 +4,7 @@ namespace charlemiapp;
 
 use Slim\Container;
 use Slim\Http\{Request, Response};
-use charlemiapp\views\{HomeView, LoginView, StocksView};
+use charlemiapp\views\{HomeView, LoginView, StocksView, UsersView};
 use Slim\Exception\MethodNotAllowedException;
 use Kreait\Firebase\Exception\Auth\UserNotFound;
 use Kreait\Firebase\Exception\Auth\InvalidCustomToken;
@@ -22,17 +22,17 @@ class OfficeController
     public function home(Request $request, Response $response, array $args): Response
     {
         $view = new HomeView($this->container);
+        $is_open = $this->container['firestore']->collection('global_data')->document('charlemiam')->snapshot()->data()['is_open'] ?? false;
         if (empty($_SESSION['USER_UID']))
             return $response->withRedirect($this->container['router']->pathFor('login'));
         $ordersSnapshot = $this->container['firestore']->collection('orders')->where('timestamp', '>', date('Y-m-d'))->documents();
         if ($ordersSnapshot->isEmpty())
-            return $response->write($view->noOrders());
+            return $response->write($view->noOrders($is_open));
         $orders = [];
         foreach ($ordersSnapshot as $order) {
             $orderData = $order->data();
             $orders[$orderData["status"] ?? "ABANDONED"][$order->id()] = $order->data();
         }
-        $is_open = $this->container['firestore']->collection('global_data')->document('charlemiam')->snapshot()->data()['is_open'] ?? false;
         return $response->write($view->render($orders, $is_open));
     }
 
@@ -60,7 +60,7 @@ class OfficeController
                             $_SESSION['USER_UID'] = $user;
                             $_SESSION['SESSION_UUID'] = $token;
                             return $response->withRedirect($this->container['router']->pathFor('home'));
-                        } catch (InvalidCustomToken|\InvalidArgumentException) {
+                        } catch (InvalidCustomToken | \InvalidArgumentException) {
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
                     } catch (\Exception) {
@@ -214,6 +214,47 @@ class OfficeController
             $id = max($id, intval(substr($product->id(), 1)));
         }
         return $id + 1;
+    }
+
+    public function users(Request $request, Response $response, array $args): Response
+    {
+        if (empty($_SESSION['USER_UID']))
+            return $response->withRedirect($this->container['router']->pathFor('login'));
+        $view = new UsersView($this->container);
+        switch ($request->getMethod()) {
+            case 'GET':
+                $user_id = $request->getQueryParam('id', "");
+                if ($user_id != "") {
+                    $user = $this->container['firestore']->collection('users')->where('carte_etudiant', '=', $user_id)->documents();
+                    if (!$user->isEmpty()) {
+                        foreach ($user as $u) {
+                            $user = $u;
+                            break;
+                        }
+                        return $response->write($view->renderUser($request, $user->data()));
+                    }
+                    return $response->withRedirect($this->container['router']->pathFor('users', [], ['error' => 'notfound']));
+                }
+                return $response->write($view->render($request));
+            case 'POST':
+                $carteEtu = $request->getParsedBodyParam('user_id', "");
+                if ($carteEtu != "") {
+                    $user = $this->container['firestore']->collection('users')->where('carte_etudiant', '=', $carteEtu)->documents();
+                    if (!$user->isEmpty()) {
+                        foreach ($user as $u) {
+                            $user = $u;
+                            break;
+                        }
+                        $this->container['firestore']->collection('users')->document($user->id())->update([
+                            ['path' => 'boursier', 'value' => (bool)$request->getParsedBodyParam('action', false)]
+                        ]);
+                        return $response->withRedirect($this->container['router']->pathFor('users', [], ['id' => $carteEtu]));
+                    }
+                }
+                return $response->withRedirect($this->container['router']->pathFor('users', [], ['error' => 'notfound']));
+            default:
+                throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
+        }
     }
 
 }

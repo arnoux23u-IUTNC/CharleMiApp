@@ -31,6 +31,9 @@ $container['errorHandler'] = function () use ($container) {
 };
 $app = new App($container);
 
+$app->any('/users[/]', function (Request $request, Response $response, array $args) {
+    return (new OfficeController($this))->users($request, $response, $args);
+})->setName('users');
 $app->any('/edit-product/{id}[/]', function (Request $request, Response $response, array $args) {
     return (new OfficeController($this))->editProduct($request, $response, $args);
 })->setName('editProduct');

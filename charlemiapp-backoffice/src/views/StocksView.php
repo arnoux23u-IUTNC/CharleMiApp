@@ -34,6 +34,9 @@ class StocksView
                 <a href="{$this->container['router']->pathFor('addProduct')}">
                     <button class="openclose open">Ajouter un produit</button>
                 </a>
+                <a href="{$this->container['router']->pathFor('users')}">
+                    <button class="stocks">Gestion des utilisateurs</button>
+                </a>
             </div>
             <script src="/assets/js/draganddrop.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
@@ -102,7 +105,6 @@ class StocksView
                 <a href="{$this->container['router']->pathFor('home')}">
                     <button class="stocks">Gestion des commandes</button>
                 </a>
-                
             </div>
             <script src="/assets/js/category.js"></script>
         </body>
@@ -165,7 +167,6 @@ class StocksView
                 <a href="{$this->container['router']->pathFor('home')}">
                     <button class="stocks">Gestion des commandes</button>
                 </a>
-                
             </div>
         </body>
         </html>
