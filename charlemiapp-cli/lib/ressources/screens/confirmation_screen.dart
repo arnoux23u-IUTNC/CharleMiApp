@@ -1,14 +1,9 @@
-import 'package:charlemiapp_cli/ressources/screens/cart_page.dart';
-
 import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
-import '../../ressources/screens/home.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import '../navigation/appbar_back.dart';
 
 class ConfirmationScreen extends StatefulWidget {
