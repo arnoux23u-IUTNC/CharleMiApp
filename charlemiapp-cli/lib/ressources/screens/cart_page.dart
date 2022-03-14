@@ -158,12 +158,23 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           onPressed: () {
                             setState(() {
-                              if (!CharlemiappInstance.cart.addToCart(element)) {
-                                Fluttertoast.showToast(
-                                  msg: "Impossible d'ajouter plus",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  timeInSecForIosWeb: 1,
-                                );
+                              switch (CharlemiappInstance.cart.addToCart(element)) {
+                                case true:
+                                  break;
+                                case "TARIF":
+                                  Fluttertoast.showToast(
+                                    msg: "Vous n'êtes pas boursier",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    timeInSecForIosWeb: 1,
+                                  );
+                                  break;
+                                default:
+                                  Fluttertoast.showToast(
+                                    msg: "Impossible d'ajouter plus",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    timeInSecForIosWeb: 1,
+                                  );
+                                  break;
                               }
                             });
                           },

@@ -69,12 +69,23 @@ class ProductCard extends StatelessWidget {
           ElevatedButton.icon(
             icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
             onPressed: () {
-              if (!CharlemiappInstance.cart.addToCart(product)) {
-                Fluttertoast.showToast(
-                  msg: "Impossible d'ajouter plus",
-                  toastLength: Toast.LENGTH_SHORT,
-                  timeInSecForIosWeb: 1,
-                );
+              switch (CharlemiappInstance.cart.addToCart(product)) {
+                case true:
+                  break;
+                case "TARIF":
+                  Fluttertoast.showToast(
+                    msg: "Vous n'êtes pas boursier",
+                    toastLength: Toast.LENGTH_SHORT,
+                    timeInSecForIosWeb: 1,
+                  );
+                  break;
+                default:
+                  Fluttertoast.showToast(
+                    msg: "Impossible d'ajouter plus",
+                    toastLength: Toast.LENGTH_SHORT,
+                    timeInSecForIosWeb: 1,
+                  );
+                  break;
               }
               Navigator.pop(context);
             },
@@ -119,7 +130,24 @@ class ProductCard extends StatelessWidget {
                   constraints: const BoxConstraints(),
                   icon: const Icon(Icons.add_shopping_cart),
                   onPressed: () {
-                    CharlemiappInstance.cart.addToCart(product);
+                    switch (CharlemiappInstance.cart.addToCart(product)) {
+                      case true:
+                        break;
+                      case "TARIF":
+                        Fluttertoast.showToast(
+                          msg: "Vous n'êtes pas boursier",
+                          toastLength: Toast.LENGTH_SHORT,
+                          timeInSecForIosWeb: 1,
+                        );
+                        break;
+                      default:
+                        Fluttertoast.showToast(
+                          msg: "Impossible d'ajouter plus",
+                          toastLength: Toast.LENGTH_SHORT,
+                          timeInSecForIosWeb: 1,
+                        );
+                        break;
+                    }
                   },
                 ),
                 color: Colors.transparent),

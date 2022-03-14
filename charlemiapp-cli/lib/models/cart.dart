@@ -1,3 +1,5 @@
+import 'package:charlemiapp_cli/ressources/screens/home.dart';
+
 import 'product.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,11 +21,14 @@ class Cart {
 
   Map<Product, String> cartItems = {};
 
-  bool addToCart(product) {
+  Object addToCart(product) {
+    if(!(Home.user?.estBoursier ?? false) && product.necessiteBoursier) {
+      return "TARIF";
+    }
     if (cartItems.containsKey(product)) {
       int qte = int.parse(cartItems[product]!) + 1;
       if (qte > 10) {
-        return false;
+        return "LIMIT";
       }
       cartItems[product] = qte.toString();
       saveToSP(cartItems);
@@ -70,7 +75,7 @@ class Cart {
     var cart = <Product, String>{};
     json.forEach((item) {
       cart.putIfAbsent(
-        Product(id: item['product'][0], name: item['product'][1], price: item['product'][2], imageURL: item['product'][3]),
+        Product(id: item['product'][0], name: item['product'][1], price: item['product'][2], imageURL: item['product'][3], necessiteBoursier: item['product'][4] ?? false),
         () => item['qte'],
       );
     });

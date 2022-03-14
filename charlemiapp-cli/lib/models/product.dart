@@ -7,8 +7,9 @@ class Product {
   String id, name;
   double price;
   String imageURL;
+  bool necessiteBoursier;
 
-  Product({required this.id, required this.name, required this.price, required this.imageURL});
+  Product({required this.id, required this.name, required this.price, required this.imageURL, required this.necessiteBoursier});
 
   String get getId => id;
 
@@ -42,10 +43,12 @@ class Product {
 
   factory Product.fromJson(dynamic jsonObject) {
     return Product(
-        id: jsonObject['id'] as String,
-        name: jsonObject['name'] as String,
-        price: double.parse(jsonObject['price'].toString()),
-        imageURL: jsonObject['image'] as String? ?? "null");
+      id: jsonObject['id'] as String,
+      name: jsonObject['name'] as String,
+      price: double.parse(jsonObject['price'].toString()),
+      imageURL: jsonObject['image'] as String? ?? "null",
+      necessiteBoursier: jsonObject['boursier'] as bool? ?? false,
+    );
   }
 
   toJson() {
@@ -54,7 +57,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{id: $id, name: $name, price: $price, imageURL: $imageURL}';
+    return 'Product{id: $id, name: $name, price: $price, imageURL: $imageURL, necessiteBoursier: $necessiteBoursier}';
   }
 
   equals(Product other) {
@@ -69,7 +72,8 @@ class Product {
           id == other.id &&
           name == other.name &&
           price == other.price &&
-          imageURL == other.imageURL;
+          imageURL == other.imageURL &&
+          necessiteBoursier == other.necessiteBoursier;
 
   @override
   int get hashCode => id.hashCode ^ name.hashCode ^ price.hashCode ^ imageURL.hashCode;

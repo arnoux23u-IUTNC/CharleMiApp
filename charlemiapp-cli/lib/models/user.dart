@@ -11,7 +11,7 @@ class AppUser {
   String? avatarId;
   String? firstName, lastName, phone, carteEtudiant;
 
-  bool? isAdmin;
+  bool? isAdmin, estBoursier;
 
   AppUser({required this.uid, this.lastName, this.firstName, this.phone, this.carteEtudiant});
 
@@ -24,13 +24,13 @@ class AppUser {
       phone = snapshot.data()!['phone'] ?? '';
       isAdmin = snapshot.data()!['id_admin'] ?? false;
       carteEtudiant = snapshot.data()!['carte_etudiant'] ?? '';
+      estBoursier = snapshot.data()!['boursier'] ?? false;
       return true;
     }
     return false;
   }
 
-  Future<bool> store(String lastName, String firstName, String phone, String carteEtudiant, String? avatarId, bool? isAdmin,
-      [double balance = 0]) async {
+  Future<bool> store(String lastName, String firstName, String phone, String carteEtudiant, [double balance = 0]) async {
     var user = await firestore.collection('users').doc(uid).get();
     if (!user.exists) {
       await firestore.collection('users').doc(uid).set({
@@ -38,7 +38,8 @@ class AppUser {
         'firstname': firstName,
         'lastname': lastName,
         'phone': phone,
-        'is_admin': isAdmin ?? false,
+        'is_admin': false,
+        'boursier': false,
         'carte_etudiant': carteEtudiant,
         'balance': balance,
       });

@@ -8,15 +8,22 @@ class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  /*Stream<AppUser?> get user {
+    initUser(user);
+    return _auth.authStateChanges().map((firebaseUser) => firebaseUser?.toAppUser());
+  }
+
+  void initUser(User? user) async {
+
+  }*/
+
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
-      _auth.setPersistence(Persistence.LOCAL);
       return user!.emailVerified ? _toAppUser(user, null) : "notverified";
     } catch (e) {
       if (kDebugMode) {
-        print("ERRE");
         print(e.toString());
       }
       return e.toString().contains('user-disabled') ? "disabled" : null;
@@ -62,7 +69,7 @@ class AuthenticationService {
     if (exists) {
       return _user;
     } else if (params != null) {
-      await _user.store(params[0], params[1], params[2], params[3], null, false, 0);
+      await _user.store(params[0], params[1], params[2], params[3]);
       return _user;
     }
     return null;

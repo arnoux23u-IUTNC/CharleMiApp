@@ -48,9 +48,21 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 40, bottom: 50),
+                            padding: const EdgeInsets.only(top: 40, bottom: 20),
                             child: Text('Bonjour ${Home.user?.firstName}',
                                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
+                          ),
+                        ),
+                        Center(
+                          child: Padding(
+                            child: Text(
+                              (Home.user?.estBoursier ?? false)
+                                  ? "Vous bénéficiez du tarif boursier"
+                                  : "Vous ne bénéficiez pas du tarif boursier",
+                              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center,
+                            ),
+                            padding: const EdgeInsets.only(top: 20, bottom: 30),
                           ),
                         ),
                         Center(
