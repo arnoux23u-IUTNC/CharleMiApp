@@ -34,9 +34,11 @@ class ProductCard extends StatelessWidget {
         backgroundColor: midDarkColor,
         title: Row(
           children: [
-            Text(
-              product.getName,
-              style: GoogleFonts.poppins(color: Colors.white),
+            Expanded(
+              child: Text(
+                product.getName,
+                style: GoogleFonts.poppins(color: Colors.white),
+              ),
             ),
             IconButton(
               padding: const EdgeInsets.all(0),
@@ -63,6 +65,7 @@ class ProductCard extends StatelessWidget {
               style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
             )
           ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         actions: <Widget>[
           ElevatedButton.icon(
@@ -110,9 +113,12 @@ class ProductCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        Text(
-          product.name,
-          style: GoogleFonts.poppins(color: Colors.white),
+        Expanded(
+          child: Text(
+            product.name,
+            style: GoogleFonts.poppins(color: Colors.white),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         Row(
           children: [
