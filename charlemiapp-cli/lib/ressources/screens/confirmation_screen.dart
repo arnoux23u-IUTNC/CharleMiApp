@@ -1,11 +1,15 @@
 import '../../main.dart';
+import '../screens/home.dart';
 import '../assets/const.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
 import '../navigation/appbar_back.dart';
+import '../../services/order_manager.dart';
+import 'dart:convert';
 import 'dart:io' show Platform;
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,79 +20,93 @@ class ConfirmationScreen extends StatefulWidget {
   State<ConfirmationScreen> createState() => _ConfirmationScreenState();
 }
 
-String _displayTotal() {
-  double total = 0.0;
-  CharlemiappInstance.cart.cartItems.forEach((key, value) {
-    total += key.getPrice * int.parse(value);
-  });
-  return NumberFormat("0.00", "fr_FR").format(total);
-}
+class _ConfirmationScreenState extends State<ConfirmationScreen> {
+  TimeOfDay? _selected;
+  String _selectedStr = "Heure de retrait";
+  late Future<bool> _isOpen;
 
-List<Widget> _buildElements() {
-  Map<Product, String> items = CharlemiappInstance.cart.cartItems;
-  List<Widget> res = List.empty(growable: true);
-  if (items.isNotEmpty) {
-    for (Product element in items.keys) {
-      int qte = int.parse(items[element] ?? "0");
+  @override
+  initState() {
+    super.initState();
+    _isOpen = Future(() async {
+      var response = await http.get(Uri.parse(urlAPI + '/is-open'), headers: {'x-auth-token': Home.user!.uid});
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body)["open"] as bool;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  String _displayTotal() {
+    double total = 0.0;
+    CharlemiappInstance.cart.cartItems.forEach((key, value) {
+      total += key.getPrice * int.parse(value);
+    });
+    return NumberFormat("0.00", "fr_FR").format(total);
+  }
+
+  List<Widget> _buildElements() {
+    Map<Product, String> items = CharlemiappInstance.cart.cartItems;
+    List<Widget> res = List.empty(growable: true);
+    if (items.isNotEmpty) {
+      for (Product element in items.keys) {
+        int qte = int.parse(items[element] ?? "0");
+        res.add(
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            width: double.infinity,
+            child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                color: midDarkColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(3, 3),
+                    blurRadius: 1,
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 165,
+                    child: Text(
+                      element.getName,
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Text(
+                    "x " "$qte",
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    } else {
       res.add(
         Container(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+          padding: const EdgeInsets.only(left: 55, right: 55, top: 80),
           width: double.infinity,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: midDarkColor,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  offset: Offset(3, 3),
-                  blurRadius: 1,
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 165,
-                  child: Text(
-                    element.getName,
-                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Text(
-                  "x " "$qte",
-                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
-                ),
-              ],
+          child: Center(
+            child: Text(
+              'Votre panier est vide',
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
             ),
           ),
         ),
       );
     }
-  } else {
-    res.add(
-      Container(
-        padding: const EdgeInsets.only(left: 55, right: 55, top: 80),
-        width: double.infinity,
-        child: Center(
-          child: Text(
-            'Votre panier est vide',
-            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-        ),
-      ),
-    );
+    return res;
   }
-  return res;
-}
-
-class _ConfirmationScreenState extends State<ConfirmationScreen> {
-  TimeOfDay? _selected;
-  String _selectedStr = "Heure de retrait";
 
   @override
   Widget build(BuildContext context) {
@@ -178,25 +196,57 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_selected == null || _selectedStr == "Heure de retrait") {
-                        Fluttertoast.showToast(
-                          msg: "Heure de retrait invalide",
-                          toastLength: Toast.LENGTH_SHORT,
-                          timeInSecForIosWeb: 1,
-                        );
+                  child: FutureBuilder(
+                    future: _isOpen,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return (snapshot.data as bool)
+                            ? ElevatedButton(
+                                onPressed: () {
+                                  if (_selected == null || _selectedStr == "Heure de retrait") {
+                                    Fluttertoast.showToast(
+                                      msg: "Heure de retrait invalide",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      timeInSecForIosWeb: 1,
+                                    );
+                                  } else {
+                                    /* TODO await placeOrder(Home.cart.cartItems)*/
+                                  }
+                                },
+                                child: Text(
+                                  'Confirmer',
+                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                                ),
+                                style: defaultButtonStyle,
+                              )
+                            : ElevatedButton(
+                                onPressed: null,
+                                child: Text(
+                                  'Cafétéria fermée',
+                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                                ),
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                                  shape:
+                                      MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                                ),
+                              );
                       } else {
-                        /* TODO await placeOrder(Home.cart.cartItems)*/
+                        return ElevatedButton(
+                          onPressed: null,
+                          child: Text(
+                            'Cafétéria fermée',
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                          ),
+                        );
                       }
                     },
-                    child: Text(
-                      'Commander',
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                    ),
-                    style: defaultButtonStyle,
                   ),
-                )
+                ),
               ],
             ),
           )
@@ -215,7 +265,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           initialTime: TimeOfDay(hour: time.hour, minute: time.minute + 15),
         );
         if (_selected != null) {
-          if (_selected!.hour < time.hour ||
+          /*if (_selected!.hour < time.hour ||
               (_selected!.hour == time.hour && _selected!.minute < (time.minute + 15)) ||
               _selected!.hour > 15 ||
               _selected!.hour < 10) {
@@ -224,13 +274,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               toastLength: Toast.LENGTH_SHORT,
               timeInSecForIosWeb: 2,
             );
-          } else {
+          } else {*/
             MaterialLocalizations localizations = MaterialLocalizations.of(context);
             String formattedTime = localizations.formatTimeOfDay(_selected!, alwaysUse24HourFormat: true);
             setState(() {
               _selectedStr = formattedTime;
             });
-          }
+          //}
         } else {
           setState(() {
             _selectedStr = "Heure de retrait";
