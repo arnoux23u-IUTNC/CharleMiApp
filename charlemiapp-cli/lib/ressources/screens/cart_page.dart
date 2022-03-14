@@ -82,17 +82,19 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
                       ElevatedButton(
-                          onPressed: null,
-                          child: Text(
-                            'Vous n\'êtes pas connecté',
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                          style: ButtonStyle(
-                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))),
+                        onPressed: null,
+                        child: Text(
+                          'Vous n\'êtes pas connecté',
+                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                        ),
+                      ),
                     ],
                   ),
-          )
+          ),
         ],
       ),
     );
@@ -250,6 +252,16 @@ class _CartScreenState extends State<CartScreen> {
         case 'Not enough funds':
           Fluttertoast.showToast(
               msg: "Solde insuffisant",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        case 'Scolarship fee error':
+          Fluttertoast.showToast(
+              msg: "Vous n'êtes pas boursier",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
