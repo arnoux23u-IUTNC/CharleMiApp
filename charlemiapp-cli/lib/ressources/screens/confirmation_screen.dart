@@ -24,6 +24,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   TimeOfDay? _selected;
   String _selectedStr = "Heure de retrait";
   late Future<bool> _isOpen;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   initState() {
@@ -143,20 +144,22 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                               children: [
                                 const Padding(padding: EdgeInsets.only(top: 20)),
                                 TextFormField(
+                                  maxLines: null,
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
                                   autofocus: false,
-                                  keyboardType: TextInputType.emailAddress,
-                                  textInputAction: TextInputAction.next,
+                                  controller: _controller,
+                                  keyboardType: TextInputType.multiline,
+                                  textInputAction: TextInputAction.newline,
                                   decoration: InputDecoration(
                                     filled: true,
                                     errorMaxLines: 2,
                                     fillColor: midDarkColor,
                                     contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                    hintText: "Commentaire",
+                                    hintText: "Instructions de retrait",
                                     hintStyle: GoogleFonts.poppins(
                                       color: greyedFont,
                                       fontSize: 18,
@@ -211,8 +214,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                     );
                                   } else {
                                     /* TODO await placeOrder(Home.cart.cartItems)*/
-                                    _buildToastOrder(
-                                        jsonDecode(await placeOrderTest(_selected!, "", CharlemiappInstance.cart.cartItems)));
+                                    _buildToastOrder(jsonDecode(await placeOrder(
+                                        _selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
                                   }
                                 },
                                 child: Text(
@@ -275,7 +278,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               _selected!.hour > 15 ||
               _selected!.hour < 10) {
             Fluttertoast.showToast(
-              msg: "> ${time.hour}:${time.minute + 15} | < 16h",
+              msg: "> ${timeafter.hour}:${timeafter.minute} | < 16h",
               toastLength: Toast.LENGTH_SHORT,
               timeInSecForIosWeb: 2,
             );
