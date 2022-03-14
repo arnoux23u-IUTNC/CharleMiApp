@@ -25,6 +25,9 @@ let placeOrder = async (req) => {
         const qte = doc['stock'];
         if (qte < Math.max(product['qte'], 0))
             return "NOT_ENOUGH_STOCKS";
+        if ((product['boursier'] ?? false) && !user['boursier']) {
+            return "SCOLARSHIP_PRODUCTS";
+        }
     }
     for (let product of req.body.items) {
         const doc = (await (await db.collection('products').doc(`${product['product_id']}`).get()).data());
@@ -42,7 +45,11 @@ let placeOrder = async (req) => {
         items: req.body.items.filter(item => item["qte"] > 0),
         total: response.total,
         status: "PENDING",
-        timestamp: response.timestamp
+        timestamp: response.timestamp,
+        instructions: {
+            "withdrawal": generateTimestamp(req.body['time']),
+            "notes": req.body['instructions']
+        }
     });
     //On ajoute le montant au solde de l'utilisateur
     user.balance = parseFloat((user.balance - response.total).toFixed(2));

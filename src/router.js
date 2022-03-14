@@ -36,6 +36,10 @@ router.post('/place-order', authMiddleware, async (req, res) => {
                 return res.status(401).send({
                     success: false, message: "Not enough stocks"
                 });
+            case "SCOLARSHIP_PRODUCTS":
+                return res.status(401).send({
+                    success: false, message: "Scolarship fee error"
+                });
             default:
                 return res.status(200).send({
                     success: true, order: response
