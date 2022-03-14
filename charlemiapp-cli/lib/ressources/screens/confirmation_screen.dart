@@ -202,7 +202,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                       if (snapshot.hasData) {
                         return (snapshot.data as bool)
                             ? ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_selected == null || _selectedStr == "Heure de retrait") {
                                     Fluttertoast.showToast(
                                       msg: "Heure de retrait invalide",
@@ -211,6 +211,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                     );
                                   } else {
                                     /* TODO await placeOrder(Home.cart.cartItems)*/
+                                    _buildToastOrder(
+                                        jsonDecode(await placeOrderTest(_selected!, "", CharlemiappInstance.cart.cartItems)));
                                   }
                                 },
                                 child: Text(
@@ -259,13 +261,16 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     return ElevatedButton(
       onPressed: () async {
         var time = DateTime.now();
+        var timeafter = time.minute + 15 > 59
+            ? TimeOfDay(hour: time.hour + 1, minute: time.minute + 15 - 60)
+            : TimeOfDay(hour: time.hour, minute: time.minute + 15);
         //if (Platform.isAndroid) {
         _selected = await showTimePicker(
           context: context,
-          initialTime: TimeOfDay(hour: time.hour, minute: time.minute + 15),
+          initialTime: timeafter,
         );
         if (_selected != null) {
-          /*if (_selected!.hour < time.hour ||
+          if (_selected!.hour < time.hour ||
               (_selected!.hour == time.hour && _selected!.minute < (time.minute + 15)) ||
               _selected!.hour > 15 ||
               _selected!.hour < 10) {
@@ -274,13 +279,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               toastLength: Toast.LENGTH_SHORT,
               timeInSecForIosWeb: 2,
             );
-          } else {*/
+          } else {
             MaterialLocalizations localizations = MaterialLocalizations.of(context);
             String formattedTime = localizations.formatTimeOfDay(_selected!, alwaysUse24HourFormat: true);
             setState(() {
               _selectedStr = formattedTime;
             });
-          //}
+          }
         } else {
           setState(() {
             _selectedStr = "Heure de retrait";
@@ -296,5 +301,76 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       ),
       style: defaultButtonStyle,
     );
+  }
+
+  void _buildToastOrder(data) {
+    if (data['success'] == true) {
+      Fluttertoast.showToast(
+          msg: "Succès",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      setState(() {
+        CharlemiappInstance.cart.clearCart();
+      });
+      Navigator.pushAndRemoveUntil(
+          context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
+    } else {
+      switch (data['message']) {
+        case 'Charlemiam is closed':
+          Fluttertoast.showToast(
+              msg: "Charlemiam is closed",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        case 'Not enough funds':
+          Fluttertoast.showToast(
+              msg: "Solde insuffisant",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        case 'Scolarship fee error':
+          Fluttertoast.showToast(
+              msg: "Vous n'êtes pas boursier",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        case 'Not enough stocks':
+          Fluttertoast.showToast(
+              msg: "Un produit n'est plus disponible",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+        default:
+          Fluttertoast.showToast(
+              msg: "An error occured",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          break;
+      }
+    }
   }
 }
