@@ -19,7 +19,7 @@ let dbInit = async () => {
     let products = require('./data/products.json');
     for (let product of products) {
         await db.collection('products').doc(product.id).set(product)
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 500));
         console.log(`\t\tImporting product ${product.id}...`.yellow);
     }
     console.log("Deleting [GLOBAL_DATA] collection...".red);
