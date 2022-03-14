@@ -22,7 +22,7 @@ class Cart {
   Map<Product, String> cartItems = {};
 
   Object addToCart(product) {
-    if(!(Home.user?.estBoursier ?? false) && product.necessiteBoursier) {
+    if (!(Home.user?.estBoursier ?? false) && product.necessiteBoursier) {
       return "TARIF";
     }
     if (cartItems.containsKey(product)) {
@@ -64,7 +64,16 @@ class Cart {
     var array = [];
     cart.forEach((key, value) {
       array.add({
-        'product': [key.id, key.name, key.price, key.imageURL],
+        'product': [
+          key.id,
+          key.name,
+          key.price,
+          key.description,
+          key.diminutif,
+          key.calories,
+          key.imageURL,
+          key.necessiteBoursier
+        ],
         'qte': value
       });
     });
@@ -75,7 +84,15 @@ class Cart {
     var cart = <Product, String>{};
     json.forEach((item) {
       cart.putIfAbsent(
-        Product(id: item['product'][0], name: item['product'][1], price: item['product'][2], imageURL: item['product'][3], necessiteBoursier: item['product'][4] ?? false),
+        Product(
+            id: item['product'][0],
+            name: item['product'][1],
+            price: item['product'][2],
+            description: item['product'][3],
+            diminutif: item['product'][4],
+            calories: item['product'][5],
+            imageURL: item['product'][6],
+            necessiteBoursier: item['product'][7] ?? false),
         () => item['qte'],
       );
     });

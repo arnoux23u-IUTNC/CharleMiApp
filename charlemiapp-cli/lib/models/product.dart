@@ -4,12 +4,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Product {
-  String id, name;
+  String id, name, diminutif, description, calories;
   double price;
   String imageURL;
   bool necessiteBoursier;
 
-  Product({required this.id, required this.name, required this.price, required this.imageURL, required this.necessiteBoursier});
+  Product(
+      {required this.id,
+      required this.name,
+      required this.price,
+      required this.description,
+      required this.diminutif,
+      required this.calories,
+      required this.imageURL,
+      required this.necessiteBoursier});
 
   String get getId => id;
 
@@ -48,6 +56,9 @@ class Product {
       price: double.parse(jsonObject['price'].toString()),
       imageURL: jsonObject['image'] as String? ?? "null",
       necessiteBoursier: jsonObject['boursier'] as bool? ?? false,
+      calories: jsonObject['calories'] as String? ?? "Cal : NC",
+      description: jsonObject['description'] as String? ?? "Aucune description disponible",
+      diminutif: jsonObject['diminutif'] as String? ?? jsonObject['name'],
     );
   }
 

@@ -59,8 +59,7 @@ class ProductCard extends StatelessWidget {
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
             Text(
-              //TODO PRODUCT DESCRIPTION
-              "Aucune description disponible",
+              product.description,
               style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
             )
           ],
@@ -122,7 +121,6 @@ class ProductCard extends StatelessWidget {
               style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Material(
-                //TODO ANIMATION CLIC
                 child: IconButton(
                   alignment: Alignment.centerRight,
                   color: Colors.white,
