@@ -232,33 +232,60 @@ class _RegisterState extends State<Register> {
   Widget _studentCardField() {
     return Container(
       padding: const EdgeInsets.only(top: 15),
-      child: TextFormField(
-        controller: carteEtuController,
-        validator: AuthenticationService.validateCarteEtu,
-        style: GoogleFonts.poppins(
-          color: Colors.white,
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-        ),
-        autofocus: false,
-        keyboardType: TextInputType.phone,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
-          hintText: "Numéro Etudiant",
-          //TODO AFFICHER BULLE CARTE
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 8,
+            child: TextFormField(
+              controller: carteEtuController,
+              validator: AuthenticationService.validateCarteEtu,
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+              autofocus: false,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(
+                filled: true,
+                errorMaxLines: 2,
+                fillColor: midDarkColor,
+                contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+                hintText: "Numéro Etudiant",
+                //TODO AFFICHER BULLE CARTE
+                hintStyle: GoogleFonts.poppins(
+                  color: greyedFont,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+          Expanded(
+            flex: 2,
+            child: IconButton(
+              icon: const Icon(
+                Icons.info_outline,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Numéro Etudiant"),
+                      content: Image.asset("assets/carteetu.png"),
+                    );
+                  },
+                );
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

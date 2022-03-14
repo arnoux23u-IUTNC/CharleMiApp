@@ -42,7 +42,7 @@ dependencies:
   flutter_offline: ^2.1.0
   flutter_local_notifications: ^9.3.2
   shared_preferences: ^2.0.13
-  rxdart: ^0.27.3 #peut être retirer plus tard
+  firebase_messaging: ^11.2.10
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +68,7 @@ flutter:
   assets:
     - assets/logo_white.png
     - assets/wifi-slash.png
+    - assets/carteetu.png
     - assets/products/
     - assets/check-circle.png
 
