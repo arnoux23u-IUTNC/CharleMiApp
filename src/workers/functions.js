@@ -127,15 +127,17 @@ let getActualOrders = async (req) => {
     if (snapshot.empty) return false;
     for (let doc of snapshot.docs) {
         const order = doc.data();
-        order.items.map(async item => {
-            item.name = (await db.collection('products').doc(`${item['product_id']}`).get()).data()['name'];
-            return item;
-        })
-        order.user_id = undefined;
-        for (let item of (await orderCollections.doc(`${doc.id}`).collection('items').get()).docs) {
-            order.items.push(item.data())
+        if (order['status'] !== "DELIVERED") {
+            order.items.map(async item => {
+                item.name = (await db.collection('products').doc(`${item['product_id']}`).get()).data()['name'];
+                return item;
+            })
+            order.user_id = undefined;
+            for (let item of (await orderCollections.doc(`${doc.id}`).collection('items').get()).docs) {
+                order.items.push(item.data())
+            }
+            data.push(order)
         }
-        data.push(doc.id, order)
     }
     return data;
 }
