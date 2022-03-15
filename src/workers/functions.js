@@ -103,11 +103,34 @@ let getOrders = async (req) => {
     //On récupère toutes les commandes ayant l'uid de l'utilisateur
     const data = [];
     const orderCollections = db.collection('orders')
-    const snapshot = await orderCollections.where('user_id', '==', `${req.user.uid}`).get();
+    const snapshot = await orderCollections.where('user_id', '==', `${req.user.uid}`).orderBy('timestamp', 'desc').get();
     if (snapshot.empty) return false;
     for (let doc of snapshot.docs) {
         const order = doc.data();
         order.items = [];
+        order.user_id = undefined;
+        for (let item of (await orderCollections.doc(`${doc.id}`).collection('items').get()).docs) {
+            order.items.push(item.data())
+        }
+        data.push(doc.id, order)
+    }
+    return data;
+}
+
+let getActualOrders = async (req) => {
+    //On récupère toutes les commandes ayant l'uid de l'utilisateur
+    const data = [];
+    //Création timestamp
+    const timestamp = generateTimestamp(null, true);
+    const orderCollections = db.collection('orders')
+    const snapshot = await orderCollections.where('user_id', '==', `${req.user.uid}`).where('timestamp', '>', timestamp).get();
+    if (snapshot.empty) return false;
+    for (let doc of snapshot.docs) {
+        const order = doc.data();
+        order.items.map(async item => {
+            item.name = (await db.collection('products').doc(`${item['product_id']}`).get()).data()['name'];
+            return item;
+        })
         order.user_id = undefined;
         for (let item of (await orderCollections.doc(`${doc.id}`).collection('items').get()).docs) {
             order.items.push(item.data())
@@ -182,6 +205,7 @@ module.exports = {
     removeFunds,
     getBalance,
     getOrders,
+    getActualOrders,
     getTransactions,
     getProducts,
     isOpen,

@@ -14,7 +14,7 @@ let createTransactionForUser = async (user, amount, type, category, desc = "", t
     });
 }
 
-let generateTimestamp = (time = null) => {
+let generateTimestamp = (time = null, onlyday = false) => {
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -22,7 +22,10 @@ let generateTimestamp = (time = null) => {
     const hour = date.getHours();
     const minute = date.getMinutes();
     const second = date.getSeconds();
-    return (time != null) ? `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day} ${time}:00` : `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day} ${hour > 9 ? hour : "0" + hour}:${minute > 9 ? minute : "0" + minute}:${second > 9 ? second : "0" + second}`;
+    if (!onlyday)
+        return (time != null) ? `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day} ${time}:00` : `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day} ${hour > 9 ? hour : "0" + hour}:${minute > 9 ? minute : "0" + minute}:${second > 9 ? second : "0" + second}`;
+    else
+        return `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day}`;
 }
 
 module.exports = {
