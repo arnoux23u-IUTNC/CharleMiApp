@@ -1,3 +1,4 @@
+import '../models/order_data.dart';
 import '../ressources/assets/const.dart';
 import '../models/transaction_data.dart';
 import 'dart:convert';
@@ -76,5 +77,17 @@ class AppUser {
       }
     }
     return List<TransactionData>.empty();
+  }
+
+  Future<List<OrderData>> getOrders() async {
+    var response = await http.get(Uri.parse(urlAPI + '/orders'), headers: {'x-auth-token': uid});
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)["orders"] == null) {
+        return List<OrderData>.empty();
+      } else {
+        return List<OrderData>.from(jsonDecode(response.body)["orders"].map((e) => OrderData.fromJson(e)));
+      }
+    }
+    return List<OrderData>.empty();
   }
 }

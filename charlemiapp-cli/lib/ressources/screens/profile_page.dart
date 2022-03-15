@@ -1,6 +1,7 @@
 import 'home.dart';
 import '../loader.dart';
 import '../assets/colors.dart';
+import '../../models/order_data.dart';
 import '../../models/transaction_data.dart';
 import '../../ressources/assets/const.dart';
 import '../../services/authentication.dart';
@@ -22,6 +23,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late Future<String> balance;
   late Future<List<TransactionData>> transactions;
+  late Future<List<OrderData>> orders;
   String error = "";
 
   @override
@@ -29,165 +31,169 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     balance = Home.user!.getBalance();
     transactions = Home.user!.getTransactions();
+    orders = Home.user!.getOrders();
   }
 
   @override
   Widget build(BuildContext context) => Home.loading
       ? const Loader()
-      : Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                color: darkColor,
-                child: Scrollbar(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 40, bottom: 20),
-                            child: Text('Bonjour ${Home.user?.firstName}',
-                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
-                          ),
-                        ),
-                        Center(
-                          child: Padding(
-                            child: Text(
-                              (Home.user?.estBoursier ?? false)
-                                  ? "Vous bénéficiez du tarif boursier"
-                                  : "Vous ne bénéficiez pas du tarif boursier",
-                              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
-                              textAlign: TextAlign.center,
-                            ),
-                            padding: const EdgeInsets.only(top: 20, bottom: 30),
-                          ),
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: FutureBuilder<String>(
-                              future: balance,
-                              builder: (context, snapshot) {
-                                return snapshot.hasData
-                                    ? Text('Votre solde est de ${snapshot.data} €',
-                                        style:
-                                            GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                                    : snapshot.hasError
-                                        ? Text('Votre solde est de -- €',
-                                            style: GoogleFonts.poppins(
-                                                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                                        : const CircularProgressIndicator();
-                              },
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
-                          width: double.infinity,
-                          child: TextButton(
-                            onPressed: () async => {
-                              setState(() {
-                                Home.loading = true;
-                              }),
-                              await _auth.signOut(),
-                              setState(() {
-                                Home.loading = false;
-                                Home.user = null;
-                              }),
-                              Navigator.pushAndRemoveUntil(context,
-                                  MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
-                            },
-                            child: TextButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => _buildPopupBalance(context),
-                                );
-                              },
-                              child: Text(
-                                'Modifier mon solde',
-                                style: GoogleFonts.poppins(color: colorAmbre, fontSize: 15, fontWeight: FontWeight.w300),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 55, right: 55),
-                          width: double.infinity,
-                          child: FutureBuilder<List<TransactionData>>(
-                            future: transactions,
-                            builder: _buildTransactions,
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            error,
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.poppins(
-                              color: Colors.red,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          padding: const EdgeInsets.only(top: 20),
-                        )
-                      ],
+      : Container(
+          color: darkColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Center(
+                    child: Text('Bonjour ${Home.user?.firstName}',
+                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 26, fontWeight: FontWeight.w600)),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Container(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Center(
+                    child: Text(
+                      (Home.user?.estBoursier ?? false)
+                          ? "Vous bénéficiez du tarif boursier"
+                          : "Vous ne bénéficiez pas du tarif boursier",
+                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
               ),
-            ),
-            Container(
-              color: darkColor,
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () async => {
-                        setState(() {
-                          Home.loading = true;
-                        }),
-                        await _auth.signOut(),
-                        setState(() {
-                          Home.loading = false;
-                          Home.user = null;
-                        }),
-                        Navigator.pushAndRemoveUntil(
-                            context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+              Expanded(
+                flex: 4,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 45),
+                  child: FutureBuilder<List<OrderData>>(
+                    future: orders,
+                    builder: _buildOrders,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: Center(
+                  child: FutureBuilder<String>(
+                    future: balance,
+                    builder: (context, snapshot) {
+                      return snapshot.hasData
+                          ? Text('Votre solde est de ${snapshot.data} €',
+                              style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                          : snapshot.hasError
+                              ? Text('Votre solde est de -- €',
+                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                              : const CircularProgressIndicator();
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () async => {
+                      setState(() {
+                        Home.loading = true;
+                      }),
+                      await _auth.signOut(),
+                      setState(() {
+                        Home.loading = false;
+                        Home.user = null;
+                      }),
+                      Navigator.pushAndRemoveUntil(
+                          context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                    },
+                    child: TextButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => _buildPopupBalance(context),
+                        );
                       },
                       child: Text(
-                        'Se déconnecter',
-                        style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                      ),
-                      style: defaultButtonStyle,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 55, right: 55, bottom: 15),
-                    width: double.infinity,
-                    child: TextButton(
-                      onPressed: () async => _buildPopupConfirmDeleteAccount(context),
-                      child: Text(
-                        'Supprimer mon compte',
-                        style: GoogleFonts.poppins(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w300),
+                        'Modifier mon solde',
+                        style: GoogleFonts.poppins(color: colorAmbre, fontSize: 15, fontWeight: FontWeight.w300),
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.transparent),
                       ),
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
-            )
-          ],
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 45),
+                  child: FutureBuilder<List<TransactionData>>(
+                    future: transactions,
+                    builder: _buildTransactions,
+                  ),
+                ),
+              ),
+              if (error != "")
+                Expanded(
+                  flex: 0,
+                  child: Container(
+                    child: Text(
+                      error,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        color: Colors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                  ),
+                ),
+              Expanded(
+                flex: 0,
+                child: ElevatedButton(
+                  onPressed: () async => {
+                    setState(() {
+                      Home.loading = true;
+                    }),
+                    await _auth.signOut(),
+                    setState(() {
+                      Home.loading = false;
+                      Home.user = null;
+                    }),
+                    Navigator.pushAndRemoveUntil(
+                        context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false)
+                  },
+                  child: Text(
+                    'Se déconnecter',
+                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                  style: btnDefaultStyle(true),
+                  // ),
+                ),
+              ),
+              Expanded(
+                flex: 0,
+                child: TextButton(
+                  onPressed: () async => _buildPopupConfirmDeleteAccount(context),
+                  child: Text(
+                    'Supprimer mon compte',
+                    style: GoogleFonts.poppins(color: Colors.red, fontSize: 15, fontWeight: FontWeight.w300),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
 
   Future _buildPopupConfirmDeleteAccount(BuildContext context) {
@@ -278,25 +284,88 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildTransactions(BuildContext context, AsyncSnapshot<List<TransactionData>> snapshot) {
     if (snapshot.hasData) {
-      return ListView.builder(
-        itemCount: snapshot.data!.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              title: Text(TransactionData.transform(snapshot.data![index].category)),
-              subtitle: Text(snapshot.data![index].date),
-              trailing: Text("${NumberFormat('0.00', 'fr_FR').format(snapshot.data![index].amount)}€"),
+      return SingleChildScrollView(
+        child: Scrollbar(
+          //TODO isAlwaysShown: true,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    title: Text(TransactionData.transform(snapshot.data![index].category)),
+                    subtitle: Text(snapshot.data![index].date),
+                    trailing: Text("${NumberFormat('0.00', 'fr_FR').format(snapshot.data![index].amount)}€"),
+                  ),
+                );
+              },
             ),
-          );
-        },
+          ),
+        ),
       );
     } else if (snapshot.hasError) {
       return Center(
           child: Text('Aucune transaction récente',
               style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
+    } else {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+  }
+
+  Widget _buildOrders(BuildContext context, AsyncSnapshot<List<OrderData>> snapshot) {
+    if (snapshot.hasData) {
+      return SingleChildScrollView(
+        child: Scrollbar(
+          //TODO isAlwaysShown: true,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: OrderData.color(snapshot.data![index].status),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Commande",
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            OrderData.transform(snapshot.data![index].status),
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            "Retrait : ${OrderData.transformDate(snapshot.data![index].withdrawal)}",
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.only(bottom: 8)),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
+      );
+    } else if (snapshot.hasError) {
+      return Container();
     } else {
       return const Center(
         child: CircularProgressIndicator(),

@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
 
   Widget _passwordField() {
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: TextFormField(
         controller: passwordController,
         obscureText: true,
