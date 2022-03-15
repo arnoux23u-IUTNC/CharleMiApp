@@ -222,7 +222,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                   'Confirmer',
                                   style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                                 ),
-                                style: defaultButtonStyle,
+                                style: btnDefaultStyle(),
                               )
                             : ElevatedButton(
                                 onPressed: null,
@@ -302,7 +302,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         _selectedStr,
         style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
       ),
-      style: defaultButtonStyle,
+      style: btnDefaultStyle(),
     );
   }
 

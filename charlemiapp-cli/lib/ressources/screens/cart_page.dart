@@ -60,7 +60,7 @@ class _CartScreenState extends State<CartScreen> {
                                 'Commander',
                                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                               ),
-                              style: defaultButtonStyle,
+                              style: btnDefaultStyle(),
                             ),
                           )
                         ],

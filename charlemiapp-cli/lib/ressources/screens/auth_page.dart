@@ -58,7 +58,7 @@ class _AuthPageState extends State<AuthPage> {
                         'Connexion',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
-                      style: defaultButtonStyle,
+                      style: btnDefaultStyle(),
                     ),
                   ),
                   Container(

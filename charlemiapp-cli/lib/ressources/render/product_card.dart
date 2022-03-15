@@ -95,7 +95,7 @@ class ProductCard extends StatelessWidget {
               'Ajouter au panier',
               style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
             ),
-            style: defaultButtonStyle,
+            style: btnDefaultStyle(),
           ),
         ],
         actionsAlignment: MainAxisAlignment.center);

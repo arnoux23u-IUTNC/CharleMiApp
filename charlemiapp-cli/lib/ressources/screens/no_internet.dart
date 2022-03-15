@@ -56,7 +56,7 @@ class _NoInternetState extends State<NoInternet> {
                       'Quitter',
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                     ),
-                    style: defaultButtonStyle,
+                    style: btnDefaultStyle(),
                   ),
                 ),
               ),

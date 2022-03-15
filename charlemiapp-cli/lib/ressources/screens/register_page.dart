@@ -343,7 +343,7 @@ class _RegisterState extends State<Register> {
           'Valider',
           style: TextStyle(color: Colors.white, fontSize: 18),
         ),
-        style: defaultButtonStyle,
+        style: btnDefaultStyle(),
       ),
     );
   }
