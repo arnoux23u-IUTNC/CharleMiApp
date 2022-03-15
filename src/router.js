@@ -6,6 +6,7 @@ const {
     removeFunds,
     getBalance,
     getOrders,
+    getActualOrders,
     getProducts,
     getTransactions,
     getCategories,
@@ -129,6 +130,26 @@ router.get('/order-history', authMiddleware, async (req, res) => {
         });
     } catch (e) {
         await sendWarn('Get orders history', e, req.user.uid);
+        //En cas d'erreur, on retourne une autre réponse
+        return res.status(500).send({
+            success: false, error: "Internal server error"
+        });
+    }
+});
+
+//Route correspondant à la récupération des commandes actuelles d'un utilisateur (/api/orders/)
+router.get('/orders', authMiddleware, async (req, res) => {
+    try {
+        const data = await getActualOrders(req);
+        //Si aucune commande n'a été trouvée, on retourne un message
+        if (data === false) return res.status(200).send({
+            success: true, orders: null
+        });
+        else return res.status(200).send({
+            success: true, orders: data
+        });
+    } catch (e) {
+        await sendWarn('Get actual orders', e, req.user.uid);
         //En cas d'erreur, on retourne une autre réponse
         return res.status(500).send({
             success: false, error: "Internal server error"
