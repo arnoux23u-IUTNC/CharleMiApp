@@ -345,7 +345,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Column(
                             children: [
                               Text(
-                                "Commande",
+                                "Commande ${snapshot.data![index].uid}",
                                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
                               ),
                               Text(
@@ -369,6 +369,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           backgroundColor: darkColor,
                           title: Text(
                             'Aperçu de commande',
+                            textAlign: TextAlign.center,
                             style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
                           ),
                           content: Column(
@@ -430,7 +431,7 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (snapshot.hasError) {
       return Center(
           child: Text("Veuillez recharger la page",
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
+              style: GoogleFonts.poppins(color: Colors.yellow, fontSize: 15, fontWeight: FontWeight.w400)));
     } else {
       return const Center(
         child: CircularProgressIndicator(),

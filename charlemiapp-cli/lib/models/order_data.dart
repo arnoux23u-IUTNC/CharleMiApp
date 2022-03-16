@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OrderData {
-  String timestamp, status, withdrawal;
+  String timestamp, status, withdrawal, uid;
   String? instructions;
   double total;
   Map<String, int> items;
@@ -10,6 +10,7 @@ class OrderData {
       {required this.timestamp,
       required this.status,
       required this.withdrawal,
+      required this.uid,
       required this.items,
       required this.total,
       this.instructions});
@@ -19,6 +20,7 @@ class OrderData {
       timestamp: jsonObject['timestamp'] as String,
       status: jsonObject['status'] as String,
       withdrawal: jsonObject['instructions']['withdrawal'] as String,
+      uid: jsonObject['unique_id'] as String,
       items: _arrayMap(jsonObject['items']),
       total: double.parse(jsonObject['total'].toString()),
       instructions: jsonObject['instructions']['notes'] as String?,

@@ -214,8 +214,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                     );
                                   } else {
                                     /* TODO await placeOrder(Home.cart.cartItems)*/
-                                    _buildToastOrder(jsonDecode(await placeOrder(
-                                        _selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
+                                    _buildToastOrder(jsonDecode(
+                                        await placeOrder(_selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
                                   }
                                 },
                                 child: Text(
@@ -278,7 +278,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               _selected!.hour > 15 ||
               _selected!.hour < 10) {
             Fluttertoast.showToast(
-              msg: "> ${timeafter.hour}:${timeafter.minute} | < 16h",
+              msg:
+                  "> ${NumberFormat("00", "fr_FR").format(timeafter.hour)}:${NumberFormat("00", "fr_FR").format(timeafter.minute)} | < 16h",
               toastLength: Toast.LENGTH_SHORT,
               timeInSecForIosWeb: 2,
             );
