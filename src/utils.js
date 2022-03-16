@@ -1,10 +1,11 @@
 const {getFirestore} = require("firebase-admin/firestore");
+const {getTime} = require("cethour");
 const db = getFirestore();
 
 let createTransactionForUser = async (user, amount, type, category, desc = "", tags = [], notes = "") => {
     //TODO PEUT ETRE CENTRALISER LA MODIFICATION DE LA BALANCE
     await db.collection("users").doc(user.uid).collection("transactions").add({
-        date: generateTimestamp(),
+        date: await generateTimestamp(),
         amount: amount,
         type: type,
         description: desc,
@@ -14,8 +15,8 @@ let createTransactionForUser = async (user, amount, type, category, desc = "", t
     });
 }
 
-let generateTimestamp = (time = null, onlyday = false) => {
-    const date = new Date();
+let generateTimestamp = async (time = null, onlyday = false) => {
+    const date = new Date(await getTime(true));
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();

@@ -14,6 +14,7 @@ const {
     setOpening
 } = require("./workers/functions");
 const {sendWarn} = require("./workers/discord");
+const {generateTimestamp} = require("./utils");
 
 //Route correspondant à la création d'une commande (/api/place-order/)
 router.post('/place-order', authMiddleware, async (req, res) => {

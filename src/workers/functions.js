@@ -1,3 +1,5 @@
+const ShortUniqueId = require("short-unique-id");
+const uid = new ShortUniqueId({length:4});
 const {createTransactionForUser, generateTimestamp} = require("../utils");
 const {getFirestore} = require("firebase-admin/firestore");
 const db = getFirestore();
@@ -38,16 +40,18 @@ let placeOrder = async (req) => {
     }
     //Enregistrement de la transaction dans la BDD. On considère que la transaction est valide
     await createTransactionForUser(req.user, -(response.total), "BILLING", "PRODUCTS");
-    response.timestamp = generateTimestamp()
+    response.timestamp = await generateTimestamp()
     //On crée la commande dans la BDD
+    // noinspection JSValidateTypes
     await db.collection('orders').add({
         user_id: req.user.uid,
         items: req.body.items.filter(item => item["qte"] > 0),
         total: response.total,
+        unique_id: uid().toString().toUpperCase(),
         status: "PENDING",
         timestamp: response.timestamp,
         instructions: {
-            "withdrawal": generateTimestamp(req.body['time']),
+            "withdrawal": (await generateTimestamp(req.body['time'])),
             "notes": req.body['instructions']
         }
     });
@@ -121,9 +125,9 @@ let getActualOrders = async (req) => {
     //On récupère toutes les commandes ayant l'uid de l'utilisateur
     const data = [];
     //Création timestamp
-    const timestamp = generateTimestamp(null, true);
+    const timestamp = await generateTimestamp(null, true);
     const orderCollections = db.collection('orders')
-    const snapshot = await orderCollections.where('user_id', '==', `${req.user.uid}`).where('timestamp', '>', timestamp).get();
+    const snapshot = await orderCollections.where('user_id', '==', `${req.user.uid}`).where('timestamp', '>', timestamp).orderBy('timestamp', 'desc').get();
     if (snapshot.empty) return false;
     for (let doc of snapshot.docs) {
         const order = doc.data();
