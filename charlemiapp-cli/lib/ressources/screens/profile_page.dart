@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Expanded(
                 flex: 0,
                 child: Container(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: Center(
                     child: Text(
                       (Home.user?.estBoursier ?? false)
@@ -69,30 +69,29 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Expanded(
-                flex: 4,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 45),
-                  child: FutureBuilder<List<OrderData>>(
-                    future: orders,
-                    builder: _buildOrders,
-                  ),
+                child: FutureBuilder<List<OrderData>>(
+                  future: orders,
+                  builder: _buildOrders,
                 ),
               ),
               Expanded(
                 flex: 0,
-                child: Center(
-                  child: FutureBuilder<String>(
-                    future: balance,
-                    builder: (context, snapshot) {
-                      return snapshot.hasData
-                          ? Text('Votre solde est de ${snapshot.data} €',
-                              style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                          : snapshot.hasError
-                              ? Text('Votre solde est de -- €',
-                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
-                              : const CircularProgressIndicator();
-                    },
+                child: Container(
+                  child: Center(
+                    child: FutureBuilder<String>(
+                      future: balance,
+                      builder: (context, snapshot) {
+                        return snapshot.hasData
+                            ? Text('Votre solde est de ${snapshot.data} €',
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                            : snapshot.hasError
+                                ? Text('Votre solde est de -- €',
+                                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w400))
+                                : const CircularProgressIndicator();
+                      },
+                    ),
                   ),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                 ),
               ),
               Expanded(
@@ -155,7 +154,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 10),
                   ),
-                ),
+                )
+              else
+                const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
               Expanded(
                 flex: 0,
                 child: ElevatedButton(
@@ -320,52 +321,116 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget _buildOrders(BuildContext context, AsyncSnapshot<List<OrderData>> snapshot) {
     if (snapshot.hasData) {
-      return SingleChildScrollView(
-        child: Scrollbar(
-          //TODO isAlwaysShown: true,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: ListView.builder(
-              itemCount: snapshot.data!.length,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: const ScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: OrderData.color(snapshot.data![index].status),
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Commande",
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+      if (snapshot.data!.isNotEmpty) {
+        return SingleChildScrollView(
+          child: Scrollbar(
+            //TODO isAlwaysShown: true,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 49),
+              child: ListView.builder(
+                itemCount: snapshot.data!.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: OrderData.color(snapshot.data![index].status),
                           ),
-                          Text(
-                            OrderData.transform(snapshot.data![index].status),
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Commande",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                OrderData.transform(snapshot.data![index].status),
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              Text(
+                                "Retrait : ${OrderData.transformDate(snapshot.data![index].withdrawal)}",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                            ],
                           ),
-                          Text(
-                            "Retrait : ${OrderData.transformDate(snapshot.data![index].withdrawal)}",
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(bottom: 8)),
+                      ],
                     ),
-                    const Padding(padding: EdgeInsets.only(bottom: 8)),
-                  ],
-                );
-              },
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          backgroundColor: darkColor,
+                          title: Text(
+                            'Aperçu de commande',
+                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                "Date : ${OrderData.transformDate(snapshot.data![index].timestamp)}",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              const Padding(padding: EdgeInsets.only(bottom: 8)),
+                              Text(
+                                "Heure de retrait : ${OrderData.transformDate(snapshot.data![index].withdrawal)}",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              const Padding(padding: EdgeInsets.only(bottom: 8)),
+                              Text(
+                                "Total : ${NumberFormat('0.00', 'fr_FR').format(snapshot.data![index].total)}€",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              const Padding(padding: EdgeInsets.only(bottom: 8)),
+                              Text(
+                                "Instructions de retrait : ${snapshot.data![index].instructions ?? "Aucune"}",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              const Padding(padding: EdgeInsets.only(bottom: 8)),
+                              Text(
+                                "Statut : ${OrderData.transform(snapshot.data![index].status)}",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                              const Padding(padding: EdgeInsets.only(bottom: 8)),
+                              Text(
+                                "Contenu :\n${snapshot.data![index].items}",
+                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                          actions: [
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Fermer'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
-        ),
-      );
+        );
+      } else {
+        return Center(
+            child: Text("Aucune commande en cours",
+                style: GoogleFonts.poppins(color: Colors.grey, fontSize: 15, fontWeight: FontWeight.w400)));
+      }
     } else if (snapshot.hasError) {
-      return Container();
+      return Center(
+          child: Text("Veuillez recharger la page",
+              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
     } else {
       return const Center(
         child: CircularProgressIndicator(),

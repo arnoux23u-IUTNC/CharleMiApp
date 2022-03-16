@@ -1,3 +1,5 @@
+import 'package:charlemiapp_cli/ressources/assets/const.dart';
+
 import '../models/product.dart';
 import '../ressources/screens/home.dart';
 import 'dart:convert';
@@ -15,7 +17,7 @@ Future<String> placeOrder(String withdrawTime, String instructions, Map<Product,
     "time": withdrawTime,
     "instructions": instructions,
   });
-  var response = await http.post(Uri.parse('http://192.168.0.4:5564/api/place-order'),
+  var response = await http.post(Uri.parse(urlAPI + '/place-order'),
       headers: {'x-auth-token': Home.user!.uid, 'Content-Type': 'application/json'}, body: encodedBody);
   return response.body;
 }
