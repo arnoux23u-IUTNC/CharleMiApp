@@ -20,7 +20,7 @@ class OrderData {
       status: jsonObject['status'] as String,
       withdrawal: jsonObject['instructions']['withdrawal'] as String,
       items: _arrayMap(jsonObject['items']),
-      total: jsonObject['total'] as double,
+      total: double.parse(jsonObject['total'].toString()),
       instructions: jsonObject['instructions']['notes'] as String?,
     );
   }
