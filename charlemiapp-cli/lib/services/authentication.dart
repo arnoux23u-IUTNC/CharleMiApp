@@ -8,15 +8,6 @@ class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  /*Stream<AppUser?> get user {
-    initUser(user);
-    return _auth.authStateChanges().map((firebaseUser) => firebaseUser?.toAppUser());
-  }
-
-  void initUser(User? user) async {
-
-  }*/
-
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
@@ -143,5 +134,9 @@ class AuthenticationService {
       }
       return null;
     }
+  }
+
+  static Future<AppUser?> delegate(User? data) async {
+    return AuthenticationService()._toAppUser(data, null);
   }
 }

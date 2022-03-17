@@ -14,7 +14,7 @@ class AppUser {
 
   bool? isAdmin, estBoursier;
 
-  AppUser({required this.uid, this.lastName, this.firstName, this.phone, this.carteEtudiant});
+  AppUser({required this.uid, this.lastName, this.firstName, this.phone, this.carteEtudiant, this.isAdmin, this.estBoursier});
 
   Future<bool> init() async {
     var snapshot = await firestore.collection('users').doc(uid).get();

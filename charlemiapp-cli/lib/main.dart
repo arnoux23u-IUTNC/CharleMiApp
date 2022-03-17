@@ -8,6 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp();
+  //FirebaseMessaging.onBackgroundMessage(PushNotificationService.messageHandler);
   runApp(const CharlemiappInstance());
 }
 
