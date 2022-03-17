@@ -515,5 +515,38 @@
     "stock": 0,
     "category": "Desserts",
     "boursier" : false
+  },
+  {
+    "id": "P0048",
+    "name": "Formule Bagnat",
+    "diminutif" : "Formule Bagnat",
+    "description" : "Sandwich Bagnat accompagné d'un yahourt et d'une compote.",
+    "calories" : "environ 390 kcal",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Formule",
+    "boursier" : true
+  },
+  {
+    "id": "P0049",
+    "name": "Formule Vegetarien",
+    "diminutif" : "Formule Vegetarien",
+    "description" : "Sandwich accompagné d'un yaourt et d'une compote.",
+    "calories" : "environ 360 kcal",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Formule",
+    "boursier" : true
+  },
+  {
+    "id": "P0050",
+    "name": "Formule Jambon/Emmental",
+    "diminutif" : "Formule Jambon/Emmental",
+    "description" : "Sandwich jambon emmental accompagné d'un yaourt et d'une compote.",
+    "calories" : "environ 420 kcal",
+    "price": 1.00,
+    "stock": 0,
+    "category": "Formule",
+    "boursier" : true
   }
 ]
