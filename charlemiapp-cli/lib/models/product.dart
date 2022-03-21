@@ -23,6 +23,8 @@ class Product {
 
   String get getName => name;
 
+  String get getDiminutif => diminutif;
+
   double get getPrice => price;
 
   static Future<List<Product>> getProducts(String category) async {

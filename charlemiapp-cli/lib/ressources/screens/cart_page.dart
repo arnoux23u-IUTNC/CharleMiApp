@@ -143,7 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                   Expanded(
                     flex: 13,
                     child: Text(
-                      element.getName,
+                      element.getDiminutif,
                       style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
                       overflow: TextOverflow.ellipsis,
                     ),
