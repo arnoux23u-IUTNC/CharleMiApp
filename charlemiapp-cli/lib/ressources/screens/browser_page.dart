@@ -1,3 +1,4 @@
+import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
 import '../render/product_card.dart';
@@ -32,61 +33,54 @@ class _BrowserPageState extends State<BrowserPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: darkColor,
-      child: Column(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 5),
-            scrollDirection: Axis.horizontal,
-            child: FutureBuilder<List<String>>(
-              future: categories,
+    return Column(
+      children: [
+        SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 17, horizontal: 5),
+          scrollDirection: Axis.horizontal,
+          child: FutureBuilder<List<String>>(
+            future: categories,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Row(
+                  children: _buildButtons(snapshot.data),
+                );
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Aucune catégorie trouvée', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ),
+        Expanded(
+          child: FutureBuilder<List<Product>>(
+              future: products,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Row(
-                    children: _buildButtons(snapshot.data),
-                  );
+                  return GridView.builder(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      itemCount: snapshot.data!.length,
+                      physics: const BouncingScrollPhysics(),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemBuilder: (context, index) => ProductCard(product: snapshot.data![index]));
                 } else if (snapshot.hasError) {
-                  return Center(
-                      child: Text('Aucune catégorie trouvée',
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
+                  return Center(child: Text('Aucun produit trouvé', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
                 } else {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-              },
-            ),
-            //top padings
-          ),
-          Expanded(
-            child: FutureBuilder<List<Product>>(
-                future: products,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return GridView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        itemCount: snapshot.data!.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                          childAspectRatio: 0.75,
-                        ),
-                        itemBuilder: (context, index) => ProductCard(product: snapshot.data![index]));
-                  } else if (snapshot.hasError) {
-                    return Center(
-                        child: Text('Aucun produit trouvé',
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400)));
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                }),
-          ),
-        ],
-      ),
+              }),
+        ),
+      ],
     );
   }
 
@@ -98,12 +92,14 @@ class _BrowserPageState extends State<BrowserPage> {
           onPressed: () => {setSelectedCategory(data.indexOf(category)), setState(() {})},
           child: Text(
             category,
-            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w300),
+            style: GoogleFonts.poppins(color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black, fontWeight: FontWeight.w300),
           ),
           style: ButtonStyle(
             backgroundColor: data.indexOf(category) == _selectedCategory
                 ? MaterialStateProperty.all(buttonBlueColor)
-                : MaterialStateProperty.all(midDarkColor),
+                : CharlemiappInstance.themeChangeProvider.lightTheme
+                    ? MaterialStateProperty.all(midDarkColor)
+                    : MaterialStateProperty.all(Colors.white),
             padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(

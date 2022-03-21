@@ -19,84 +19,83 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: darkColor,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: darkColor,
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: _buildElements(),
-                  ),
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: _buildElements(),
                 ),
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
-            width: double.infinity,
-            child: Home.user != null
-                ? (CharlemiappInstance.cart.cartItems.isNotEmpty
-                    ? Column(
-                        children: [
-                          Text(
-                            "Total : " + _displayTotal() + " €",
-                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
-                          ),
-                          const Padding(padding: EdgeInsets.only(top: 10)),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const ConfirmationScreen())),
-                              },
-                              child: Text(
-                                'Commander',
-                                style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                              ),
-                              style: btnDefaultStyle(),
+        ),
+        Container(
+          padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
+          width: double.infinity,
+          child: Home.user != null
+              ? (CharlemiappInstance.cart.cartItems.isNotEmpty
+                  ? Column(
+                      children: [
+                        Text(
+                          "Total : " + _displayTotal() + " €",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 10)),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () => {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const ConfirmationScreen())),
+                            },
+                            child: Text(
+                              'Commander',
+                              style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                             ),
-                          )
-                        ],
-                      )
-                    : ElevatedButton(
-                        onPressed: null,
-                        child: Text(
-                          'Panier vide',
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        style: ButtonStyle(
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
-                : Column(
-                    children: [
-                      Text(
-                        "Total : " + _displayTotal() + " €",
-                        style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
+                            style: btnDefaultStyle(),
+                          ),
+                        )
+                      ],
+                    )
+                  : ElevatedButton(
+                      onPressed: null,
+                      child: Text(
+                        'Panier vide',
+                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
-                      ElevatedButton(
-                        onPressed: null,
-                        child: Text(
-                          'Vous n\'êtes pas connecté',
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                        ),
-                        style: ButtonStyle(
+                      style: ButtonStyle(
                           padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                        ),
+                          backgroundColor:
+                              MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.lightTheme ? const Color(0xFF0F111C) : Colors.grey),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+              : Column(
+                  children: [
+                    Text(
+                      "Total : " + _displayTotal() + " €",
+                      style: GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 20),
+                    ),
+                    const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                    ElevatedButton(
+                      onPressed: null,
+                      child: Text(
+                        'Vous n\'êtes pas connecté',
+                        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                    ],
-                  ),
-          ),
-        ],
-      ),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.lightTheme ? const Color(0xFF0F111C) : Colors.grey),
+                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ],
     );
   }
 
@@ -124,17 +123,17 @@ class _CartScreenState extends State<CartScreen> {
             padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             width: double.infinity,
             child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                color: midDarkColor,
-                boxShadow: [
+              decoration: BoxDecoration(
+                color: CharlemiappInstance.themeChangeProvider.lightTheme ? midDarkColor : Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+                /*boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
                     offset: Offset(3, 3),
                     blurRadius: 1,
                     spreadRadius: 0,
                   ),
-                ],
+                ],*/
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Row(
@@ -144,7 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                     flex: 13,
                     child: Text(
                       element.getDiminutif,
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -156,7 +155,7 @@ class _CartScreenState extends State<CartScreen> {
                           style: _textButtonStyle,
                           child: Text(
                             "+",
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                            style: GoogleFonts.poppins(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black),
                           ),
                           onPressed: () {
                             setState(() {
@@ -183,13 +182,13 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         Text(
                           "$qte",
-                          style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                          style: GoogleFonts.poppins(fontSize: 18),
                         ),
                         TextButton(
                           style: _textButtonStyle,
                           child: Text(
                             "-",
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                            style: GoogleFonts.poppins(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black),
                           ),
                           onPressed: () {
                             setState(() {
@@ -215,7 +214,7 @@ class _CartScreenState extends State<CartScreen> {
           child: Center(
             child: Text(
               'Votre panier est vide',
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
             ),
           ),
         ),

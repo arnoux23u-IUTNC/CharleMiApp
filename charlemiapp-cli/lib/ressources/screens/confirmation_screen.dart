@@ -6,7 +6,6 @@ import '../../models/product.dart';
 import '../navigation/appbar_back.dart';
 import '../../services/order_manager.dart';
 import 'dart:convert';
-import 'dart:io' show Platform;
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -55,20 +54,12 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         int qte = int.parse(items[element] ?? "0");
         res.add(
           Container(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             width: double.infinity,
             child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                color: midDarkColor,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(3, 3),
-                    blurRadius: 1,
-                    spreadRadius: 0,
-                  ),
-                ],
+              decoration: BoxDecoration(
+                color: CharlemiappInstance.themeChangeProvider.lightTheme ? midDarkColor : Colors.grey,
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Row(
@@ -78,13 +69,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                     width: 165,
                     child: Text(
                       element.getName,
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Text(
-                    "x " "$qte",
-                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 18),
+                    "x $qte",
+                    style: GoogleFonts.poppins(fontSize: 18),
                   ),
                 ],
               ),
@@ -100,7 +91,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           child: Center(
             child: Text(
               'Votre panier est vide',
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500),
+              style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500),
             ),
           ),
         ),
@@ -112,149 +103,137 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarBack(),
-      backgroundColor: darkColor,
+      appBar: const AppBarBack(null),
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: darkColor,
-              child: SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(top: 30),
-                        height: 200,
-                        child: Image.asset('assets/check-circle.png'),
+            flex: 18,
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 30, bottom: 10),
+                      child: Image.asset(
+                        'assets/check-circle.png',
+                        height: MediaQuery.of(context).size.width / 4,
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            "Finalisez votre commande",
-                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 20),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
-                            width: double.infinity,
-                            child: Column(
-                              children: [
-                                const Padding(padding: EdgeInsets.only(top: 20)),
-                                TextFormField(
-                                  maxLines: null,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  autofocus: false,
-                                  controller: _controller,
-                                  keyboardType: TextInputType.multiline,
-                                  textInputAction: TextInputAction.newline,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    errorMaxLines: 2,
-                                    fillColor: midDarkColor,
-                                    contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                                    hintText: "Instructions de retrait",
-                                    hintStyle: GoogleFonts.poppins(
-                                      color: greyedFont,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          "Finalisez votre commande",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 20),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 55, right: 55, top: 15, bottom: 15),
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              const Padding(padding: EdgeInsets.only(top: 20)),
+                              TextFormField(
+                                maxLines: null,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                const Padding(padding: EdgeInsets.only(top: 20)),
-                                _buildTimePicker()
-                              ],
-                            ),
+                                autofocus: false,
+                                controller: _controller,
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                decoration: const InputDecoration(
+                                  hintText: "Instructions de retrait",
+                                ),
+                              ),
+                              const Padding(padding: EdgeInsets.only(top: 20)),
+                              _buildTimePicker()
+                            ],
                           ),
-                          const Padding(padding: EdgeInsets.only(top: 20)),
-                          Text(
-                            "Total : " + _displayTotal() + " €",
-                            style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
-                          ),
-                          Column(
-                            children: _buildElements(),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 10)),
+                        Text(
+                          "Total : " + _displayTotal() + " €",
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 20)),
+                        Column(
+                          children: _buildElements(),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.only(left: 55, right: 55, top: 30, bottom: 15),
-            width: double.infinity,
-            child: Column(
-              children: [
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                SizedBox(
-                  width: double.infinity,
-                  child: FutureBuilder(
-                    future: _isOpen,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return (snapshot.data as bool)
-                            ? ElevatedButton(
-                                onPressed: () async {
-                                  if (_selected == null || _selectedStr == "Heure de retrait") {
-                                    Fluttertoast.showToast(
-                                      msg: "Heure de retrait invalide",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      timeInSecForIosWeb: 1,
-                                    );
-                                  } else {
-                                    /* TODO await placeOrder(Home.cart.cartItems)*/
-                                    _buildToastOrder(jsonDecode(
-                                        await placeOrder(_selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
-                                  }
-                                },
-                                child: Text(
-                                  'Confirmer',
-                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                                ),
-                                style: btnDefaultStyle(),
-                              )
-                            : ElevatedButton(
-                                onPressed: null,
-                                child: Text(
-                                  'Cafétéria fermée',
-                                  style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                                ),
-                                style: ButtonStyle(
-                                  padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                                  shape:
-                                      MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                                ),
-                              );
-                      } else {
-                        return ElevatedButton(
-                          onPressed: null,
-                          child: Text(
-                            'Cafétéria fermée',
-                            style: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                          ),
-                        );
-                      }
-                    },
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: const EdgeInsets.only(left: 55, right: 55, bottom: 5),
+              width: double.infinity,
+              child: Column(
+                children: [
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  SizedBox(
+                    width: double.infinity,
+                    child: FutureBuilder(
+                      future: _isOpen,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return (snapshot.data as bool)
+                              ? ElevatedButton(
+                                  onPressed: () async {
+                                    if (_selected == null || _selectedStr == "Heure de retrait") {
+                                      Fluttertoast.showToast(
+                                        msg: "Heure de retrait invalide",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        timeInSecForIosWeb: 1,
+                                      );
+                                    } else {
+                                      _buildToastOrder(jsonDecode(await placeOrder(_selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
+                                    }
+                                  },
+                                  child: Text(
+                                    'Confirmer',
+                                    style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                                  ),
+                                  style: btnDefaultStyle(),
+                                )
+                              : ElevatedButton(
+                                  onPressed: null,
+                                  child: Text(
+                                    'Cafétéria fermée',
+                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+                                  ),
+                                  style: ButtonStyle(
+                                    padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                                  ),
+                                );
+                        } else {
+                          return ElevatedButton(
+                            onPressed: null,
+                            child: Text(
+                              'Cafétéria fermée',
+                              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+                            ),
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -264,13 +243,21 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     return ElevatedButton(
       onPressed: () async {
         var time = DateTime.now();
-        var timeafter = time.minute + 15 > 59
-            ? TimeOfDay(hour: time.hour + 1, minute: time.minute + 15 - 60)
-            : TimeOfDay(hour: time.hour, minute: time.minute + 15);
-        //if (Platform.isAndroid) {
+        var timeafter =
+            time.minute + 15 > 59 ? TimeOfDay(hour: time.hour + 1, minute: time.minute + 15 - 60) : TimeOfDay(hour: time.hour, minute: time.minute + 15);
         _selected = await showTimePicker(
           context: context,
           initialTime: timeafter,
+          builder: (BuildContext context, Widget? child) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+              child: child ??
+                  Theme(
+                    data: ThemeData.light().copyWith(),
+                    child: child ?? Container(),
+                  ),
+            );
+          },
         );
         if (_selected != null) {
           if (_selected!.hour < time.hour ||
@@ -278,8 +265,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               _selected!.hour > 15 ||
               _selected!.hour < 10) {
             Fluttertoast.showToast(
-              msg:
-                  "> ${NumberFormat("00", "fr_FR").format(timeafter.hour)}:${NumberFormat("00", "fr_FR").format(timeafter.minute)} | < 16h",
+              msg: "> ${NumberFormat("00", "fr_FR").format(timeafter.hour)}:${NumberFormat("00", "fr_FR").format(timeafter.minute)} | < 16h",
               toastLength: Toast.LENGTH_SHORT,
               timeInSecForIosWeb: 2,
             );
@@ -301,7 +287,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       },
       child: Text(
         _selectedStr,
-        style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+        style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
       ),
       style: btnDefaultStyle(),
     );
@@ -320,8 +306,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       setState(() {
         CharlemiappInstance.cart.clearCart();
       });
-      Navigator.pushAndRemoveUntil(
-          context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
     } else {
       switch (data['message']) {
         case 'Charlemiam is closed':

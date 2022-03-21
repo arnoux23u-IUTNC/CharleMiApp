@@ -1,6 +1,5 @@
 import 'home.dart';
 import '../loader.dart';
-import '../assets/colors.dart';
 import '../navigation/appbar_back.dart';
 import '../../services/authentication.dart';
 import 'package:flutter/material.dart';
@@ -32,27 +31,14 @@ class _LoginState extends State<Login> {
         controller: emailController,
         validator: AuthenticationService.validateEmail,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        decoration: const InputDecoration(
           hintText: "Email",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -66,27 +52,13 @@ class _LoginState extends State<Login> {
         obscureText: true,
         validator: (value) => value!.isEmpty ? "Veuillez saisir un mot de passse" : null,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          focusColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+        decoration: const InputDecoration(
           hintText: "Mot de passe",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -124,17 +96,15 @@ class _LoginState extends State<Login> {
                 Home.user = user;
                 error = "";
               });
-              Navigator.pushAndRemoveUntil(
-                  context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 2)), (route) => false);
             }
           }
         },
         child: const Text(
           'Valider',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(fontSize: 18),
         ),
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
             padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
       ),
@@ -169,10 +139,9 @@ class _LoginState extends State<Login> {
         ? const Loader()
         : Scaffold(
             resizeToAvoidBottomInset: true,
-            appBar: const AppBarBack(),
+            appBar: const AppBarBack(null),
             body: Container(
               constraints: const BoxConstraints.expand(),
-              color: darkColor,
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(55),
@@ -184,7 +153,6 @@ class _LoginState extends State<Login> {
                         Text(
                           "Connexion",
                           style: GoogleFonts.poppins(
-                            color: whiteColor,
                             fontSize: 29,
                             fontWeight: FontWeight.w600,
                           ),

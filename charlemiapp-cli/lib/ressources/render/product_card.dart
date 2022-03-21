@@ -1,7 +1,6 @@
 import '../../main.dart';
 import '../../models/product.dart';
 import '../../ressources/assets/const.dart';
-import '../../ressources/assets/colors.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,27 +22,27 @@ class ProductCard extends StatelessWidget {
           builder: (BuildContext context) => _buildAddToCartPopUp(context),
         )
       },
-      child: Image.asset('assets/products/${product.id}.png',
-          errorBuilder: (c, e, s) =>
-              Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+      child: Image.asset(
+        'assets/products/${product.id}.png',
+        errorBuilder: (c, e, s) => Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png")),
+      ),
     );
   }
 
   Widget _buildAddToCartPopUp(BuildContext context) {
     return AlertDialog(
-        backgroundColor: midDarkColor,
         title: Row(
           children: [
             Expanded(
               child: Text(
                 product.getName,
-                style: GoogleFonts.poppins(color: Colors.white),
+                style: GoogleFonts.poppins(),
               ),
             ),
             IconButton(
               padding: const EdgeInsets.all(0),
               constraints: const BoxConstraints(),
-              icon: const Icon(Icons.close, color: Colors.white),
+              icon: const Icon(Icons.close),
               onPressed: () => Navigator.of(context).pop(),
             ),
           ],
@@ -52,24 +51,23 @@ class ProductCard extends StatelessWidget {
         content: Column(
           children: [
             Image.asset('assets/products/${product.id}.png',
-                errorBuilder: (c, e, s) =>
-                    Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
+                errorBuilder: (c, e, s) => Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
             const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
             Text(
               "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+              style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
             Text(
               product.description,
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w500),
+              style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
             )
           ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         actions: <Widget>[
           ElevatedButton.icon(
-            icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
+            icon: const Icon(Icons.add_shopping_cart),
             onPressed: () {
               switch (CharlemiappInstance.cart.addToCart(product)) {
                 case true:
@@ -93,7 +91,7 @@ class ProductCard extends StatelessWidget {
             },
             label: Text(
               'Ajouter au panier',
-              style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+              style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
             ),
             style: btnDefaultStyle(),
           ),
@@ -116,7 +114,7 @@ class ProductCard extends StatelessWidget {
         Expanded(
           child: Text(
             product.name,
-            style: GoogleFonts.poppins(color: Colors.white),
+            style: GoogleFonts.poppins(),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -124,37 +122,36 @@ class ProductCard extends StatelessWidget {
           children: [
             Text(
               "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
-              style: GoogleFonts.poppins(color: Colors.white, fontWeight: FontWeight.bold),
+              style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
             ),
             Material(
-                child: IconButton(
-                  alignment: Alignment.centerRight,
-                  color: Colors.white,
-                  padding: const EdgeInsets.all(0),
-                  constraints: const BoxConstraints(),
-                  icon: const Icon(Icons.add_shopping_cart),
-                  onPressed: () {
-                    switch (CharlemiappInstance.cart.addToCart(product)) {
-                      case true:
-                        break;
-                      case "TARIF":
-                        Fluttertoast.showToast(
-                          msg: "Vous n'êtes pas boursier",
-                          toastLength: Toast.LENGTH_SHORT,
-                          timeInSecForIosWeb: 1,
-                        );
-                        break;
-                      default:
-                        Fluttertoast.showToast(
-                          msg: "Impossible d'ajouter plus",
-                          toastLength: Toast.LENGTH_SHORT,
-                          timeInSecForIosWeb: 1,
-                        );
-                        break;
-                    }
-                  },
-                ),
-                color: Colors.transparent),
+              child: IconButton(
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.all(0),
+                constraints: const BoxConstraints(),
+                icon: const Icon(Icons.add_shopping_cart),
+                onPressed: () {
+                  switch (CharlemiappInstance.cart.addToCart(product)) {
+                    case true:
+                      break;
+                    case "TARIF":
+                      Fluttertoast.showToast(
+                        msg: "Vous n'êtes pas boursier",
+                        toastLength: Toast.LENGTH_SHORT,
+                        timeInSecForIosWeb: 1,
+                      );
+                      break;
+                    default:
+                      Fluttertoast.showToast(
+                        msg: "Impossible d'ajouter plus",
+                        toastLength: Toast.LENGTH_SHORT,
+                        timeInSecForIosWeb: 1,
+                      );
+                      break;
+                  }
+                },
+              ),
+            ),
           ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         )

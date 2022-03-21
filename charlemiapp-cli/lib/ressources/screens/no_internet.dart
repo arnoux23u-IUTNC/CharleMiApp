@@ -16,7 +16,6 @@ class _NoInternetState extends State<NoInternet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkColor,
       body: Center(
         child: Stack(
           children: <Widget>[
@@ -54,7 +53,7 @@ class _NoInternetState extends State<NoInternet> {
                     },
                     child: Text(
                       'Quitter',
-                      style: GoogleFonts.poppins(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                      style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     style: btnDefaultStyle(),
                   ),

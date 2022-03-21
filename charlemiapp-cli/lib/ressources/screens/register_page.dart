@@ -1,7 +1,6 @@
 import 'home.dart';
 import '../loader.dart';
 import 'login_page.dart';
-import '../assets/colors.dart';
 import '../navigation/appbar_back.dart';
 import '../../ressources/assets/const.dart';
 import '../../services/authentication.dart';
@@ -36,27 +35,15 @@ class _RegisterState extends State<Register> {
         controller: emailController,
         validator: AuthenticationService.validateEmail,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Adresse email",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -69,28 +56,15 @@ class _RegisterState extends State<Register> {
         controller: passwordController,
         validator: (value) => AuthenticationService.validatePassword(value!, null),
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         obscureText: true,
         textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          focusColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Mot de passe",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -104,27 +78,14 @@ class _RegisterState extends State<Register> {
         obscureText: true,
         validator: (value) => AuthenticationService.validatePassword(value!, passwordController.text),
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         textInputAction: TextInputAction.done,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          focusColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Confirmation",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -137,27 +98,15 @@ class _RegisterState extends State<Register> {
         controller: lastNameController,
         validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Nom",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -170,27 +119,15 @@ class _RegisterState extends State<Register> {
         controller: firstNameController,
         validator: (value) => value!.isEmpty || value.length < 3 ? "Entrez une valeur" : null,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.name,
         textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Prénom",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -203,27 +140,15 @@ class _RegisterState extends State<Register> {
         controller: numTelController,
         validator: AuthenticationService.validateNumTel,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.phone,
         textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
           hintText: "Téléphone",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -240,28 +165,15 @@ class _RegisterState extends State<Register> {
               controller: carteEtuController,
               validator: AuthenticationService.validateCarteEtu,
               style: GoogleFonts.poppins(
-                color: Colors.white,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
               autofocus: false,
               keyboardType: TextInputType.phone,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(
-                filled: true,
-                errorMaxLines: 2,
-                fillColor: midDarkColor,
-                contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(15, 15, 15, 15),
                 hintText: "Numéro Etudiant",
-                //TODO AFFICHER BULLE CARTE
-                hintStyle: GoogleFonts.poppins(
-                  color: greyedFont,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
               ),
             ),
           ),
@@ -270,14 +182,14 @@ class _RegisterState extends State<Register> {
             child: IconButton(
               icon: const Icon(
                 Icons.info_outline,
-                color: Colors.white,
               ),
               onPressed: () {
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text("Numéro Etudiant"),
+                      title: Text("Numéro Etudiant", style: GoogleFonts.poppins(fontSize: 20, color: Colors.black)),
+                      backgroundColor: Colors.white,
                       content: Image.asset("assets/carteetu.png"),
                     );
                   },
@@ -306,19 +218,12 @@ class _RegisterState extends State<Register> {
             final String firstName = firstNameController.text;
             final String numTel = numTelController.text;
             final String carteEtu = carteEtuController.text;
-            //if(_auth.userExists(phone) || )
-            //final String carteEtu = carteEtuController.text;
             var user = await _auth.register(email, password, lastName, firstName, numTel, carteEtu);
             setState(() {
               Home.loading = false;
             });
-            //emailController.clear();
             passwordController.clear();
             passwordConfirmController.clear();
-            /*lastNameController.clear();
-            firstNameController.clear();
-            numTelController.clear();*/
-            //carteEtuController.clear();
             if (user == null) {
               setState(() {
                 Home.user = null;
@@ -331,9 +236,7 @@ class _RegisterState extends State<Register> {
                 error = "";
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const Login(message: "Inscription effectuée, vérifiez vos mails afin d'activer votre compte")),
+                    MaterialPageRoute(builder: (context) => const Login(message: "Inscription effectuée, vérifiez vos mails afin d'activer votre compte")),
                     (route) => false);
               });
             }
@@ -341,7 +244,7 @@ class _RegisterState extends State<Register> {
         },
         child: const Text(
           'Valider',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(fontSize: 18),
         ),
         style: btnDefaultStyle(),
       ),
@@ -353,10 +256,9 @@ class _RegisterState extends State<Register> {
     return Home.loading
         ? const Loader()
         : Scaffold(
-            appBar: const AppBarBack(),
-            body: Container(
+            appBar: const AppBarBack(null),
+            body: SizedBox(
               height: MediaQuery.of(context).size.height,
-              color: darkColor,
               child: Scrollbar(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -369,7 +271,6 @@ class _RegisterState extends State<Register> {
                           Text(
                             "Inscription",
                             style: GoogleFonts.poppins(
-                              color: whiteColor,
                               fontSize: 29,
                               fontWeight: FontWeight.w600,
                             ),

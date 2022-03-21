@@ -1,5 +1,4 @@
 import '../loader.dart';
-import '../assets/colors.dart';
 import '../../ressources/screens/home.dart';
 import '../../services/authentication.dart';
 import '../../ressources/navigation/appbar_back.dart';
@@ -28,27 +27,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         controller: emailController,
         validator: AuthenticationService.validateEmail,
         style: GoogleFonts.poppins(
-          color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         autofocus: false,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          filled: true,
-          errorMaxLines: 2,
-          fillColor: midDarkColor,
-          contentPadding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
+        decoration: const InputDecoration(
           hintText: "Adresse email",
-          hintStyle: GoogleFonts.poppins(
-            color: greyedFont,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
         ),
       ),
     );
@@ -95,10 +81,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         },
         child: const Text(
           'Réinitialiser',
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(fontSize: 18),
         ),
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(buttonBlueColor),
             padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
       ),
@@ -110,10 +95,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Home.loading
         ? const Loader()
         : Scaffold(
-            appBar: const AppBarBack(),
-            body: Container(
+            appBar: const AppBarBack(null),
+            body: SizedBox(
               height: MediaQuery.of(context).size.height,
-              color: darkColor,
               child: Scrollbar(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -126,7 +110,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           Text(
                             "Récupération",
                             style: GoogleFonts.poppins(
-                              color: whiteColor,
                               fontSize: 29,
                               fontWeight: FontWeight.w600,
                             ),
