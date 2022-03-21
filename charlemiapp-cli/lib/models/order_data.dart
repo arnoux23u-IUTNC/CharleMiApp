@@ -6,14 +6,15 @@ class OrderData {
   double total;
   Map<String, int> items;
 
-  OrderData(
-      {required this.timestamp,
-      required this.status,
-      required this.withdrawal,
-      required this.uid,
-      required this.items,
-      required this.total,
-      this.instructions});
+  OrderData({
+    required this.timestamp,
+    required this.status,
+    required this.withdrawal,
+    required this.uid,
+    required this.items,
+    required this.total,
+    this.instructions,
+  });
 
   factory OrderData.fromJson(dynamic jsonObject) {
     return OrderData(

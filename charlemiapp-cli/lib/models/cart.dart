@@ -1,7 +1,6 @@
-import 'package:charlemiapp_cli/ressources/screens/home.dart';
-
 import 'product.dart';
 import 'dart:convert';
+import '../ressources/screens/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart {
@@ -64,16 +63,7 @@ class Cart {
     var array = [];
     cart.forEach((key, value) {
       array.add({
-        'product': [
-          key.id,
-          key.name,
-          key.price,
-          key.description,
-          key.diminutif,
-          key.calories,
-          key.imageURL,
-          key.necessiteBoursier
-        ],
+        'product': [key.id, key.name, key.price, key.description, key.diminutif, key.calories, key.imageURL, key.necessiteBoursier],
         'qte': value
       });
     });

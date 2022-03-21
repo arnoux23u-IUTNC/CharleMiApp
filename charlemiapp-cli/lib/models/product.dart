@@ -9,15 +9,16 @@ class Product {
   String imageURL;
   bool necessiteBoursier;
 
-  Product(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.description,
-      required this.diminutif,
-      required this.calories,
-      required this.imageURL,
-      required this.necessiteBoursier});
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.description,
+    required this.diminutif,
+    required this.calories,
+    required this.imageURL,
+    required this.necessiteBoursier,
+  });
 
   String get getId => id;
 
