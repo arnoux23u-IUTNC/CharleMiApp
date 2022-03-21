@@ -370,9 +370,29 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               const Padding(padding: EdgeInsets.only(bottom: 8)),
                               Text(
-                                "Instructions de retrait : ${snapshot.data![index].instructions ?? "Aucune"}",
+                                "Instructions de retrait : ",
                                 style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w400),
+                                textAlign: TextAlign.center,
                               ),
+                              if (snapshot.data![index].instructions != null && snapshot.data![index].instructions != "")
+                                Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: CharlemiappInstance.themeChangeProvider.darkTheme ? Colors.white : Colors.grey,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    snapshot.data![index].instructions ?? "Aucune",
+                                    style: GoogleFonts.poppins(fontSize: 15, color: Colors.grey, fontWeight: FontWeight.w400),
+                                  ),
+                                )
+                              else
+                                Text(
+                                  "Aucune",
+                                  style: GoogleFonts.poppins(fontSize: 15, color: Colors.grey, fontWeight: FontWeight.w400),
+                                ),
                               const Padding(padding: EdgeInsets.only(bottom: 8)),
                               Text(
                                 "Statut : ${OrderData.transform(snapshot.data![index].status)}",
@@ -380,8 +400,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               const Padding(padding: EdgeInsets.only(bottom: 8)),
                               Text(
-                                "Contenu :\n${snapshot.data![index].items}",
+                                "Contenu :",
                                 style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w400),
+                                textAlign: TextAlign.center,
+                              ),
+                              Table(
+                                border: TableBorder.all(color: Colors.grey),
+                                children: _buildElements(snapshot.data![index].items),
                               ),
                             ],
                           ),
@@ -434,5 +459,32 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Loader(),
       );
     }
+  }
+
+  List<TableRow> _buildElements(Map<String, int> items) {
+    List<TableRow> elements = [];
+    items.forEach((key, value) {
+      elements.add(
+        TableRow(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(2),
+              child: Text(
+                key,
+                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(2),
+              child: Text(
+                value.toString(),
+                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+    return elements;
   }
 }
