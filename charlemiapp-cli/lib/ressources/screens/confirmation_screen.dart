@@ -104,137 +104,121 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarBack(null),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 18,
-            child: SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(top: 30, bottom: 10),
-                      child: Image.asset(
-                        'assets/check-circle.png',
-                        height: MediaQuery.of(context).size.width / 4,
-                        alignment: Alignment.center,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Text(
-                          "Finalisez votre commande",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 20),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 55, right: 55, top: 15, bottom: 15),
-                          width: double.infinity,
-                          child: Column(
-                            children: [
-                              const Padding(padding: EdgeInsets.only(top: 20)),
-                              TextFormField(
-                                maxLines: null,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                autofocus: false,
-                                controller: _controller,
-                                keyboardType: TextInputType.multiline,
-                                textInputAction: TextInputAction.newline,
-                                decoration: const InputDecoration(
-                                  hintText: "Instructions de retrait",
-                                ),
-                              ),
-                              const Padding(padding: EdgeInsets.only(top: 20)),
-                              _buildTimePicker()
-                            ],
-                          ),
-                        ),
-                        const Padding(padding: EdgeInsets.only(top: 10)),
-                        Text(
-                          "Total : " + _displayTotal() + " €",
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
-                        ),
-                        const Padding(padding: EdgeInsets.only(top: 20)),
-                        Column(
-                          children: _buildElements(),
-                        )
-                      ],
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 30, bottom: 10),
+                child: Image.asset(
+                  'assets/check-circle.png',
+                  height: MediaQuery.of(context).size.width / 4,
+                  alignment: Alignment.center,
+                  fit: BoxFit.contain,
                 ),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              padding: const EdgeInsets.only(left: 55, right: 55, bottom: 5),
-              width: double.infinity,
-              child: Column(
+              Column(
                 children: [
-                  const Padding(padding: EdgeInsets.only(top: 10)),
-                  SizedBox(
+                  Text(
+                    "Finalisez votre commande",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 20),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(left: 55, right: 55, top: 15, bottom: 15),
                     width: double.infinity,
-                    child: FutureBuilder(
-                      future: _isOpen,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return (snapshot.data as bool)
-                              ? ElevatedButton(
-                                  onPressed: () async {
-                                    if (_selected == null || _selectedStr == "Heure de retrait") {
-                                      Fluttertoast.showToast(
-                                        msg: "Heure de retrait invalide",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        timeInSecForIosWeb: 1,
-                                      );
-                                    } else {
-                                      _buildToastOrder(jsonDecode(await placeOrder(_selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
-                                    }
-                                  },
-                                  child: Text(
-                                    'Confirmer',
-                                    style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
-                                  ),
-                                  style: btnDefaultStyle(),
-                                )
-                              : ElevatedButton(
-                                  onPressed: null,
-                                  child: Text(
-                                    'Cafétéria fermée',
-                                    style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
-                                  ),
-                                  style: ButtonStyle(
-                                    padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                                    shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                                  ),
-                                );
-                        } else {
-                          return ElevatedButton(
-                            onPressed: null,
-                            child: Text(
-                              'Cafétéria fermée',
-                              style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
-                            ),
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                              shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-                            ),
-                          );
-                        }
-                      },
+                    child: Column(
+                      children: [
+                        const Padding(padding: EdgeInsets.only(top: 20)),
+                        TextFormField(
+                          maxLines: null,
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          autofocus: false,
+                          controller: _controller,
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.newline,
+                          decoration: const InputDecoration(
+                            hintText: "Instructions de retrait",
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 20)),
+                        _buildTimePicker()
+                      ],
                     ),
                   ),
+                  const Padding(padding: EdgeInsets.only(top: 10)),
+                  Text(
+                    "Total : " + _displayTotal() + " €",
+                    style: GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 18),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 20)),
+                  Column(
+                    children: _buildElements(),
+                  )
                 ],
               ),
-            ),
+              Container(
+                child: FutureBuilder(
+                  future: _isOpen,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return (snapshot.data as bool)
+                          ? ElevatedButton(
+                              onPressed: () async {
+                                if (_selected == null || _selectedStr == "Heure de retrait") {
+                                  Fluttertoast.showToast(
+                                    msg: "Heure de retrait invalide",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    timeInSecForIosWeb: 1,
+                                  );
+                                } else {
+                                  _buildToastOrder(jsonDecode(await placeOrder(_selectedStr, _controller.text, CharlemiappInstance.cart.cartItems)));
+                                }
+                              },
+                              child: Text(
+                                'Confirmer',
+                                style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600),
+                              ),
+                              style: btnDefaultStyle(),
+                            )
+                          : ElevatedButton(
+                              onPressed: null,
+                              child: Text(
+                                'Cafétéria fermée',
+                                style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
+                                padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                              ),
+                            );
+                    } else {
+                      return ElevatedButton(
+                        onPressed: null,
+                        child: Text(
+                          'Cafétéria fermée',
+                          style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
+                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                        ),
+                      );
+                    }
+                  },
+                ),
+                padding: const EdgeInsets.only(left: 80, right: 80, top: 30, bottom: 15),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

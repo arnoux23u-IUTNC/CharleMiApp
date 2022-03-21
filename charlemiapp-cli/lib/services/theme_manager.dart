@@ -63,7 +63,11 @@ class Styles {
       inputDecorationTheme: InputDecorationTheme(
         fillColor: isDarkTheme ? midDarkColor : Colors.white,
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: isDarkTheme ? darkColor : Colors.grey),
+          borderSide: const BorderSide(color: Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: isDarkTheme ? Colors.black : Colors.grey),
           borderRadius: BorderRadius.circular(10),
         ),
         errorMaxLines: 2,
