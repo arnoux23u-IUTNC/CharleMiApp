@@ -19,12 +19,12 @@ class DarkThemePreference {
 
 class DarkThemeProvider with ChangeNotifier {
   DarkThemePreference darkThemePreference = DarkThemePreference();
-  bool _lightTheme = true;
+  bool _darkTheme = true;
 
-  bool get lightTheme => _lightTheme;
+  bool get darkTheme => _darkTheme;
 
-  set lightTheme(bool value) {
-    _lightTheme = !value;
+  set darkTheme(bool value) {
+    _darkTheme = !value;
     darkThemePreference.setDarkTheme(value);
     notifyListeners();
   }
@@ -41,15 +41,12 @@ class Styles {
         ),
         // isAlwaysShown: true,
       ),
-      indicatorColor: Colors.purple,
       //Contour des input
       highlightColor: isDarkTheme ? Colors.white : Colors.grey,
-      hoverColor: Colors.purple,
       focusColor: Colors.blue,
       dialogBackgroundColor: isDarkTheme ? midDarkColor : Colors.white,
       disabledColor: Colors.grey,
-      hintColor: Colors.black,
-      toggleableActiveColor: isDarkTheme ? Colors.blue : Colors.white,
+      toggleableActiveColor: buttonBlueColor,
       colorScheme: ColorScheme(
         primary: Colors.white,
         secondary: darkColor,
@@ -65,6 +62,10 @@ class Styles {
       ),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: isDarkTheme ? midDarkColor : Colors.white,
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: isDarkTheme ? darkColor : Colors.grey),
+          borderRadius: BorderRadius.circular(10),
+        ),
         errorMaxLines: 2,
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
@@ -77,10 +78,13 @@ class Styles {
           borderRadius: BorderRadius.circular(12),
         ),
       ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: isDarkTheme ? Colors.white : Colors.grey,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
-            isDarkTheme ? buttonBlueColor : Colors.white,
+            buttonBlueColor,
           ),
           foregroundColor: MaterialStateProperty.all<Color>(
             Colors.white,

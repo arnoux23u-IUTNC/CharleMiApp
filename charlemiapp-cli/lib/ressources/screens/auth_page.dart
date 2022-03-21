@@ -37,65 +37,78 @@ class _AuthPageState extends State<AuthPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Column(
-          children: [
-            Image.asset(
-              CharlemiappInstance.themeChangeProvider.lightTheme ? "assets/logo_white.png" : "assets/logo_black.png",
-              height: MediaQuery.of(context).size.height * 0.4,
-            ),
-            Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(left: 55, right: 55, top: 0, bottom: 15),
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Login()),
-                      );
-                    },
-                    child: const Text(
-                      'Connexion',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    style: btnDefaultStyle(),
-                  ),
+        Expanded(
+          child: Column(
+            children: [
+              Expanded(
+                child: Image.asset(
+                  CharlemiappInstance.themeChangeProvider.darkTheme ? "assets/logo_white.png" : "assets/logo_black.png",
+                  height: MediaQuery.of(context).size.height * 0.4,
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
-                  child: TextButton(
-                    child: Text(
-                      "Inscription",
-                      style: TextStyle(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black),
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 0,
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 55, right: 55, top: 0, bottom: 15),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const Login()),
+                            );
+                          },
+                          child: const Text(
+                            'Connexion',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          style: btnDefaultStyle(),
+                        ),
+                      ),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const Register()),
-                      );
-                    },
-                  ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                        child: TextButton(
+                          child: Text(
+                            "Inscription",
+                            style: TextStyle(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.darkTheme ? Colors.white : Colors.black),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const Register()),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
+                        child: TextButton(
+                          child: const Text(
+                            "Mot de passe oublié ?",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ForgotPassword()),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: const EdgeInsets.only(left: 55, right: 55, bottom: 35),
-                  child: TextButton(
-                    child: const Text(
-                      "Mot de passe oublié ?",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ForgotPassword()),
-                      );
-                    },
-                  ),
-                )
-              ],
-            )
-          ],
-        )
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -1,3 +1,4 @@
+import '../loader.dart';
 import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
@@ -49,7 +50,7 @@ class _BrowserPageState extends State<BrowserPage> {
                 return Center(child: Text('Aucune catégorie trouvée', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
               } else {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Loader(),
                 );
               }
             },
@@ -75,7 +76,7 @@ class _BrowserPageState extends State<BrowserPage> {
                   return Center(child: Text('Aucun produit trouvé', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
                 } else {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Loader(),
                   );
                 }
               }),
@@ -92,12 +93,12 @@ class _BrowserPageState extends State<BrowserPage> {
           onPressed: () => {setSelectedCategory(data.indexOf(category)), setState(() {})},
           child: Text(
             category,
-            style: GoogleFonts.poppins(color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black, fontWeight: FontWeight.w300),
+            style: GoogleFonts.poppins(color: CharlemiappInstance.themeChangeProvider.darkTheme ? Colors.white : Colors.black, fontWeight: FontWeight.w300),
           ),
           style: ButtonStyle(
             backgroundColor: data.indexOf(category) == _selectedCategory
                 ? MaterialStateProperty.all(buttonBlueColor)
-                : CharlemiappInstance.themeChangeProvider.lightTheme
+                : CharlemiappInstance.themeChangeProvider.darkTheme
                     ? MaterialStateProperty.all(midDarkColor)
                     : MaterialStateProperty.all(Colors.white),
             padding: MaterialStateProperty.all(const EdgeInsets.all(16)),

@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ? Text('Votre solde est de ${snapshot.data} €', style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w400))
                           : snapshot.hasError
                               ? Text('Votre solde est de -- €', style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w400))
-                              : const CircularProgressIndicator();
+                              : const Loader();
                     },
                   ),
                 ),
@@ -115,9 +115,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       'Modifier mon solde',
                       style: GoogleFonts.poppins(color: colorAmbre, fontSize: 15, fontWeight: FontWeight.w300),
                     ),
-                    /*style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                  ),*/
                   ),
                 ),
               ),
@@ -297,7 +294,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return Center(child: Text('Aucune transaction récente', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
     } else {
       return const Center(
-        child: CircularProgressIndicator(),
+        child: Loader(),
       );
     }
   }
@@ -414,7 +411,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Text(
             "Aucune commande en cours",
             style: GoogleFonts.poppins(
-              color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.grey : Colors.black,
+              color: CharlemiappInstance.themeChangeProvider.darkTheme ? Colors.grey : Colors.black,
               fontSize: 15,
               fontWeight: FontWeight.w400,
             ),
@@ -434,7 +431,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
     } else {
       return const Center(
-        child: CircularProgressIndicator(),
+        child: Loader(),
       );
     }
   }

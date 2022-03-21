@@ -1,3 +1,5 @@
+import 'package:charlemiapp_cli/ressources/loader.dart';
+
 import 'models/cart.dart';
 import 'services/theme_manager.dart';
 import 'ressources/screens/home.dart';
@@ -32,7 +34,7 @@ class CharlemiappInstance extends State<CharlemiappLauncher> {
   }
 
   void getCurrentAppTheme() async {
-    themeChangeProvider.lightTheme = await themeChangeProvider.darkThemePreference.getTheme();
+    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
   }
 
   @override
@@ -48,7 +50,7 @@ class CharlemiappInstance extends State<CharlemiappLauncher> {
             debugShowCheckedModeBanner: false,
             title: 'CharleMi\'App',
             home: const Home(),
-            theme: Styles.themeData(themeChangeProvider.lightTheme, context),
+            theme: Styles.themeData(themeChangeProvider.darkTheme, context),
           );
         },
       ),

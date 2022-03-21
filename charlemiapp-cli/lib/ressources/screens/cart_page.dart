@@ -71,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
                           backgroundColor:
-                              MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.lightTheme ? const Color(0xFF0F111C) : Colors.grey),
+                              MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
               : Column(
                   children: [
@@ -87,7 +87,7 @@ class _CartScreenState extends State<CartScreen> {
                         style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.lightTheme ? const Color(0xFF0F111C) : Colors.grey),
+                        backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
                         padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
                       ),
@@ -124,16 +124,8 @@ class _CartScreenState extends State<CartScreen> {
             width: double.infinity,
             child: Container(
               decoration: BoxDecoration(
-                color: CharlemiappInstance.themeChangeProvider.lightTheme ? midDarkColor : Colors.white,
+                color: CharlemiappInstance.themeChangeProvider.darkTheme ? midDarkColor : Colors.white,
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
-                /*boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(3, 3),
-                    blurRadius: 1,
-                    spreadRadius: 0,
-                  ),
-                ],*/
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
               child: Row(
@@ -155,7 +147,7 @@ class _CartScreenState extends State<CartScreen> {
                           style: _textButtonStyle,
                           child: Text(
                             "+",
-                            style: GoogleFonts.poppins(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black),
+                            style: GoogleFonts.poppins(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.darkTheme ? Colors.white : Colors.black),
                           ),
                           onPressed: () {
                             setState(() {
@@ -188,7 +180,7 @@ class _CartScreenState extends State<CartScreen> {
                           style: _textButtonStyle,
                           child: Text(
                             "-",
-                            style: GoogleFonts.poppins(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.lightTheme ? Colors.white : Colors.black),
+                            style: GoogleFonts.poppins(fontSize: 18, color: CharlemiappInstance.themeChangeProvider.darkTheme ? Colors.white : Colors.black),
                           ),
                           onPressed: () {
                             setState(() {

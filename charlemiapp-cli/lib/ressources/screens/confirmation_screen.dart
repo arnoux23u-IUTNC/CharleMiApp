@@ -58,7 +58,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             width: double.infinity,
             child: Container(
               decoration: BoxDecoration(
-                color: CharlemiappInstance.themeChangeProvider.lightTheme ? midDarkColor : Colors.grey,
+                color: CharlemiappInstance.themeChangeProvider.darkTheme ? midDarkColor : Colors.grey,
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
               ),
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),

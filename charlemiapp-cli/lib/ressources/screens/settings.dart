@@ -29,10 +29,10 @@ class _SettingsState extends State<Settings> {
                         SettingsTile.switchTile(
                           onToggle: (value) {
                             setState(() {
-                              CharlemiappInstance.themeChangeProvider.lightTheme = value;
+                              CharlemiappInstance.themeChangeProvider.darkTheme = value;
                             });
                           },
-                          initialValue: !CharlemiappInstance.themeChangeProvider.lightTheme,
+                          initialValue: !CharlemiappInstance.themeChangeProvider.darkTheme,
                           enabled: true,
                           leading: const Icon(Icons.format_paint),
                           title: const Text('Thème clair (Bêta)'),
