@@ -10,10 +10,10 @@ class BrowserPage extends StatefulWidget {
   const BrowserPage({Key? key}) : super(key: key);
 
   @override
-  _BrowserPageState createState() => _BrowserPageState();
+  BrowserPageState createState() => BrowserPageState();
 }
 
-class _BrowserPageState extends State<BrowserPage> {
+class BrowserPageState extends State<BrowserPage> {
   int _selectedCategory = 0;
   late Future<List<String>> categories;
   late Future<List<Product>> products;
@@ -23,6 +23,10 @@ class _BrowserPageState extends State<BrowserPage> {
     products = Product.getProducts("Sandwichs");
     categories = Product.getCategories();
     super.initState();
+  }
+
+  void notify() {
+    setState(() {});
   }
 
   void setSelectedCategory(int index) async {
@@ -71,7 +75,7 @@ class _BrowserPageState extends State<BrowserPage> {
                         crossAxisSpacing: 10,
                         childAspectRatio: 0.75,
                       ),
-                      itemBuilder: (context, index) => ProductCard(product: snapshot.data![index]));
+                      itemBuilder: (context, index) => ProductCard(parentWidget: this, product: snapshot.data![index]));
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Aucun produit trouvé', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
                 } else {

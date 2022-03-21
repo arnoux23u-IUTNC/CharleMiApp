@@ -70,8 +70,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                          backgroundColor:
-                              MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
+                          backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
                           shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
               : Column(
                   children: [
@@ -157,6 +156,13 @@ class _CartScreenState extends State<CartScreen> {
                                 case "TARIF":
                                   Fluttertoast.showToast(
                                     msg: "Vous n'êtes pas boursier",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    timeInSecForIosWeb: 1,
+                                  );
+                                  break;
+                                case "STOCK":
+                                  Fluttertoast.showToast(
+                                    msg: "Ce produit n'est plus en stock",
                                     toastLength: Toast.LENGTH_SHORT,
                                     timeInSecForIosWeb: 1,
                                   );

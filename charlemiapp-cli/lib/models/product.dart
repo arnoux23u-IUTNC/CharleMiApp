@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 class Product {
   String id, name, diminutif, description, calories;
   double price;
+  int stock;
   String imageURL;
   bool necessiteBoursier;
 
@@ -13,6 +14,7 @@ class Product {
     required this.id,
     required this.name,
     required this.price,
+    required this.stock,
     required this.description,
     required this.diminutif,
     required this.calories,
@@ -27,6 +29,8 @@ class Product {
   String get getDiminutif => diminutif;
 
   double get getPrice => price;
+
+  int get getStock => stock;
 
   static Future<List<Product>> getProducts(String category) async {
     var response = await http.get(Uri.parse(urlAPI + '/products-list?category=$category'));
@@ -57,6 +61,7 @@ class Product {
       id: jsonObject['id'] as String,
       name: jsonObject['name'] as String,
       price: double.parse(jsonObject['price'].toString()),
+      stock: int.parse(jsonObject['stock'].toString()),
       imageURL: jsonObject['image'] as String? ?? "null",
       necessiteBoursier: jsonObject['boursier'] as bool? ?? false,
       calories: jsonObject['calories'] as String? ?? "Cal : NC",
@@ -71,7 +76,7 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{id: $id, name: $name, price: $price, imageURL: $imageURL, necessiteBoursier: $necessiteBoursier}';
+    return 'Product{id: $id, name: $name, stock: $stock, price: $price, imageURL: $imageURL, necessiteBoursier: $necessiteBoursier}';
   }
 
   equals(Product other) {

@@ -1,6 +1,6 @@
 import 'product.dart';
-import 'dart:convert';
 import '../ressources/screens/home.dart';
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart {
@@ -21,6 +21,9 @@ class Cart {
   Map<Product, String> cartItems = {};
 
   Object addToCart(product) {
+    if (product.stock < 1) {
+      return "STOCK";
+    }
     if (!(Home.user?.estBoursier ?? false) && product.necessiteBoursier) {
       return "TARIF";
     }
@@ -29,10 +32,12 @@ class Cart {
       if (qte > 10) {
         return "LIMIT";
       }
+      product.stock -= 1;
       cartItems[product] = qte.toString();
       saveToSP(cartItems);
       return true;
     } else {
+      product.stock -= 1;
       cartItems.putIfAbsent(product, () => "1");
       saveToSP(cartItems);
       return true;
@@ -63,7 +68,7 @@ class Cart {
     var array = [];
     cart.forEach((key, value) {
       array.add({
-        'product': [key.id, key.name, key.price, key.description, key.diminutif, key.calories, key.imageURL, key.necessiteBoursier],
+        'product': [key.id, key.name, key.price, key.description, key.diminutif, key.calories, key.imageURL, key.necessiteBoursier, key.stock],
         'qte': value
       });
     });
@@ -75,14 +80,16 @@ class Cart {
     json.forEach((item) {
       cart.putIfAbsent(
         Product(
-            id: item['product'][0],
-            name: item['product'][1],
-            price: item['product'][2],
-            description: item['product'][3],
-            diminutif: item['product'][4],
-            calories: item['product'][5],
-            imageURL: item['product'][6],
-            necessiteBoursier: item['product'][7] ?? false),
+          id: item['product'][0],
+          name: item['product'][1],
+          price: item['product'][2],
+          description: item['product'][3],
+          diminutif: item['product'][4],
+          calories: item['product'][5],
+          imageURL: item['product'][6],
+          necessiteBoursier: item['product'][7] ?? false,
+          stock: item['product'][8] ?? -1,
+        ),
         () => item['qte'],
       );
     });
