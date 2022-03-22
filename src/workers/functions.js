@@ -1,5 +1,5 @@
 const ShortUniqueId = require("short-unique-id");
-const uid = new ShortUniqueId({length:4});
+const uid = new ShortUniqueId({length: 4});
 const {createTransactionForUser, generateTimestamp} = require("../utils");
 const {getFirestore} = require("firebase-admin/firestore");
 const db = getFirestore();
@@ -31,6 +31,7 @@ let placeOrder = async (req) => {
             return "SCOLARSHIP_PRODUCTS";
         }
     }
+    //Enregistrement de la transaction dans la BDD. On considère que la transaction est valide
     for (let product of req.body.items) {
         const doc = (await (await db.collection('products').doc(`${product['product_id']}`).get()).data());
         const qte = doc['stock'];
@@ -38,14 +39,20 @@ let placeOrder = async (req) => {
             stock: qte - Math.max(product['qte'], 0)
         });
     }
-    //Enregistrement de la transaction dans la BDD. On considère que la transaction est valide
     await createTransactionForUser(req.user, -(response.total), "BILLING", "PRODUCTS");
     response.timestamp = await generateTimestamp()
     //On crée la commande dans la BDD
     // noinspection JSValidateTypes
     await db.collection('orders').add({
         user_id: req.user.uid,
-        items: req.body.items.filter(item => item["qte"] > 0),
+        items: await Promise.all(req.body.items.filter(item => item["qte"] > 0).map(async item => {
+            const doc = (await db.collection('products').doc(`${item["product_id"]}`).get()).data();
+            return {
+                product_id: item["product_id"],
+                qte: item["qte"],
+                name: (doc["diminutif"] ?? doc["name"]),
+            }
+        })),
         total: response.total,
         unique_id: uid().toString().toUpperCase(),
         status: "PENDING",
