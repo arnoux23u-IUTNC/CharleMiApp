@@ -60,9 +60,13 @@ class OfficeController
                         try {
                             $verifiedToken = $this->container['firebase_auth']->verifyIdToken($token);
                             $user = $verifiedToken->claims()->get('sub');
-                            $_SESSION['USER_UID'] = $user;
-                            $_SESSION['SESSION_UUID'] = $token;
-                            return $response->withRedirect($this->container['router']->pathFor('home'));
+                            $userDB = $this->container['firestore']->collection('users')->document($user)->snapshot()->data();
+                            if ($userDB['is_admin'] ?? false) {
+                                $_SESSION['USER_UID'] = $user;
+                                $_SESSION['SESSION_UUID'] = $token;
+                                return $response->withRedirect($this->container['router']->pathFor('home'));
+                            }
+                            return $response->write($view->render(['error' => 'Forbidden']));
                         } catch (InvalidCustomToken|\InvalidArgumentException) {
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
