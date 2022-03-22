@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AppUser {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -26,6 +27,9 @@ class AppUser {
       isAdmin = snapshot.data()!['id_admin'] ?? false;
       carteEtudiant = snapshot.data()!['carte_etudiant'] ?? '';
       estBoursier = snapshot.data()!['boursier'] ?? false;
+      await firestore.collection('users').doc(uid).update({
+        'token_fcm': await FirebaseMessaging.instance.getToken(),
+      });
       return true;
     }
     return false;
@@ -43,6 +47,7 @@ class AppUser {
         'boursier': false,
         'carte_etudiant': carteEtudiant,
         'balance': balance,
+        'token_fcm': await FirebaseMessaging.instance.getToken(),
       });
       return true;
     }

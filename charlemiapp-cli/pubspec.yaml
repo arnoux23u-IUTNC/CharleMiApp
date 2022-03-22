@@ -40,7 +40,7 @@ dependencies:
   intl: ^0.17.0
   fluttertoast: ^8.0.8
   flutter_offline: ^2.1.0
-  flutter_local_notifications: ^9.3.2
+  flutter_local_notifications: ^9.4.0
   shared_preferences: ^2.0.13
   firebase_messaging: ^11.2.10
   settings_ui: ^2.0.2
