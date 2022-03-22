@@ -61,19 +61,25 @@ class ProductCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
         content: Column(
+
           children: [
             Image.asset('assets/products/${product.id}.png',
                 errorBuilder: (c, e, s) => Image.network(product.imageURL, errorBuilder: (c, e, s) => Image.asset("assets/products/default.png"))),
-            const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
             Text(
-              "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
+              "${NumberFormat("0.00", "fr_FR").format(product.price)}€    |    ${product.calories}",
               style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w500),
             ),
-            const Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
-            Text(
+            const Padding(padding: EdgeInsets.fromLTRB(0, 20 , 0, 0)),
+            Expanded(
+               child: Center(
+              child: Text(  
               product.description,
               style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500),
-            )
+                  ),
+                ),
+            flex: 1
+            ),
           ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ),
