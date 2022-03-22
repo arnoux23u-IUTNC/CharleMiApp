@@ -51,3 +51,15 @@
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
 }
+
+.refresh {
+    display: flex;
+}
+
+.refresh img{
+    width: 5vw;
+    background-color: white;
+    border-radius: 20%;
+    cursor: pointer;
+    height: auto;
+}

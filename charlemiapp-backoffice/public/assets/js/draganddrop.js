@@ -71,9 +71,3 @@ document.addEventListener('dragend', e => {
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('dragstart', drag);
 });
-
-window.addEventListener('load', () => {
-    setInterval(() => {
-        location.reload();
-    }, 60000);
-});

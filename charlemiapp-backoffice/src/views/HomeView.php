@@ -42,6 +42,9 @@ class HomeView
             }
         }
         $html = <<<HTML
+            <div class="refresh">
+                <img alt="refresh" id="refresh-img" src="/assets/img/cropped-refresh.png">
+            </div>
             <main class="board">
                 <div class="column column-pending" data-col-id="pending" ondrop="drop(event)" ondragover="allowDrop(event)">
                     <h2>À valider</h2>
@@ -78,6 +81,7 @@ class HomeView
                     <button class="stocks">Gestion des utilisateurs</button>
                 </a>
             </div>
+            <script src="/assets/js/draganddrop-refresh.js"></script>
             <script src="/assets/js/draganddrop.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
@@ -90,6 +94,9 @@ class HomeView
     {
         $btn = $open ? "<button id='chg-btn' name='open' value='close' class=\"openclose close\">Close</button>" : "<button id='chg-btn' name='open' value='open' class=\"openclose open\">Open</button>";
         $html = <<<HTML
+            <div class="refresh">
+                <img alt="refresh" id="refresh-img" src="/assets/img/cropped-refresh.png">
+            </div>
             <div class="buttons">
                 <a href="{$this->container['router']->pathFor('logout')}">
                     <button class="logout">Logout</button>
@@ -104,6 +111,7 @@ class HomeView
                     <button class="stocks">Gestion des utilisateurs</button>
                 </a>
             </div>
+            <script src="/assets/js/draganddrop-refresh.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
         </html>
