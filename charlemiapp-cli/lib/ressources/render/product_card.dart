@@ -141,46 +141,53 @@ class ProductCard extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
-                "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
-                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-              ),
-              Material(
-                child: IconButton(
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.all(0),
-                  constraints: const BoxConstraints(),
-                  icon: const Icon(Icons.add_shopping_cart),
-                  onPressed: () {
-                    switch (CharlemiappInstance.cart.addToCart(product)) {
-                      case true:
-                        break;
-                      case "TARIF":
-                        Fluttertoast.showToast(
-                          msg: "Vous n'êtes pas boursier",
-                          toastLength: Toast.LENGTH_SHORT,
-                          timeInSecForIosWeb: 1,
-                        );
-                        break;
-                      case "STOCK":
-                        Fluttertoast.showToast(
-                          msg: "Ce produit n'est plus en stock",
-                          toastLength: Toast.LENGTH_SHORT,
-                          timeInSecForIosWeb: 1,
-                        );
-                        break;
-                      default:
-                        Fluttertoast.showToast(
-                          msg: "Impossible d'ajouter plus",
-                          toastLength: Toast.LENGTH_SHORT,
-                          timeInSecForIosWeb: 1,
-                        );
-                        break;
-                    }
-                    parentWidget.notify();
-                  },
+              if (product.stock > 0)
+                Text(
+                  "${NumberFormat("0.00", "fr_FR").format(product.price)}€",
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
                 ),
-              ),
+              if (product.stock < 1)
+                Text(
+                  "Victime de son succès",
+                  style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey),
+                ),
+              if (product.stock > 0)
+                Material(
+                  child: IconButton(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.all(0),
+                    constraints: const BoxConstraints(),
+                    icon: const Icon(Icons.add_shopping_cart),
+                    onPressed: () {
+                      switch (CharlemiappInstance.cart.addToCart(product)) {
+                        case true:
+                          break;
+                        case "TARIF":
+                          Fluttertoast.showToast(
+                            msg: "Vous n'êtes pas boursier",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                          );
+                          break;
+                        case "STOCK":
+                          Fluttertoast.showToast(
+                            msg: "Ce produit n'est plus en stock",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                          );
+                          break;
+                        default:
+                          Fluttertoast.showToast(
+                            msg: "Impossible d'ajouter plus",
+                            toastLength: Toast.LENGTH_SHORT,
+                            timeInSecForIosWeb: 1,
+                          );
+                          break;
+                      }
+                      parentWidget.notify();
+                    },
+                  ),
+                ),
             ],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           )
