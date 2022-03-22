@@ -2,6 +2,9 @@
 
 namespace charlemiapp;
 
+use Exception;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
 use Slim\Container;
 use Slim\Http\{Request, Response};
 use charlemiapp\views\{HomeView, LoginView, StocksView, UsersView};
@@ -60,10 +63,10 @@ class OfficeController
                             $_SESSION['USER_UID'] = $user;
                             $_SESSION['SESSION_UUID'] = $token;
                             return $response->withRedirect($this->container['router']->pathFor('home'));
-                        } catch (InvalidCustomToken | \InvalidArgumentException) {
+                        } catch (InvalidCustomToken|\InvalidArgumentException) {
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
-                    } catch (\Exception) {
+                    } catch (Exception) {
                         return $response->write($view->render(['error' => 'Wrong password or bad computer clock sync.']));
                     }
                 } catch (UserNotFound) {
@@ -108,9 +111,24 @@ class OfficeController
         $data = $request->getParsedBody();
         $order_id = $data['cardId'];
         $order_status = $data['columnId'];
+        $user_id = $this->container['firestore']->collection('orders')->document($order_id)->snapshot()->get('user_id');
         $this->container['firestore']->collection('orders')->document($order_id)->update([
             ['path' => 'status', 'value' => $order_status]
         ]);
+        if ($order_status === 'DONE' || $order_status === 'CANCELED') {
+            $token = $this->container['firestore']->collection('users')->document($user_id)->snapshot()->data()['token_fcm'] ?? false;
+            if ($token && $token != "") {
+                try {
+                    $notification = Notification::create('CharleMi\'App', $order_status === "DONE" ? 'Votre commande est prête' : 'Votre commande a été annulée', 'https://media.discordapp.net/attachments/930590506038210651/930598642279129108/logotr.png?width=671&height=671');
+                    $message = CloudMessage::withTarget('token', $token)->withNotification($notification);
+                    $this->container['firebase_messaging']->send($message);
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                }
+            } else {
+                print_r("pas de token");
+            }
+        }
         return $response->write(json_encode($request->getParsedBody()));
     }
 

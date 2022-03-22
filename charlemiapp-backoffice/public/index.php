@@ -13,6 +13,7 @@ $container = new Container();
 $container['settings']['displayErrorDetails'] = true;
 $container['firebase'] = (new Factory)->withServiceAccount(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'charlemi-app-b053ffa81bac.json');
 $container['firebase_auth'] = $container['firebase']->createAuth();
+$container['firebase_messaging'] = $container['firebase']->createMessaging();
 $container['firestore'] = $container['firebase']->createFirestore()->database();
 $container['notFoundHandler'] = function () {
     return function ($request, $response) {
@@ -61,14 +62,6 @@ $app->any('/login[/]', function (Request $request, Response $response, array $ar
 $app->get('/', function (Request $request, Response $response, array $args) {
     return (new OfficeController($this))->home($request, $response, $args);
 })->setName('home');
-
-//TODO TMP
-$app->get('/info', function (Request $request, Response $response, array $args) {
-   phpinfo();
-});
-$app->get('/curl', function (Request $request, Response $response, array $args) {
-    var_dump(openssl_get_cert_locations());
-});
 
 try {
     $app->run();

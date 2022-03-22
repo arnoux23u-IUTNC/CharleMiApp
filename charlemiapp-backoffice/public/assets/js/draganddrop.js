@@ -28,7 +28,7 @@ const drop = event => {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', `/change-card-data/`);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.addEventListener('load', (event) => {
+        xhr.addEventListener('load', () => {
             location.reload();
         });
         xhr.send(JSON.stringify({

@@ -108,7 +108,7 @@ class HomeView
         </body>
         </html>
         HTML;
-        return genererHeader("Home - CharleMi'App",["home.css"]) . $html;
+        return genererHeader("Home - CharleMi'App", ["home.css"]) . $html;
     }
 
     private function renderColumn(array $order, string $id): string
