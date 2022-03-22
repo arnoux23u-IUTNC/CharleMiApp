@@ -23,9 +23,9 @@ class LoginView
                 <div class="container">
                     $error
                     <label for="uname"><b>Email</b></label>
-                    <input type="email" value="arnouxguillaume54@hotmail.fr" placeholder="Enter Email" name="email" required>
+                    <input type="email" placeholder="Enter Email" name="email" required>
                     <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" value="guillaume" name="password" required>
+                    <input type="password" placeholder="Enter Password" name="password" required>
                     <button type="submit">Login</button>
                 </div>
             </form>       
