@@ -1,12 +1,10 @@
 import 'models/cart.dart';
 import 'services/theme_manager.dart';
 import 'ressources/screens/home.dart';
-import 'services/pushnotification.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,17 +23,10 @@ class CharlemiappLauncher extends StatefulWidget {
 class CharlemiappInstance extends State<CharlemiappLauncher> {
   static Cart cart = Cart();
   static DarkThemeProvider themeChangeProvider = DarkThemeProvider();
-  late final FirebaseMessaging _firebaseMessaging;
-
-  void _registerNotification() async {
-    _firebaseMessaging = FirebaseMessaging.instance;
-    PushNotificationService.initialize(_firebaseMessaging);
-  }
 
   @override
   void initState() {
     getCurrentAppTheme();
-    _registerNotification();
     super.initState();
   }
 
