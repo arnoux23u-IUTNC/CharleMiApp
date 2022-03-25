@@ -1,10 +1,10 @@
 const readline = require("readline");
-const {dbInit, dbBackup} = require("./db.js");
+const {dbInit, dbBackup, removeFake} = require("./db.js");
 require("colors");
 
 const questions = "\t1] Init database\n" +
     "\t2] Backup database\n" +
-    "\t2] --\n";
+    "\t3] Remove fake data\n";
 
 let startapp = async () => {
     console.log("Starting app...");
@@ -21,6 +21,10 @@ let startapp = async () => {
             case "2":
                 console.log("[BACKUP DATABASE]".blue);
                 await dbBackup();
+                break;
+            case "3":
+                console.log("[REMOVE FAKE DATA]".blue);
+                await removeFake();
                 break;
             default:
                 console.log("Goodbye!".red);

@@ -76,6 +76,15 @@ let dbBackup = async () => {
     fs.writeFileSync(`./backup/${time}/users.json`, JSON.stringify(users));
 }
 
+let removeFake = async () => {
+    const db = getFirestore();
+    console.log("Deleting fake data...".red);
+    let orders = (await db.collection('orders').get()).docs;
+    for (let order of orders)
+        if (order.data()['instructions']['notes'] === 'FAKE ORDER')
+            await db.collection('orders').doc(order.id).delete();
+}
+
 let generateTimestamp = async (after = false, withTime = false) => {
     const date = new Date(new Date().getTime() + (after ? 15 * 60 * 1000 : 0));
     const year = date.getFullYear();
@@ -90,5 +99,5 @@ let generateTimestamp = async (after = false, withTime = false) => {
 }
 
 module.exports = {
-    dbInit, dbBackup
+    dbInit, dbBackup, removeFake
 };
