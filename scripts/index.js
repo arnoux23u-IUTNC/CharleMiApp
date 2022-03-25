@@ -16,7 +16,7 @@ let startapp = async () => {
         switch (answer) {
             case "1":
                 console.log("[INIT DATABASE]".blue);
-                await dbInit();
+                await dbInit(rl).catch(err => console.log(err));
                 break;
             case "2":
                 console.log("[BACKUP DATABASE]".blue);
@@ -31,4 +31,4 @@ let startapp = async () => {
     });
 };
 
-startapp();
+startapp().catch(e => console.error(e));
