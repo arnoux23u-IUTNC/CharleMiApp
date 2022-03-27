@@ -13,12 +13,12 @@
       {
         "name": "Jambon/Emmental",
         "product_id": "P0028",
-        "qte": 2
+        "qte": "2"
       },
       {
         "name": "Le fermier",
         "product_id": "P0025",
-        "qte": 1
+        "qte": "1"
       }
     ]
   },
@@ -36,12 +36,12 @@
       {
         "name": "Jambon/Emmental",
         "product_id": "P0028",
-        "qte": 2
+        "qte": "2"
       },
       {
         "name": "Le fermier",
         "product_id": "P0025",
-        "qte": 1
+        "qte": "1"
       }
     ]
   },
@@ -59,12 +59,12 @@
       {
         "name": "Jambon/Emmental",
         "product_id": "P0028",
-        "qte": 2
+        "qte": "2"
       },
       {
         "name": "Le fermier",
         "product_id": "P0025",
-        "qte": 1
+        "qte": "1"
       }
     ]
   }

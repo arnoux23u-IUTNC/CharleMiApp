@@ -524,8 +524,9 @@
     "calories": null,
     "price": 3.30,
     "stock": 0,
-    "category": "Formule",
-    "boursier": false
+    "category": "Formules",
+    "boursier": false,
+    "image": "https://i.ibb.co/pfS72zz/fermier.png"
   },
   {
     "id": "P0049",
@@ -535,8 +536,9 @@
     "calories": null,
     "price": 3.30,
     "stock": 0,
-    "category": "Formule",
-    "boursier": false
+    "category": "Formules",
+    "boursier": false,
+    "image": "https://i.ibb.co/ZGz4knc/bagnat.png"
   },
   {
     "id": "P0050",
@@ -546,8 +548,9 @@
     "calories": null,
     "price": 3.30,
     "stock": 0,
-    "category": "Formule",
-    "boursier": false
+    "category": "Formules",
+    "boursier": false,
+    "image": "https://i.ibb.co/jJxr8mm/vegetarien.png"
   },
   {
     "id": "P0051",
@@ -557,8 +560,9 @@
     "calories": null,
     "price": 3.30,
     "stock": 0,
-    "category": "Formule",
-    "boursier": false
+    "category": "Formules",
+    "boursier": false,
+    "image": "https://i.ibb.co/2YYcCNB/jambonemmental.png"
   },
   {
     "id": "P0052",
@@ -568,8 +572,9 @@
     "calories": null,
     "price": 1.00,
     "stock": 0,
-    "category": "Formule",
-    "boursier": true
+    "category": "Formules",
+    "boursier": true,
+    "image": "https://i.ibb.co/pfS72zz/fermier.png"
   },
   {
     "id": "P0053",
@@ -579,8 +584,9 @@
     "calories": null,
     "price": 1.00,
     "stock": 0,
-    "category": "Formule",
-    "boursier": true
+    "category": "Formules",
+    "boursier": true,
+    "image": "https://i.ibb.co/ZGz4knc/bagnat.png"
   },
   {
     "id": "P0054",
@@ -590,8 +596,9 @@
     "calories": null,
     "price": 1.00,
     "stock": 0,
-    "category": "Formule",
-    "boursier": true
+    "category": "Formules",
+    "boursier": true,
+    "image": "https://i.ibb.co/jJxr8mm/vegetarien.png"
   },
   {
     "id": "P0055",
@@ -601,7 +608,8 @@
     "calories": null,
     "price": 1.00,
     "stock": 0,
-    "category": "Formule",
-    "boursier": true
+    "category": "Formules",
+    "boursier": true,
+    "image": "https://i.ibb.co/2YYcCNB/jambonemmental.png"
   }
 ]
