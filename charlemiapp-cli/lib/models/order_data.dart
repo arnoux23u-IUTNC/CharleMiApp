@@ -31,7 +31,7 @@ class OrderData {
   static Map<String, int> _arrayMap(List<dynamic> items) {
     Map<String, int> map = {};
     for (var item in items) {
-      map[item['name']] = int.parse(item['qte']);
+      map[item['name']] = int.parse(item['qte'].toString());
     }
     return map;
   }
