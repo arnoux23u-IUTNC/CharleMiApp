@@ -7,6 +7,7 @@ import '../../models/user.dart';
 import '../assets/app_icons.dart';
 import '../navigation/appbar_noback.dart';
 import '../../services/authentication.dart';
+import '../../ressources/assets/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_offline/flutter_offline.dart';
@@ -18,17 +19,15 @@ class Home extends StatefulWidget {
   final int selectedScreen;
 
   @override
-  State<Home> createState() => _HomeState();
+  State<Home> createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   late int _selectedIndex = widget.selectedScreen;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    BrowserPage(),
-    CartScreen(),
-    AuthBuilder()
-  ];
+  static List<Widget> _widgetOptions(state) {
+    return <Widget>[BrowserPage(homeState: state), const CartScreen(), const AuthBuilder()];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -36,72 +35,37 @@ class _HomeState extends State<Home> {
     });
   }
 
-  int nbrCart() {
-    int nbr = 0;
-    CharlemiappInstance.cart.cartItems.forEach((key, value) {
-      nbr += int.parse(value);
-    });
-    return nbr;
+  void notify() {
+    setState(() {});
   }
 
-  Widget _buildNavIcon(IconData icon, int index, {int badge = 0}) {
-    if (badge != 0) {
-      return SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: kBottomNavigationBarHeight,
-          child: InkWell(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Center(
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Icon(
-                        icon,
-                        size: 30,
-                      ),
-                      Positioned(
-                        right: -15.0,
-                        top: -15.0,
-                        child: Container(
-                          height: 24,
-                          width: 24,
-                          constraints: const BoxConstraints(
-                            maxHeight: 45,
-                            maxWidth: 45,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFFF8F00),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text("$badge"),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ));
+  Widget _buildNavIcon({required IconData icon, required int count}) {
+    if (_selectedIndex == 1 || count == 0) {
+      return Icon(icon);
     } else {
-      return SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: kBottomNavigationBarHeight,
-          child: InkWell(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                  Icon(icon,size: 30,),
-              ],
+      return Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Icon(
+            icon,
+          ),
+          Positioned(
+            right: -4,
+            top: -4,
+            child: Container(
+              height: 19,
+              width: 19,
+              decoration: const BoxDecoration(
+                color: colorAmbre,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Text("$count"),
+              ),
             ),
-          ));
+          ),
+        ],
+      );
     }
   }
 
@@ -118,40 +82,41 @@ class _HomeState extends State<Home> {
           });
         }
         return OfflineBuilder(
-          connectivityBuilder:
-              (BuildContext context, ConnectivityResult result, Widget child) {
+          connectivityBuilder: (BuildContext context, ConnectivityResult result, Widget child) {
             final bool connected = result != ConnectivityResult.none;
             return connected
                 ? Scaffold(
                     appBar: const AppBarNoBack(),
-                    body: _widgetOptions[_selectedIndex],
+                    body: _widgetOptions(this)[_selectedIndex],
                     bottomNavigationBar: BottomNavigationBar(
                       showSelectedLabels: false,
                       showUnselectedLabels: false,
+                      iconSize: 30,
                       type: BottomNavigationBarType.fixed,
                       enableFeedback: true,
                       items: <BottomNavigationBarItem>[
                         const BottomNavigationBarItem(
                           icon: Icon(
                             AppCustomIcons.compass,
-                            size: 30,
                           ),
                           label: '',
-                          tooltip: 'Discover',
+                          tooltip: 'Explore',
                         ),
                         BottomNavigationBarItem(
-                            icon: _buildNavIcon(
-                                AppCustomIcons.shoppingBasket, 0,
-                                badge: nbrCart()),
-                            label: '',
-                            tooltip: 'Order'),
+                          icon: _buildNavIcon(
+                            icon: AppCustomIcons.shoppingBasket,
+                            count: CharlemiappInstance.cart.cartItems.values.fold(0, (a, b) => a + int.parse(b)),
+                          ),
+                          label: '',
+                          tooltip: 'Cart',
+                        ),
                         const BottomNavigationBarItem(
-                            icon: Icon(
-                              AppCustomIcons.userCircle,
-                              size: 30,
-                            ),
-                            label: '',
-                            tooltip: 'Profile'),
+                          icon: Icon(
+                            AppCustomIcons.userCircle,
+                          ),
+                          label: '',
+                          tooltip: 'Profile',
+                        ),
                       ],
                       currentIndex: _selectedIndex,
                       onTap: _onItemTapped,
@@ -165,5 +130,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-

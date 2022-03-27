@@ -3,11 +3,13 @@ import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
 import '../render/product_card.dart';
+import '../../ressources/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BrowserPage extends StatefulWidget {
-  const BrowserPage({Key? key}) : super(key: key);
+  final HomeState homeState;
+  const BrowserPage({Key? key, required this.homeState}) : super(key: key);
 
   @override
   BrowserPageState createState() => BrowserPageState();
@@ -23,10 +25,6 @@ class BrowserPageState extends State<BrowserPage> {
     products = Product.getProducts("Sandwichs");
     categories = Product.getCategories();
     super.initState();
-  }
-
-  void notify() {
-    setState(() {});
   }
 
   void setSelectedCategory(int index) async {
@@ -62,28 +60,30 @@ class BrowserPageState extends State<BrowserPage> {
         ),
         Expanded(
           child: FutureBuilder<List<Product>>(
-              future: products,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return GridView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      itemCount: snapshot.data!.length,
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemBuilder: (context, index) => ProductCard(parentWidget: this, product: snapshot.data![index]));
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Aucun produit trouvé', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
-                } else {
-                  return const Center(
-                    child: Loader(),
-                  );
-                }
-              }),
+            future: products,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  itemCount: snapshot.data!.length,
+                  physics: const BouncingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemBuilder: (context, index) => ProductCard(parentWidget: widget.homeState, product: snapshot.data![index]),
+                );
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Aucun produit trouvé', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w400)));
+              } else {
+                return const Center(
+                  child: Loader(),
+                );
+              }
+            },
+          ),
         ),
       ],
     );

@@ -1,7 +1,7 @@
 import '../../main.dart';
 import '../../models/product.dart';
-import '../screens/browser_page.dart';
 import '../../ressources/assets/const.dart';
+import '../../ressources/screens/home.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  final BrowserPageState parentWidget;
+  final HomeState parentWidget;
 
   const ProductCard({
     Key? key,
