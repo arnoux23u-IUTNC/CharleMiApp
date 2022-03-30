@@ -1,13 +1,15 @@
+import 'home.dart';
 import '../../main.dart';
-import '../screens/home.dart';
 import '../assets/const.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
 import '../navigation/appbar_back.dart';
 import '../../services/order_manager.dart';
+import 'dart:io';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -229,20 +231,43 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
         var time = DateTime.now();
         var timeafter =
             time.minute + 15 > 59 ? TimeOfDay(hour: time.hour + 1, minute: time.minute + 15 - 60) : TimeOfDay(hour: time.hour, minute: time.minute + 15);
-        _selected = await showTimePicker(
-          context: context,
-          initialTime: timeafter,
-          builder: (BuildContext context, Widget? child) {
-            return MediaQuery(
-              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-              child: child ??
-                  Theme(
-                    data: ThemeData.light().copyWith(),
-                    child: child ?? Container(),
-                  ),
-            );
-          },
-        );
+        if (Platform.isIOS) {
+          await showCupertinoModalPopup(
+            context: context,
+            builder: (context) => Container(
+              height: 200,
+              color: Colors.white,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.time,
+                initialDateTime: time,
+                minimumDate: time,
+                onDateTimeChanged: (date) {
+                  setState(() {
+                    MaterialLocalizations localizations = MaterialLocalizations.of(context);
+                    String formattedTime = localizations.formatTimeOfDay(_selected!, alwaysUse24HourFormat: true);
+                    _selected = TimeOfDay(hour: date.hour, minute: date.minute);
+                    _selectedStr = formattedTime;
+                  });
+                },
+              ),
+            ),
+          );
+        } else {
+          await showTimePicker(
+            context: context,
+            initialTime: timeafter,
+            builder: (BuildContext context, Widget? child) {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                child: child ??
+                    Theme(
+                      data: ThemeData.light().copyWith(),
+                      child: child ?? Container(),
+                    ),
+              );
+            },
+          );
+        }
         if (_selected != null) {
           if (_selected!.hour < time.hour ||
               (_selected!.hour == time.hour && _selected!.minute < (time.minute + 15)) ||
