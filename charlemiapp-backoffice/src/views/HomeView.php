@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection JSDeprecatedSymbols */
 
 namespace charlemiapp\views;
 
@@ -9,7 +9,6 @@ class HomeView
 {
 
     private Container $container;
-    private static int $NB_ORDERS = 0;
 
     public function __construct(Container $container)
     {
@@ -121,29 +120,28 @@ class HomeView
 
     private function renderColumn(array $order, string $id): string
     {
-        $this::$NB_ORDERS += 1;
-        $date = date_format(date_create($order['timestamp'] ?? ""), 'H:i:s');
-        $dateRetrait = date_format(date_create($order['instructions']['withdrawal'] ?? ""), 'H:i:s');
+        $date = date_format(date_create($order['timestamp'] ?? ""), 'H:i');
+        $dateRetrait = date_format(date_create($order['instructions']['withdrawal'] ?? ""), 'H:i');
         $items = "";
         foreach ($order['items'] as $item) {
             $items .= <<<HTML
                 <li>
                     <span class="item-quantity">{$item['qte']}</span>
+                    x
                     <span class="item-name">{$item['name']}</span>
                 </li>
             HTML;
         }
         return <<<HTML
         <article class="card trigger_popup_fricc" draggable="true" ondragstart="drag(event)" data-id="$id">
-                        <h3>Commande {$this::$NB_ORDERS}</h3>
-                        <h3>Retrait : {$dateRetrait}</h3>
+                        <h3>Commande {$order['unique_id']}</h3>
+                        <h3>Retrait : $dateRetrait</h3>
                         <ul>
         $items
                         </ul>
                         </ul>
-                        <h3>$date</h3>
+                        <h4>$date</h4>
                     </article>
         HTML;
     }
-
 }
