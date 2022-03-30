@@ -1,14 +1,15 @@
+import 'home.dart';
 import '../loader.dart';
 import '../../main.dart';
 import '../assets/colors.dart';
 import '../../models/product.dart';
 import '../render/product_card.dart';
-import '../../ressources/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BrowserPage extends StatefulWidget {
   final HomeState homeState;
+
   const BrowserPage({Key? key, required this.homeState}) : super(key: key);
 
   @override

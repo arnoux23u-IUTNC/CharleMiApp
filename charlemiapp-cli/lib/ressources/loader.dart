@@ -1,5 +1,5 @@
 import '../../main.dart';
-import '../ressources/assets/colors.dart';
+import 'assets/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 

@@ -1,7 +1,7 @@
 import '../../main.dart';
+import '../screens/home.dart';
+import '../assets/const.dart';
 import '../../models/product.dart';
-import '../../ressources/assets/const.dart';
-import '../../ressources/screens/home.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

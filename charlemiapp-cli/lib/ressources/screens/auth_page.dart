@@ -3,8 +3,8 @@ import 'login_page.dart';
 import '../../main.dart';
 import 'profile_page.dart';
 import 'register_page.dart';
+import '../assets/const.dart';
 import 'forgotpassword_page.dart';
-import '../../ressources/assets/const.dart';
 import 'package:flutter/material.dart';
 
 class AuthBuilder extends StatelessWidget {

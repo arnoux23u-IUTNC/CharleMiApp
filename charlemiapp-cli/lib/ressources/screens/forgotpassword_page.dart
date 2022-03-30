@@ -1,7 +1,7 @@
+import 'home.dart';
 import '../loader.dart';
-import '../../ressources/screens/home.dart';
+import '../navigation/appbar_back.dart';
 import '../../services/authentication.dart';
-import '../../ressources/navigation/appbar_back.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -84,8 +84,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           style: TextStyle(fontSize: 18),
         ),
         style: ButtonStyle(
-            padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        ),
       ),
     );
   }

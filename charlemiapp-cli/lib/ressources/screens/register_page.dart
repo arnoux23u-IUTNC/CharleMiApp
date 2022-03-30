@@ -1,8 +1,8 @@
 import 'home.dart';
 import '../loader.dart';
 import 'login_page.dart';
+import '../assets/const.dart';
 import '../navigation/appbar_back.dart';
-import '../../ressources/assets/const.dart';
 import '../../services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

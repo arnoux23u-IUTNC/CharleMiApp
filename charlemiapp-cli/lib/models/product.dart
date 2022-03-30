@@ -70,17 +70,13 @@ class Product {
     );
   }
 
-  toJson() {
+  Object toJson() {
     return {'product_id': id, 'qte': CharlemiappInstance.cart.cartItems[this]};
   }
 
   @override
   String toString() {
     return 'Product{id: $id, name: $name, stock: $stock, price: $price, imageURL: $imageURL, necessiteBoursier: $necessiteBoursier}';
-  }
-
-  equals(Product other) {
-    return id == other.id;
   }
 
   @override

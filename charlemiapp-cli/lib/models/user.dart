@@ -1,6 +1,6 @@
-import '../models/order_data.dart';
+import 'order_data.dart';
+import 'transaction_data.dart';
 import '../ressources/assets/const.dart';
-import '../models/transaction_data.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -59,11 +59,11 @@ class AppUser {
     return response.statusCode == 200 ? NumberFormat("0.00", "fr_FR").format(jsonDecode(response.body)["balance"]) : '--';
   }
 
-  updateBalance(double amount) {
+  void updateBalance(double amount) {
     firestore.collection('users').doc(uid).update({'balance': amount});
   }
 
-  delete() async {
+  void delete() async {
     await firestore.collection('users').doc(uid).collection('transactions').get().then((snapshot) async {
       for (var doc in snapshot.docs) {
         await doc.reference.delete();

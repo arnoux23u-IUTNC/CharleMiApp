@@ -1,10 +1,10 @@
 import 'home.dart';
 import '../loader.dart';
 import '../../main.dart';
+import '../assets/const.dart';
 import '../assets/colors.dart';
 import '../../models/order_data.dart';
 import '../../models/transaction_data.dart';
-import '../../ressources/assets/const.dart';
 import '../../services/authentication.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -183,43 +183,44 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future _buildPopupConfirmDeleteAccount(BuildContext context) {
     return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Supprimer mon compte'),
-            content: const Text('Voulez-vous vraiment supprimer votre compte ?'),
-            actions: [
-              ElevatedButton(
-                child: const Text('Annuler'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              ElevatedButton(
-                child: const Text('Supprimer'),
-                onPressed: () async => {
-                  setState(() {
-                    Home.loading = true;
-                  }),
-                  if (await _auth.deleteAccount())
-                    {
-                      setState(() {
-                        Home.loading = false;
-                        Home.user = null;
-                        error = "";
-                      }),
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 0)), (route) => false)
-                    }
-                  else
-                    {
-                      setState(() {
-                        Home.loading = false;
-                        error = "Déconnectez-vous et réessayez";
-                      }),
-                    }
-                },
-              ),
-            ],
-          );
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Supprimer mon compte'),
+          content: const Text('Voulez-vous vraiment supprimer votre compte ?'),
+          actions: [
+            ElevatedButton(
+              child: const Text('Annuler'),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              child: const Text('Supprimer'),
+              onPressed: () async => {
+                setState(() {
+                  Home.loading = true;
+                }),
+                if (await _auth.deleteAccount())
+                  {
+                    setState(() {
+                      Home.loading = false;
+                      Home.user = null;
+                      error = "";
+                    }),
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home(selectedScreen: 0)), (route) => false)
+                  }
+                else
+                  {
+                    setState(() {
+                      Home.loading = false;
+                      error = "Déconnectez-vous et réessayez";
+                    }),
+                  }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildPopupBalance(BuildContext context) {
@@ -244,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ElevatedButton(
           onPressed: () async {
             if (_controller.text.isNotEmpty) {
-              await Home.user!.updateBalance(double.parse(_controller.text));
+              Home.user!.updateBalance(double.parse(_controller.text));
               Navigator.of(context).pop();
               Navigator.pushAndRemoveUntil(
                 context,
@@ -269,7 +270,6 @@ class _ProfilePageState extends State<ProfilePage> {
     if (snapshot.hasData) {
       return SingleChildScrollView(
         child: Scrollbar(
-          //TODO isAlwaysShown: true,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: ListView.builder(
@@ -304,7 +304,6 @@ class _ProfilePageState extends State<ProfilePage> {
       if (snapshot.data!.isNotEmpty) {
         return SingleChildScrollView(
           child: Scrollbar(
-            //TODO isAlwaysShown: true,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 49),
               child: ListView.builder(

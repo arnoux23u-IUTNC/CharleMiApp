@@ -105,8 +105,9 @@ class _LoginState extends State<Login> {
           style: TextStyle(fontSize: 18),
         ),
         style: ButtonStyle(
-            padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-            shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)))),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+        ),
       ),
     );
   }

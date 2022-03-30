@@ -1,9 +1,9 @@
+import 'home.dart';
 import '../../main.dart';
+import '../assets/const.dart';
 import '../assets/colors.dart';
+import 'confirmation_screen.dart';
 import '../../models/product.dart';
-import '../../ressources/assets/const.dart';
-import '../../ressources/screens/home.dart';
-import '../../ressources/screens/confirmation_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,9 +69,11 @@ class _CartScreenState extends State<CartScreen> {
                         style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                       style: ButtonStyle(
-                          padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
-                          backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
-                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))))))
+                        padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
+                        backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                      ),
+                    ))
               : Column(
                   children: [
                     Text(

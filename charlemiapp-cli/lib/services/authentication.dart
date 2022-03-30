@@ -108,7 +108,7 @@ class AuthenticationService {
 
   Future<bool> deleteAccount() async {
     try {
-      await Home.user!.delete();
+      Home.user!.delete();
       await _auth.currentUser?.delete();
       return true;
     } catch (e) {
