@@ -194,8 +194,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                                 style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w600),
                               ),
                               style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
+                                backgroundColor: MaterialStateProperty.all(CharlemiappInstance.themeChangeProvider.darkTheme ? const Color(0xFF0F111C) : Colors.grey),
                                 padding: MaterialStateProperty.all(const EdgeInsets.all(17)),
                                 shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
                               ),
@@ -229,8 +228,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
     return ElevatedButton(
       onPressed: () async {
         var time = DateTime.now();
-        var timeafter =
-            time.minute + 15 > 59 ? TimeOfDay(hour: time.hour + 1, minute: time.minute + 15 - 60) : TimeOfDay(hour: time.hour, minute: time.minute + 15);
+        var timeafter = time.minute + 15 > 59 ? TimeOfDay(hour: time.hour + 1, minute: time.minute + 15 - 60) : TimeOfDay(hour: time.hour, minute: time.minute + 15);
         if (Platform.isIOS) {
           await showCupertinoModalPopup(
             context: context,
@@ -239,14 +237,13 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
               color: Colors.white,
               child: CupertinoDatePicker(
                 mode: CupertinoDatePickerMode.time,
+                use24hFormat: true,
                 initialDateTime: time,
-                minimumDate: time,
                 onDateTimeChanged: (date) {
                   setState(() {
-                    MaterialLocalizations localizations = MaterialLocalizations.of(context);
-                    String formattedTime = localizations.formatTimeOfDay(_selected!, alwaysUse24HourFormat: true);
+                    CupertinoLocalizations localizations = CupertinoLocalizations.of(context);
                     _selected = TimeOfDay(hour: date.hour, minute: date.minute);
-                    _selectedStr = formattedTime;
+                    _selectedStr = localizations.datePickerHour(date.hour) + ":" + localizations.datePickerMinute(date.minute);
                   });
                 },
               ),
@@ -269,10 +266,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           );
         }
         if (_selected != null) {
-          if (_selected!.hour < time.hour ||
-              (_selected!.hour == time.hour && _selected!.minute < (time.minute + 15)) ||
-              _selected!.hour > 15 ||
-              _selected!.hour < 10) {
+          if (_selected!.hour < time.hour || (_selected!.hour == time.hour && _selected!.minute < (time.minute + 15)) || _selected!.hour > 15 || _selected!.hour < 10) {
             Fluttertoast.showToast(
               msg: "> ${NumberFormat("00", "fr_FR").format(timeafter.hour)}:${NumberFormat("00", "fr_FR").format(timeafter.minute)} | < 16h",
               toastLength: Toast.LENGTH_SHORT,
@@ -305,13 +299,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
   void _buildToastOrder(data) {
     if (data['success'] == true) {
       Fluttertoast.showToast(
-          msg: "Succès",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
+          msg: "Succès", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.green, textColor: Colors.white, fontSize: 16.0);
       setState(() {
         CharlemiappInstance.cart.clearCart();
       });
@@ -320,23 +308,11 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
       switch (data['message']) {
         case 'Charlemiam is closed':
           Fluttertoast.showToast(
-              msg: "Charlemiam is closed",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
+              msg: "Charlemiam is closed", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
           break;
         case 'Not enough funds':
           Fluttertoast.showToast(
-              msg: "Solde insuffisant",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
+              msg: "Solde insuffisant", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
           break;
         case 'Scolarship fee error':
           Fluttertoast.showToast(
@@ -360,13 +336,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
           break;
         default:
           Fluttertoast.showToast(
-              msg: "An error occured",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
-              textColor: Colors.white,
-              fontSize: 16.0);
+              msg: "An error occured", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.red, textColor: Colors.white, fontSize: 16.0);
           break;
       }
     }
