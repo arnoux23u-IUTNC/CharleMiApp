@@ -22,9 +22,9 @@ class LoginView
             <form action="{$this->container['router']->pathFor('login')}" method="post">
                 <div class="container">
                     $error
-                    <label for="uname"><b>Email</b></label>
+                    <label for="email"><b>Email</b></label>
                     <input type="email" placeholder="Enter Email" name="email" required>
-                    <label for="psw"><b>Password</b></label>
+                    <label for="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="password" required>
                     <button type="submit">Login</button>
                 </div>

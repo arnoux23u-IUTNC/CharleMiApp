@@ -2,7 +2,7 @@
 
 namespace charlemiapp;
 
-use Exception;
+use {Exception, InvalidArgumentException};
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
 use Slim\Container;
@@ -67,7 +67,7 @@ class OfficeController
                                 return $response->withRedirect($this->container['router']->pathFor('home'));
                             }
                             return $response->write($view->render(['error' => 'Forbidden']));
-                        } catch (InvalidCustomToken|\InvalidArgumentException) {
+                        } catch (InvalidCustomToken|InvalidArgumentException) {
                             return $response->write($view->render(['error' => 'Invalid token.']));
                         }
                     } catch (Exception) {
@@ -79,16 +79,6 @@ class OfficeController
             default:
                 throw new MethodNotAllowedException($request, $response, ['GET', 'POST']);
         }
-    }
-
-    public function profile(Request $request, Response $response, array $args): Response
-    {
-        if (empty($_SESSION['USER_UID']))
-            return $response->withRedirect($this->container['router']->pathFor('login'));
-        foreach ($_SESSION as $key => $value) {
-            print_r($key . ': ' . $value . '<br>');
-        }
-        return $response->write('Profile<br>');
     }
 
     public function logout(Request $request, Response $response, array $args): Response
