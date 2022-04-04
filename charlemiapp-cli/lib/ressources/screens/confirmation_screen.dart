@@ -250,7 +250,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             ),
           );
         } else {
-          await showTimePicker(
+          _selected = await showTimePicker(
             context: context,
             initialTime: timeafter,
             builder: (BuildContext context, Widget? child) {
@@ -284,9 +284,6 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             _selectedStr = "Heure de retrait";
           });
         }
-        /*} else {
-          //TODO IOS
-        }*/
       },
       child: Text(
         _selectedStr,
