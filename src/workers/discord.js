@@ -13,7 +13,7 @@ let sendWarn = async (title, err, uid, error = false) => {
         const channel = await client.channels.fetch("945808091134443570");
         await channel.send({embeds: [embed]});
     } catch (err) {
-        console.log("Discord connection failed");
+        console.error("Discord connection failed");
     }
 }
 

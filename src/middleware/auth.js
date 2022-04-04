@@ -1,8 +1,6 @@
 //Middleware d'authentification
 
-const {getAuth} = require('firebase-admin/auth')
-
-const RUNNING_PROD = process.env.RUNNING_SYSTEM === "PROD";
+const {getAuth} = require('firebase-admin/auth');
 
 module.exports = async (req, res, next) => {
     //Récupération du token dans la requête
