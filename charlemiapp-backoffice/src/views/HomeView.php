@@ -45,23 +45,23 @@ class HomeView
                 <img alt="refresh" id="refresh-img" src="/assets/img/cropped-refresh.png">
             </div>
             <main class="board">
-                <div class="column column-pending" data-col-id="pending" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="column column-pending" data-col-id="pending">
                     <h2>À valider</h2>
                     $columnPending
                 </div>
-                <div class="column column-waiting" data-col-id="waiting" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="column column-waiting" data-col-id="waiting">
                     <h2>En attente</h2>
                     $columnWaiting
                 </div>
-                <div class="column column-done" data-col-id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="column column-done" data-col-id="done">
                     <h2>Prêtes</h2>
                     $columnDone
                 </div>
-                <div class="column column-delivered" data-col-id="delivered" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="column column-delivered" data-col-id="delivered">
                     <h2>Retirées</h2>
                     $columnDelivered
                 </div>
-                <div class="column column-canceled" data-col-id="canceled" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="column column-canceled" data-col-id="canceled">
                     <h2>Annulées</h2>
                     $columnCanceled
                 </div>
@@ -80,7 +80,6 @@ class HomeView
                     <button class="stocks">Gestion des utilisateurs</button>
                 </a>
             </div>
-            <script src="/assets/js/draganddrop-refresh.js"></script>
             <script src="/assets/js/draganddrop.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
@@ -110,7 +109,7 @@ class HomeView
                     <button class="stocks">Gestion des utilisateurs</button>
                 </a>
             </div>
-            <script src="/assets/js/draganddrop-refresh.js"></script>
+            <script src="/assets/js/draganddrop.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
         </html>
@@ -133,7 +132,7 @@ class HomeView
             HTML;
         }
         return <<<HTML
-        <article class="card trigger_popup_fricc" draggable="true" ondragstart="drag(event)" data-id="$id">
+        <article class="card trigger_popup_fricc" draggable="true" data-id="$id">
                         <h3>Commande {$order['unique_id']}</h3>
                         <h3>Retrait : $dateRetrait</h3>
                         <ul>

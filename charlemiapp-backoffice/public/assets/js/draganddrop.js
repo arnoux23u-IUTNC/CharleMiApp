@@ -1,26 +1,37 @@
-const dragStart = target => {
+let timer;
+const INTERVAL = 60 * 1000;
+
+let resetTimer = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+        window.location.reload();
+    }, INTERVAL);
+};
+
+let dragStart = target => {
     target.classList.add('dragging');
 };
 
-const dragEnd = target => {
+let dragEnd = target => {
     target.classList.remove('dragging');
 };
 
-const dragEnter = event => {
+let dragEnter = event => {
     event.currentTarget.classList.add('drop');
 };
 
-const dragLeave = event => {
+let dragLeave = event => {
     event.currentTarget.classList.remove('drop');
 };
 
-const drag = event => {
+let drag = event => {
     event.dataTransfer.setData('text/html', event.currentTarget.outerHTML);
     event.dataTransfer.setData('text/plain', event.currentTarget.dataset.id);
+    resetTimer();
 };
 
-const drop = event => {
-    try{
+let drop = event => {
+    try {
         document.querySelectorAll('.column').forEach(column => column.classList.remove('drop'));
         document.querySelector(`[data-id="${event.dataTransfer.getData('text/plain')}"]`).remove();
         event.preventDefault();
@@ -32,15 +43,13 @@ const drop = event => {
             location.reload();
         });
         xhr.send(JSON.stringify({
-            cardId: event.dataTransfer.getData('text/plain'),
-            columnId: event.currentTarget.dataset.colId.toUpperCase()
+            cardId: event.dataTransfer.getData('text/plain'), columnId: event.currentTarget.dataset.colId.toUpperCase()
         }));
-    }catch (err){
-
+    } catch (err) {
     }
 };
 
-const allowDrop = event => {
+let allowDrop = event => {
     event.preventDefault();
 };
 
@@ -59,7 +68,6 @@ document.addEventListener('dragstart', e => {
 });
 
 document.addEventListener('dragend', e => {
-    console.log('dragEnd');
     try {
         if (e.target.className.includes('card')) {
             dragEnd(e.target);
@@ -68,6 +76,18 @@ document.addEventListener('dragend', e => {
     }
 });
 
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('dragstart', drag);
+window.addEventListener('load', () => {
+    document.querySelector('#refresh-img').addEventListener('click', () => {
+        location.reload();
+    });
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('dragstart', drag);
+    });
+    document.querySelectorAll('.column').forEach(column => {
+        column.addEventListener('drop', drop);
+        column.addEventListener('dragover', allowDrop);
+    });
+    timer = setInterval(() => {
+        location.reload();
+    }, INTERVAL);
 });

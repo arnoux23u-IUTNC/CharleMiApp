@@ -38,7 +38,6 @@ class StocksView
                     <button class="stocks">Gestion des utilisateurs</button>
                 </a>
             </div>
-            <script src="/assets/js/draganddrop.js"></script>
             <script src="/assets/js/xhr-open.js"></script>
         </body>
         </html>
