@@ -1,9 +1,13 @@
 'use strict';
 
 $('#category').on('change', function () {
+    let input = $('#category-new');
     if ($(this).val() === "other") {
-        $('#category-new').show();
+        input.show();
+        //add required attribute to input
+        input.prop('required', true);
     } else {
-        $('#category-new').hide();
+        input.hide();
+        input.prop('required', false);
     }
 });

@@ -74,7 +74,7 @@ class StocksView
         $domCategories = $this->buildDomCategories($categories);
         $html = <<<HTML
             <div class="form">
-                <form action="#" method="POST">
+                <form action="{$this->container['router']->pathFor('addProduct')}" method="POST">
                     <div class="form-element">
                         <label for="name">Nom du produit :</label>
                         <input id="name" name="name" type="text" required>
@@ -84,7 +84,7 @@ class StocksView
                         <select name="category" id="category">
                             $domCategories
                         </select>
-                        <input id="category-new" name="category-new" type="text" hidden required>
+                        <input id="category-new" name="category-new" type="text" hidden>
                     </div>
                     <div class="form-element">
                         <label for="price">Prix</label>
