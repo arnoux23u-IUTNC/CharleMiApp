@@ -2,7 +2,8 @@
 
 namespace charlemiapp;
 
-use {Exception, InvalidArgumentException};
+use Exception;
+use InvalidArgumentException;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
 use Slim\Container;
