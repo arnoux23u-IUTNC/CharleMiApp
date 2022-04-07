@@ -195,12 +195,10 @@ class OfficeController
                 return $response->write($view->renderEditProduct($product->snapshot()->data(), $categories));
             case 'POST':
                 $data = $request->getParsedBody();
-                $this->container['firestore']->collection('products')->document($data['id'])->set([
-                    'id' => $data['id'],
-                    'name' => $data['name'],
-                    'category' => $data['category'] == "other" ? $data['category-new'] : $data['category'],
-                    'price' => $data['price'],
-                    'stock' => 0
+                $this->container['firestore']->collection('products')->document($data['id'])->update([
+                    ['path' => 'name', 'value' => $data['name']],
+                    ['path' => 'category', 'value' => $data['category'] == "other" ? $data['category-new'] : $data['category']],
+                    ['path' => 'price', 'value' => $data['price']]
                 ]);
                 return $response->withRedirect($this->container['router']->pathFor('stocks'));
             default:
