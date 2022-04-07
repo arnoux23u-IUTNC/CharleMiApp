@@ -86,8 +86,27 @@ class StocksView
                         <input id="category-new" name="category-new" type="text" hidden>
                     </div>
                     <div class="form-element">
-                        <label for="price">Prix</label>
+                        <label for="price">Prix :</label>
                         <input id="price" name="price" type="number" step="0.01" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="diminutif">Diminutif : (Facultatif)</label>
+                        <input id="diminutif" name="diminutif" type="text">
+                    </div>
+                    <div class="form-element">
+                        <label for="description">Description : (Facultatif)</label>
+                        <input id="description" name="description" type="text">
+                    </div>
+                    <div class="form-element">
+                        <label for="calories">Calories : (Facultatif)</label>
+                        <input id="calories" name="calories" type="number" step="0.01">
+                    </div>
+                    <div class="form-element">
+                        <label for="boursier">Produit réservé boursier :</label>
+                        <select name="boursier" id="boursier" required>
+                            <option value="1">Oui</option>
+                            <option selected value="0">Non</option>
+                        </select>
                     </div>
                     <button type="submit" class="openclose open">Ajouter</button>
                 </form>
@@ -117,10 +136,10 @@ class StocksView
         $domCategories = '';
         foreach ($categories as $category) {
             $domCategories .= $selected == $category ?
-            <<<HTML
+                <<<HTML
                 <option selected value="$category">$category</option>
             HTML
-            : <<<HTML
+                : <<<HTML
                 <option value="$category">$category</option>
             HTML;
         }
@@ -133,6 +152,13 @@ class StocksView
     public function renderEditProduct(array $product, array $categories): string
     {
         $domCategories = $this->buildDomCategories($categories, $product['category']);
+        $optionsBourse = $product['boursier'] ? <<<HTML
+            <option selected value="1">Oui</option>
+            <option value="0">Non</option>
+        HTML: <<<HTML
+            <option value="1">Oui</option>
+            <option selected value="0">Non</option>
+        HTML;
         $html = <<<HTML
             <div class="form">
                 <form action="#" method="POST">
@@ -148,8 +174,26 @@ class StocksView
                         </select>
                     </div>
                     <div class="form-element">
-                        <label for="price">Prix</label>
+                        <label for="price">Prix :</label>
                         <input id="price" name="price" type="number" value="{$product['price']}" step="0.01" required>
+                    </div>
+                    <div class="form-element">
+                        <label for="diminutif">Diminutif : (Facultatif)</label>
+                        <input id="diminutif" name="diminutif" value="{$product['diminutif']}" type="text">
+                    </div>
+                    <div class="form-element">
+                        <label for="description">Description : (Facultatif)</label>
+                        <input id="description" name="description" value="{$product['description']}" type="text">
+                    </div>
+                    <div class="form-element">
+                        <label for="calories">Calories : (Facultatif)</label>
+                        <input id="calories" name="calories" type="text" value="{$product['calories']}">
+                    </div>
+                    <div class="form-element">
+                        <label for="boursier">Produit réservé boursier :</label>
+                        <select name="boursier" id="boursier" required>
+                            $optionsBourse
+                        </select>
                     </div>
                     <button type="submit" class="openclose open">Modifier</button>
                 </form>

@@ -155,7 +155,6 @@ class OfficeController
         switch ($request->getMethod()) {
             case 'GET':
                 $view = new StocksView($this->container);
-                //category attribute is stored in document product
                 $categories = [];
                 foreach ($this->container['firestore']->collection('products')->documents() as $category) {
                     $categName = $category->data()['category'] ?? '';
@@ -167,11 +166,15 @@ class OfficeController
                 $data = $request->getParsedBody();
                 $id = sprintf("P%04d", max(100, $this->getNextProductId()));
                 $this->container['firestore']->collection('products')->document($id)->set([
+                    'boursier' => $data['boursier'] == "1",
+                    'calories' => $data['calories'] !== "" ? $data['calories'] . " kcal" : null,
+                    'category' => $data['category'] == "other" ? $data['category-new'] : $data['category'],
+                    'description' => $data['description'] !== "" ? $data['description'] : null,
+                    'diminutif' => $data['diminutif'] !== "" ? $data['diminutif'] : $data['name'],
                     'id' => $id,
                     'name' => $data['name'],
-                    'category' => $data['category'] == "other" ? $data['category-new'] : $data['category'],
-                    'price' => $data['price'],
-                    'stock' => 0
+                    'price' => floatval($data['price']),
+                    'stock' => 0,
                 ]);
                 return $response->withRedirect($this->container['router']->pathFor('stocks'));
             default:
@@ -184,7 +187,6 @@ class OfficeController
         switch ($request->getMethod()) {
             case 'GET':
                 $view = new StocksView($this->container);
-                //category attribute is stored in document product
                 $categories = [];
                 foreach ($this->container['firestore']->collection('products')->documents() as $category) {
                     $categName = $category->data()['category'] ?? '';
@@ -196,8 +198,12 @@ class OfficeController
             case 'POST':
                 $data = $request->getParsedBody();
                 $this->container['firestore']->collection('products')->document($data['id'])->update([
-                    ['path' => 'name', 'value' => $data['name']],
+                    ['path' => 'boursier', 'value' => $data['boursier'] == "1"],
+                    ['path' => 'calories', 'value' => $data['calories'] !== "" ? $data['calories'] : null],
                     ['path' => 'category', 'value' => $data['category'] == "other" ? $data['category-new'] : $data['category']],
+                    ['path' => 'description', 'value' => $data['description'] !== "" ? $data['description'] : null],
+                    ['path' => 'diminutif', 'value' => $data['diminutif'] !== "" ? $data['diminutif'] : $data['name']],
+                    ['path' => 'name', 'value' => $data['name']],
                     ['path' => 'price', 'value' => $data['price']]
                 ]);
                 return $response->withRedirect($this->container['router']->pathFor('stocks'));
