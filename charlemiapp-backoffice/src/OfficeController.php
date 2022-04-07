@@ -175,6 +175,7 @@ class OfficeController
                     'name' => $data['name'],
                     'price' => floatval($data['price']),
                     'stock' => 0,
+                    'image' => $data['img'] !== "" ? $data['img'] : null,
                 ]);
                 return $response->withRedirect($this->container['router']->pathFor('stocks'));
             default:
@@ -204,7 +205,8 @@ class OfficeController
                     ['path' => 'description', 'value' => $data['description'] !== "" ? $data['description'] : null],
                     ['path' => 'diminutif', 'value' => $data['diminutif'] !== "" ? $data['diminutif'] : $data['name']],
                     ['path' => 'name', 'value' => $data['name']],
-                    ['path' => 'price', 'value' => $data['price']]
+                    ['path' => 'image', 'value' => $data['img'] !== "" ? $data['img'] : null],
+                    ['path' => 'price', 'value' => floatval($data['price'])]
                 ]);
                 return $response->withRedirect($this->container['router']->pathFor('stocks'));
             default:

@@ -102,6 +102,10 @@ class StocksView
                         <input id="calories" name="calories" type="number" step="0.01">
                     </div>
                     <div class="form-element">
+                        <label for="img">Lien Image : (Facultatif)</label>
+                        <input id="img" name="img" type="text">
+                    </div>
+                    <div class="form-element">
                         <label for="boursier">Produit réservé boursier :</label>
                         <select name="boursier" id="boursier" required>
                             <option value="1">Oui</option>
@@ -152,6 +156,7 @@ class StocksView
     public function renderEditProduct(array $product, array $categories): string
     {
         $domCategories = $this->buildDomCategories($categories, $product['category']);
+        $prodImg = $product['image'] ?? '';
         $optionsBourse = $product['boursier'] ? <<<HTML
             <option selected value="1">Oui</option>
             <option value="0">Non</option>
@@ -188,6 +193,10 @@ class StocksView
                     <div class="form-element">
                         <label for="calories">Calories : (Facultatif)</label>
                         <input id="calories" name="calories" type="text" value="{$product['calories']}">
+                    </div>
+                    <div class="form-element">
+                        <label for="img">Lien Image : (Facultatif)</label>
+                        <input id="img" name="img" type="text" value="$prodImg">
                     </div>
                     <div class="form-element">
                         <label for="boursier">Produit réservé boursier :</label>
