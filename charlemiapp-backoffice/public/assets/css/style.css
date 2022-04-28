@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+* {
+    --btn-width: 300px;
+    --btn-height: 60px;
+}
+
+body {
+    background: #4b6cb7;
+    background: -webkit-linear-gradient(to right, #182848, #4b6cb7);
+    background: linear-gradient(to right, #182848, #4b6cb7);
+}
+
+html,
+body {
+    align-items: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+    font-size: 2rem;
+    height: 100vh;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+h5,
+p {
+    position: absolute;
+    font-family: monospace;
+}
+
+h5 {
+    top: 10%;
+    font-size: 0.4em;
+}
+
+h3 {
+    width: 100% - var(--sidebar-width);
+    text-align: center;
+    font-size: .8em;
+}
+
+p {
+    font-size: 0.3em;
+    bottom: 10%;
+    width: 50%;
+    text-align: center;
+}
+
+p a {
+    color: cyan;
+}
+
+span {
+    position: relative;
+    align-items: center;
+    display: inline-flex;
+    height: var(--btn-height);
+    width: var(--btn-width);
+    margin: auto 15px;
+    perspective: 1000px;
+}
+
+span a {
+    font-size: 19px;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+span a:before,
+span a:after {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid black;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#createBtn::before,
+#createBtn::after {
+    content: attr(content);
+}
+
+#backBtn::before,
+#backBtn::after {
+    content: attr(content);
+}
+
+#lookBtn::before,
+#lookBtn::after {
+    content: attr(content);
+    margin-top: 2vh;
+}
+
+span a:before {
+    color: #fff;
+    background: #000;
+    height: var(--btn-height);
+    width: var(--btn-width);
+}
+
+span a:after {
+    color: #fff;
+    height: var(--btn-height);
+    width: var(--btn-width);
+}
+
+@media (max-width: 800px) {
+    h3 {
+        font-size: 7vw;
+        width: 60%;
+    }
+}

@@ -1,0 +1,39 @@
+.product{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+
+.products{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.stockinput {
+    width: 20%;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.out-of-stock{
+    background-color: red;
+}
+
+.in-stock{
+    background-color: green;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-element{
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    flex-direction: column;
+    margin: 10px;
+    font-size: 1.2em;
+}

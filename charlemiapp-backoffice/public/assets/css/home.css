@@ -1,0 +1,65 @@
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+.logout{
+    background-color: #03aff8;
+    border: none;
+    color: white;
+    margin: 0 15px;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.openclose{
+    border: none;
+    color: white;
+    margin: 0 15px;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.open{
+    background-color: #6fcc48;
+}
+
+.close{
+    background-color: #d73232;
+}
+
+.stocks{
+    background-color: #da6512;
+    border: none;
+    color: white;
+    margin: 0 15px;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.refresh {
+    display: flex;
+}
+
+.refresh img{
+    width: 5vw;
+    background-color: white;
+    border-radius: 20%;
+    cursor: pointer;
+    height: auto;
+}
