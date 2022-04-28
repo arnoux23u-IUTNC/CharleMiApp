@@ -49,10 +49,4 @@ ___
 - LECHAUDEL Dominique
 - LONGHAIS Alain
 
-## Branches de travail : 
-
-|Nom|Titre|Description|
-|-----------|-----------|-----------|
-|[charlemiapp-api](https://github.com/univ-lorraine-iut-charlemagne/S3A_S02_ARNOUX_BRASLEY_STEINER_VIGNERON/tree/charlemiapp-api)|API|Lien entre serveur et client|
-|[charlemiapp-backoffice](https://github.com/univ-lorraine-iut-charlemagne/S3A_S02_ARNOUX_BRASLEY_STEINER_VIGNERON/tree/charlemiapp-backoffice)|Backoffice|Serveur d'administration de la cafétaria|
-|[charlemiapp-cli](https://github.com/univ-lorraine-iut-charlemagne/S3A_S02_ARNOUX_BRASLEY_STEINER_VIGNERON/tree/charlemiapp-cli)|Client|Client mobile (Android et IOS)| 
+*Ce projet est désormais archivé*
